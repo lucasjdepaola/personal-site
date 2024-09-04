@@ -1,4 +1,5 @@
 "use client"
+import Footer from "@/components/footer";
 import NavBar from "@/components/navbar";
 import Image from "next/image";
 import Link from "next/link";
@@ -14,7 +15,7 @@ const ColorfulLargeText = (props: any) => {
   const text = props.text
   return (
     <div
-    className="text-center p-10 text-7xl font-semibold"
+    className="text-center p-10 pt-20 text-7xl font-semibold"
     style={{
       // backgroundImage: "linear-gradient(90deg, rgba(255,190,0,1) 0%, rgba(182,61,43,1) 54%, rgba(127,91,182,1) 100%)",
       // can change the gradient to anything
@@ -55,7 +56,7 @@ const Description = () => {
     className="text-center m-auto"
     style={{
       color: "rgba(0,0,0,0.5)",
-      maxWidth: "50%"
+      maxWidth: "60%"
     }}
     >
       I enjoy making projects that interest me. Text input and web based applications have been something I'm interested in.
@@ -76,6 +77,7 @@ const Description = () => {
 
       All icons were made from scratch. You can find the icons I've created in <FancyLink link="/icons" text="Icons" />
       {" "}Permission to download icons for any use is granted
+      <Footer />
     </div>
   )
 }

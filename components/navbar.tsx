@@ -19,13 +19,15 @@ function LightOrDarkMode() {
 
 export default function NavBar(props: any) {
   // const route = "pl-10 pr-10 pt-2 pb-2";
-  const route = "p-3"
+  const route = "p-1.5"
   return (
     <nav
-    className="flex items-center justify-center font-light text-sm"
+    className="flex items-center justify-center font-light text-sm w-full fixed"
     style={{
-      backgroundColor: "white",
-      color: "rgba(0,0,0,0.7)"
+      backgroundColor: "rgba(255,255,255,0.8)",
+      color: "rgba(0,0,0,0.7)",
+      // opacity: "0.9",
+      backdropFilter: "saturate(180%) blur(20px)"
     }}
     >
       <div className={route}>
