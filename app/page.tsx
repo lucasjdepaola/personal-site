@@ -26,9 +26,12 @@ const ColorfulLargeText = (props: any) => {
 }
 
 const Description = () => {
-  const staticText = `
+  const staticText = ` // description text
   I am 
   `
+  return (
+    <div>{staticText}</div>
+  )
 }
 
 export default function Home() {
