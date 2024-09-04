@@ -1,6 +1,10 @@
 "use client"
 
 import Link from "next/link";
+import IconWrapper from "./iconwrapper";
+import SearchIcon from "/public/icons/search.svg"
+import LightIcon from "/public/icons/lightmode.svg"
+import DarkIcon from "/public/icons/darkmode.svg"
 
 console.log("hello world");
 
@@ -38,7 +42,13 @@ export default function NavBar(props: any) {
           <span>OS</span>
         </Link>
         <button onClick={() => {}} id="darkmode">
-          darkmode
+          <IconWrapper icon={LightIcon} />
+        </button>
+        <button onClick={() => {}} id="darkmode">
+          <IconWrapper icon={DarkIcon} />
+        </button>
+        <button>
+          <IconWrapper icon={SearchIcon} />
         </button>
       </div>
     </nav>

@@ -1,5 +1,6 @@
 "use client"
 import NavBar from "@/components/navbar";
+import Link from "next/link";
 
 const darkTheme = {
   bg: "#080808",
@@ -25,12 +26,31 @@ const ColorfulLargeText = (props: any) => {
   )
 }
 
-const Description = () => {
-  const staticText = ` // description text
-  I am 
-  `
+const FancyLink = (props: any) => {
   return (
-    <div>{staticText}</div>
+    <span
+    className="p-1 pr-2 pl-2 rounded-xl cursor-pointer shadow-md"
+    style={{
+      opacity: "1.0",
+      color: "white",
+      backgroundColor: "#0271e3",
+    }}>
+      <Link href={props.text}>{props.text}</Link>
+    </span>
+  )
+}
+
+const Description = () => {
+  return (
+    <div
+    className="text-center"
+    style={{
+      color: "rgba(0,0,0,0.5)"
+    }}
+    >
+      All icons were made from scratch. You can find the icons I've created in <FancyLink link="/icons" text="Icons" />
+      {" "}Permission to download icons for any use is granted
+    </div>
   )
 }
 
@@ -46,6 +66,7 @@ export default function Home() {
       >
         <NavBar />
         <ColorfulLargeText text="Lucas DePaola" />
+        <Description />
       </div>
     </>
   );

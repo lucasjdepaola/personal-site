@@ -31,3 +31,8 @@ body {
     text-wrap: balance;
   }
 }
+
+svg path, svg circle, svg rect, svg line, svg polygon, svg polyline {
+  fill: currentColor;
+  stroke: currentColor;
+}
