@@ -5,6 +5,7 @@ import IconWrapper from "./iconwrapper";
 import SearchIcon from "/public/icons/search.svg"
 import LightIcon from "/public/icons/lightmode.svg"
 import DarkIcon from "/public/icons/darkmode.svg"
+import GithubIcon from "/public/icons/github.svg"
 
 console.log("hello world");
 
@@ -22,7 +23,7 @@ export default function NavBar(props: any) {
   const route = "p-1.5"
   return (
     <nav
-    className="flex items-center justify-center font-light text-sm w-full fixed"
+    className="flex font-light text-sm w-full fixed items-center justify-center"
     style={{
       backgroundColor: "rgba(255,255,255,0.8)",
       color: "rgba(0,0,0,0.7)",
@@ -30,7 +31,7 @@ export default function NavBar(props: any) {
       backdropFilter: "saturate(180%) blur(20px)"
     }}
     >
-      <div className={route}>
+      <div className={"p-1.5"}>
         <Link className="pr-2 pl-2 ml-1 mr-1" href="/about">
           <span>About</span>
         </Link>
@@ -53,6 +54,14 @@ export default function NavBar(props: any) {
           <IconWrapper icon={SearchIcon} />
         </button>
       </div>
+      <span
+      id="rightsocials" // items go to the right
+      className="flex items-end justify-end"
+      >
+        <Link className="pr-2 pl-2 ml-1 mr-1" href="https://github.com/lucasjdepaola" target="_blank">
+          <IconWrapper icon={GithubIcon} />
+        </Link>
+      </span>
     </nav>
   )
 }

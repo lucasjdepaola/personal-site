@@ -1,6 +1,8 @@
 "use client"
+import FancyLink from "@/components/fancylink";
 import Footer from "@/components/footer";
 import NavBar from "@/components/navbar";
+import Projects from "@/components/projects";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -28,19 +30,6 @@ const ColorfulLargeText = (props: any) => {
   )
 }
 
-const FancyLink = (props: any) => {
-  return (
-    <span
-    className="p-1 pr-2 pl-2 rounded-xl cursor-pointer shadow-lg"
-    style={{
-      opacity: "1.0",
-      color: "white",
-      backgroundColor: "#0271e3",
-    }}>
-      <Link href={props.link}>{props.text}</Link>
-    </span>
-  )
-}
 
 const AppleScreenshot = (props: any) => { // for screenshotting in a macos fashion
   return (
@@ -61,19 +50,7 @@ const Description = () => {
     >
       I enjoy making projects that interest me. Text input and web based applications have been something I'm interested in.
       <br /><br />
-      <Image className="m-auto p-3" src="/images/crazytype.png" height={300} width={500} alt="" />
-      <FancyLink text="Crazytype" link="https://crazytype.com/typetest" />, 
-      a capable typing website where you can improve at typing fast. Train mode, a newfound algorithm that finds your hardest
-      words to type and puts them upfront for priority training. The keymap also
-      displays a gradient ranging from red to green based on how fast you type a specific character on your keyboard.
-      
-      <br /><br />
-
-      <Image className="m-auto p-3" src="/images/rapid.png" height={300} width={500} alt="" />
-      <FancyLink text="Rapid" link="https://lucasdepaola.com/Rapid" />
-      , a performant, modal, portable text editor with many features including vim motions and browser local code execution
-      This is not a beginner friendly editor, you will need a full understanding of vim in order to use this editor the way it was intended.
-      <br /><br />
+      <Projects />
 
       All icons were made from scratch. You can find the icons I've created in <FancyLink link="/icons" text="Icons" />
       {" "}Permission to download icons for any use is granted
