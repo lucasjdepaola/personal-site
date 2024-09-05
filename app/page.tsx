@@ -3,6 +3,7 @@ import FancyLink from "@/components/fancylink";
 import Footer from "@/components/footer";
 import NavBar from "@/components/navbar";
 import Projects from "@/components/projects";
+import TerminalInstance from "@/components/terminal/terminal";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -54,10 +55,10 @@ const Description = () => {
       I enjoy making projects that interest me. Text input and web based applications have been something I'm interested in.
       <br /><br />
       <Projects />
+      <br /><br />
 
       All icons were made from scratch. You can find the icons I've created in <FancyLink link="/icons" text="Icons" />
       {" "}Permission to download icons for any use is granted
-      <Footer />
     </div>
   )
 }
@@ -75,6 +76,8 @@ export default function Home() {
         <NavBar />
         <ColorfulLargeText text="Lucas DePaola" />
         <Description />
+        <TerminalInstance />
+        <Footer />
       </div>
     </>
   );

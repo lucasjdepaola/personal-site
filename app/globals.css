@@ -36,3 +36,8 @@ svg path, svg circle, svg rect, svg line, svg polygon, svg polyline {
   fill: currentColor;
   stroke: currentColor;
 }
+
+@font-face {
+  font-family: "nfm";
+  src: url("/public/fonts/nfm.ttf");
+}

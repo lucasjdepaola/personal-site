@@ -4,10 +4,18 @@ const Prompt = (props: any) => {
   const dir = props.workingDirectory;
   return (
     <>
-      <span className={`c-[${palatte.lucas}]`}>lucas</span>
-      <span className={`c-[${palatte.at}]`}>@</span>
-      <span className={`c-[${palatte.m2}]`}>m2</span>
-      <span className={`c-[${palatte.workingdir}]`}>{" "}{dir}</span>
+      <span style={{
+        color: palatte.lucas
+      }}>lucas</span>
+      <span style={{
+        color: palatte.at
+      }}>@</span>
+      <span style={{
+        color: palatte.m2
+      }}>m2</span>
+      <span style={{
+        color: palatte.workingdir
+      }}>{" "}{"~"}</span>
     </>
   )
 }
@@ -24,9 +32,22 @@ export default function TerminalInstance() {
   const {userInput, commandOutputs, workingDirectory, okd} = useKeydown();
   
   return (
-    <div id="mainterminal">
+    <div id="mainterminal" className="w-2/3 h-96 m-auto rounded-xl outline-none pl-5 pr-5 pb-5"
+    tabIndex={0}
+    style={{
+      color: "white",
+      backgroundColor: palatte.background,
+      fontFamily: "monospace"
+    }}
+    onClick={(e) => {e.currentTarget.focus();console.log("click")}}
+    onKeyDown={(key) => {okd(key)}}
+    >
+      <div id="terminalbar">bar</div>
       <div id="tabs"></div>
-      <div className={`bg-[${palatte.background}]`} id="terminaltext">
+      <div id="terminaltext" style={{
+        width: "100%",
+        height: "100%",
+      }}>
         {commandOutputs.map((output: string) => {
           return (
             <div id="outputsection">
@@ -37,11 +58,8 @@ export default function TerminalInstance() {
           )
         })}
         <div
-        id="inputsection"
-        onKeyDown={(key) => {
-          okd(key);
-        }}>
-          {userInput}
+        id="inputsection">
+          <Prompt /> {userInput}
         </div>
       </div>
     </div>

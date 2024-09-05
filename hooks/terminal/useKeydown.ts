@@ -36,6 +36,7 @@ export default function useKeydown() {
     const [cursorIndex, setCursorIndex] = useState<number>(0);
     const [workingDirectory, setWorkingDirectory] = useState<string>("~");
     const okd = (key: KeyboardEvent<HTMLDivElement>) => {
+        console.log("this is a ke");
         if(key.key === "Enter") {
             setCommandOutputs((o: any) => {
                 const oldoutput = [...o, ""];
@@ -47,9 +48,11 @@ export default function useKeydown() {
             setUserInput("");
         }
         else if(key.key === "Backspace") {
+            setUserInput((i: string) => i.slice(0, i.length-1)) // delete one char
         }
         else if(key.key.length <= 1) {
             setUserInput((i: any) => i + key.key);
+            console.log("i am here now");
         } else {
             setUserInput((i: any) => i);
         }
