@@ -32,6 +32,9 @@ export default function NavBar(props: any) {
     }}
     >
       <div className={"p-1.5"}>
+        <Link className="pr-2 pl-2 ml-1 mr-1" href="/">
+          <span>root</span>
+        </Link>
         <Link className="pr-2 pl-2 ml-1 mr-1" href="/about">
           <span>About</span>
         </Link>

@@ -13,6 +13,9 @@ const darkTheme = {
   sub: "#94a3b8"
 }
 
+const Codeskills: string = "Next.js React Typescript Javascript Node.js Express.js SQL Firebase Firestore Java Gradle Maven Python Golang Powershell Bash Zsh CSS Tailwind"
+const higherLevelSkills: string = "Fl studio inkscape affinity photo davinci resolve Vim Neovim"
+
 const ColorfulLargeText = (props: any) => {
   const text = props.text
   return (
