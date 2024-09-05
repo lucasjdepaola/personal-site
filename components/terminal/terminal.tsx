@@ -28,11 +28,16 @@ const palatte = {
   workingdir: "#e17de1",
 }
 
+export interface TerminalIO {
+  command: string;
+  output: string;
+}
+
 export default function TerminalInstance() {
   const {userInput, commandOutputs, workingDirectory, okd} = useKeydown();
   
   return (
-    <div id="mainterminal" className="w-2/3 h-96 m-auto rounded-xl outline-none pl-5 pr-5 pb-5"
+    <div id="mainterminal" className="w-2/3 h-96 m-auto rounded-xl outline-none pl-5 pr-5 pb-5 text-lg"
     tabIndex={0}
     style={{
       color: "white",
@@ -48,12 +53,13 @@ export default function TerminalInstance() {
         width: "100%",
         height: "100%",
       }}>
-        {commandOutputs.map((output: string) => {
+        {commandOutputs.map((output: TerminalIO) => {
           return (
             <div id="outputsection">
               <Prompt workingDirectory={workingDirectory} />
+              {" "}{output.command}
               <br></br>
-              {output}
+              {output.output}
             </div>
           )
         })}

@@ -1,6 +1,6 @@
 "use client";
 
-import { stat } from "fs";
+import { TerminalIO } from "@/components/terminal/terminal";
 import { KeyboardEvent, useState } from "react";
 
 const age = () => {
@@ -20,30 +20,65 @@ const staticVariables: OfStrings = {
     age: age()+ "", // my age calculator
     email: "pseudoemail@foo.bar",
 }
-const dynamicVariables = {
-    commands: Object.keys(staticVariables),
-    cd: null,
-    ls: null,
-    cat: null,
-    grep: null,
-    clear: null,
+
+interface IOParameters {
+    input: string;
+    output: TerminalIO[];
+    setOutput?: any;
+    setInput?: any;
+}
+
+const dynamicVariables: any = {
+    commands: (io: IOParameters) => Object.keys(staticVariables).reduce((e: string, curr: string) => {return curr + "\n" + e}),
+    cd: () => {},
+    ls: () => {},
+    cat: () => {},
+    grep: () => {},
+    clear: (io: IOParameters) => {
+        io.setOutput((o: string) => []);
+        return "";
+    },
     alias: null,
 }
 
 export default function useKeydown() {
     const [userInput, setUserInput] = useState<string>("");
-    const [commandOutputs, setCommandOutputs] = useState<string[]>([]);
+    const [commandOutputs, setCommandOutputs] = useState<TerminalIO[]>([]);
     const [cursorIndex, setCursorIndex] = useState<number>(0);
     const [workingDirectory, setWorkingDirectory] = useState<string>("~");
     const okd = (key: KeyboardEvent<HTMLDivElement>) => {
-        console.log("this is a ke");
+        if(key.key === " ") key.preventDefault();
         if(key.key === "Enter") {
             setCommandOutputs((o: any) => {
-                const oldoutput = [...o, ""];
                 if(userInput in staticVariables) {
-                    return [...o, staticVariables[userInput]]; // find a static output variable
+                    const io: TerminalIO = {
+                        command: userInput,
+                        output: staticVariables[userInput]
+                    }
+                    return [...o, io]; // find a static output variable
                 }
-                return oldoutput;
+                else if(userInput in dynamicVariables) {
+                    const io: IOParameters = {
+                        input: userInput,
+                        output: commandOutputs,
+                        setInput: setUserInput,
+                        setOutput: setCommandOutputs
+                    }
+                    const output: any = dynamicVariables[userInput](io);
+                    if(typeof output === "string") {
+                        const inout :TerminalIO = {
+                            command: userInput,
+                            output: output
+                        }
+                        return [...o, inout]
+                    }
+                    return [...o];
+                }
+                const notfoundio: TerminalIO = {
+                    command: userInput,
+                    output: "Command not found."
+                }
+                return [...o, notfoundio];
             });
             setUserInput("");
         }
