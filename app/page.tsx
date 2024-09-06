@@ -3,8 +3,7 @@ import Footer from "@/components/footer";
 import NavBar from "@/components/navbar";
 import TerminalInstance from "@/components/terminal/terminal";
 import { useState } from "react";
-import { darkTheme } from "./about/page";
-import { ColorfulLargeText, Description } from "@/components/mainpage";
+import { ColorfulLargeText, darkTheme, Description } from "@/components/mainpage";
 
 export default function Home() {
   const [darkMode, setDarkMode] = useState<boolean>(false);
