@@ -1,3 +1,4 @@
+import { isMobile } from "@/utils/isMobile"
 import FancyLink from "./fancylink"
 import Projects from "./projects"
 
@@ -30,12 +31,13 @@ export const ColorfulLargeText = (props: any) => {
 
 export const Description = (props: any) => {
   const darkMode = props.darkMode
+  let mob = isMobile();
   return (
     <div
     className="text-center m-auto"
     style={{
       color: darkMode ? "rgba(255,255,255,0.8)" : "rgba(0,0,0,0.7)",
-      maxWidth: "60%"
+      maxWidth: mob ? "85%" : "60%"
     }}
     >
       I enjoy making projects that interest me. Text input and web based applications have been something I'm interested in.

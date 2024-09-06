@@ -2,6 +2,7 @@ import Image from "next/image"
 import FancyLink from "./fancylink"
 import IconWrapper from "./iconwrapper";
 import RefreshIcon from "/public/icons/safari/refresh.svg"
+import { isMobile } from "@/utils/isMobile";
 
 interface BrowserImageProps {
     name: string;
@@ -11,13 +12,14 @@ interface BrowserImageProps {
 }
 
 export const BrowserViewingImage = (props: BrowserImageProps) => {
+    let mob = isMobile();
     const palatte: any = {
         red: "#fe5f57",
         yellow: "#febc2e",
         green: "#28c840"
     }
     return (
-        <div id="browser" className="w-3/4 m-auto p-5">
+        <div id="browser" className="w-full p-5">
             <div id="topbar"
             className="w-full h-10 bg-white rounded-t-2xl"
             style={{
@@ -31,24 +33,27 @@ export const BrowserViewingImage = (props: BrowserImageProps) => {
                             position: "absolute",
                             backgroundColor: palatte[color],
                             borderRadius: "100%",
-                            width: ".8em",
-                            height: ".8em",
+                            width: mob? ".4em" : ".8em",
+                            height: mob? ".4em" : ".8em",
                             margin: ".8em",
-                            marginLeft: (1.3*index + .5) + "%"
+                            marginLeft: mob ? (2 * index + .5) + "%" : (1.3*index + .5) + "%"
                         }}></div>
                     )
                 })}
-                <div id="searchbar"
-                className="relative w-3/5 mt-1 rounded-md shadow-sm text-center m-auto"
-                style={{
-                    border: "1px solid rgba(0,0,0,.1)",
-                    verticalAlign: "middle",
-                    padding: ".05em"
-                }}
-                >
-                    {props.link}
-                    <div className="absolute right-0 top-0">
-                        <IconWrapper icon={RefreshIcon} />
+                <div id="searchwrapper" className="w-full h-full">
+                    <div id="searchbar"
+                    className="relative w-3/5 top-1/3 rounded-md shadow-sm text-center m-auto"
+                    style={{
+                        border: "1px solid rgba(0,0,0,.1)",
+                        verticalAlign: "middle",
+                        padding: ".05em",
+                        fontSize: mob ? "0.5rem" : "1rem"
+                    }}
+                    >
+                        {props.link}
+                        <div className="absolute right-0 top-0">
+                            <IconWrapper icon={RefreshIcon} width={mob ? 16: 32} height={mob ? 16 : 32} />
+                        </div>
                     </div>
                 </div>
             </div>

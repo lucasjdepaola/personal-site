@@ -9,7 +9,7 @@ export default function Home() {
   const [darkMode, setDarkMode] = useState<boolean>(false);
   return (
     <>
-      <div className="w-100 h-100 min-h-screen"
+      <div className="min-h-screen"
       style={{
         background: darkMode ? darkTheme.subalt : "#f5f5f7",
         color: darkMode ? darkTheme.text : "black"
