@@ -6,7 +6,8 @@ export const darkTheme = {
   bg: "#080808",
   subalt: "#171717",
   text: "white",
-  sub: "#94a3b8"
+  sub: "#94a3b8",
+  lighterBlack: "#2b2b2b"
 }
 
 export const Codeskills: string = "Next.js React Typescript Javascript Node.js Express.js SQL Firebase Firestore Java Gradle Maven Python Golang Powershell Bash Zsh CSS Tailwind"

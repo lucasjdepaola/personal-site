@@ -17,11 +17,8 @@ function LightOrDarkMode() {
 }
 
 export default function NavBar(props: any) {
-  // const route = "pl-10 pr-10 pt-2 pb-2";
-  const route = "p-1.5"
   const darkMode = props.darkMode;
   const setDarkMode = props.setDarkMode;
-  console.log(setDarkMode);
   return (
     <nav
     className="flex font-light text-sm w-full fixed items-center justify-center"

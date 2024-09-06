@@ -17,9 +17,9 @@ export default function Home() {
       >
         <NavBar darkMode={darkMode} setDarkMode={setDarkMode} />
         <ColorfulLargeText text="Icons" />
-        <div className="text-center">all icons were made from scratch and can be used for any purpose.</div>
+        <div className="text-center">All icons were made from scratch and can be downloaded and used for any purpose.</div>
         <br />
-        <IconCards darkmode={darkMode} />
+        <IconCards darkMode={darkMode} />
         <Footer darkMode={darkMode} />
       </div>
     </>
