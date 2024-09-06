@@ -6,7 +6,6 @@ import SearchIcon from "/public/icons/search.svg"
 import LightIcon from "/public/icons/lightmode.svg"
 import DarkIcon from "/public/icons/darkmode.svg"
 import GithubIcon from "/public/icons/github.svg"
-import { darkTheme } from "@/app/page";
 
 
 const routes = "About, projects, icons etc...";
@@ -50,7 +49,7 @@ export default function NavBar(props: any) {
           <span>OS</span>
         </Link>
         <button onClick={() => {setDarkMode((d: boolean) => !d)}} id="darkmode">
-          <IconWrapper icon={darkMode ? DarkIcon : LightIcon} />
+          <IconWrapper icon={darkMode ? LightIcon : DarkIcon} />
         </button>
         <button>
           <IconWrapper icon={SearchIcon} />

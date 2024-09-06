@@ -2,20 +2,21 @@ import useKeydown from "@/hooks/terminal/useKeydown";
 
 const Prompt = (props: any) => {
   const dir = props.workingDirectory;
+  const darkMode = props.darkMode;
   return (
     <>
       <span style={{
-        color: palatte.lucas
+        color: darkMode ? "black" : palatte.lucas
       }}>lucas</span>
       <span style={{
-        color: palatte.at
+        color: darkMode ? "black" : palatte.at
       }}>@</span>
       <span style={{
-        color: palatte.m2
+        color: darkMode? "black" : palatte.m2
       }}>m2</span>
       <span style={{
-        color: palatte.workingdir
-      }}>{" "}{"~"}</span>
+        color: darkMode ? "black" : palatte.workingdir
+      }}>{" "}{dir}</span>
     </>
   )
 }
@@ -57,7 +58,7 @@ export default function TerminalInstance(props: any) {
         {commandOutputs.map((output: TerminalIO) => {
           return (
             <div id="outputsection">
-              <Prompt workingDirectory={workingDirectory} />
+              <Prompt darkMode={darkMode} workingDirectory={workingDirectory} />
               {" "}{output.command}
               <br></br>
               {output.output}
@@ -66,7 +67,7 @@ export default function TerminalInstance(props: any) {
         })}
         <div
         id="inputsection">
-          <Prompt /> {userInput}
+          <Prompt darkMode={darkMode} workingDirectory={workingDirectory} /> {userInput}
         </div>
       </div>
     </div>
