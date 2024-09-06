@@ -2,7 +2,7 @@ import Image from "next/image"
 import FancyLink from "./fancylink"
 import IconWrapper from "./iconwrapper";
 import RefreshIcon from "/public/icons/safari/refresh.svg"
-import { isMobile } from "@/utils/isMobile";
+import useIsMobile from "@/utils/isMobile";
 
 interface BrowserImageProps {
     name: string;
@@ -12,7 +12,7 @@ interface BrowserImageProps {
 }
 
 export const BrowserViewingImage = (props: BrowserImageProps) => {
-    let mob = isMobile();
+    const mob = useIsMobile();
     const palatte: any = {
         red: "#fe5f57",
         yellow: "#febc2e",

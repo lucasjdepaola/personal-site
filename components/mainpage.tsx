@@ -1,4 +1,4 @@
-import { isMobile } from "@/utils/isMobile"
+import useIsMobile from "@/utils/isMobile"
 import FancyLink from "./fancylink"
 import Projects from "./projects"
 
@@ -31,7 +31,7 @@ export const ColorfulLargeText = (props: any) => {
 
 export const Description = (props: any) => {
   const darkMode = props.darkMode
-  let mob = isMobile();
+  const mob = useIsMobile();
   return (
     <div
     className="text-center m-auto"
