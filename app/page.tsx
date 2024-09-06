@@ -4,10 +4,9 @@ import Footer from "@/components/footer";
 import NavBar from "@/components/navbar";
 import Projects from "@/components/projects";
 import TerminalInstance from "@/components/terminal/terminal";
-import Image from "next/image";
-import Link from "next/link";
+import { useState } from "react";
 
-const darkTheme = {
+export const darkTheme = {
   bg: "#080808",
   subalt: "#171717",
   text: "white",
@@ -34,21 +33,13 @@ const ColorfulLargeText = (props: any) => {
   )
 }
 
-
-const AppleScreenshot = (props: any) => { // for screenshotting in a macos fashion
-  return (
-    <div className="w-3/4 h-1/4 bg-slate-900">
-      <Image src={props.image} height={300} width={300} alt={props.alt} />
-    </div>
-  )
-}
-
-const Description = () => {
+const Description = (props: any) => {
+  const darkMode = props.darkMode
   return (
     <div
     className="text-center m-auto"
     style={{
-      color: "rgba(0,0,0,0.5)",
+      color: darkMode ? "rgba(255,255,255,0.8)" : "rgba(0,0,0,0.5)",
       maxWidth: "60%"
     }}
     >
@@ -64,20 +55,20 @@ const Description = () => {
 }
 
 export default function Home() {
-  let isDark = false;
+  const [darkMode, setDarkMode] = useState<boolean>(false);
   return (
     <>
       <div className="w-100 h-100 min-h-screen"
       style={{
-        background: isDark ? darkTheme.subalt : "#f5f5f7",
-        color: isDark ? darkTheme.text : "black"
+        background: darkMode ? darkTheme.subalt : "#f5f5f7",
+        color: darkMode ? darkTheme.text : "black"
       }}
       >
-        <NavBar />
+        <NavBar darkMode={darkMode} setDarkMode={setDarkMode} />
         <ColorfulLargeText text="Lucas DePaola" />
-        <Description />
-        <TerminalInstance />
-        <Footer />
+        <Description darkMode={darkMode} />
+        <TerminalInstance darkMode={darkMode} />
+        <Footer darkMode={darkMode} />
       </div>
     </>
   );

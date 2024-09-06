@@ -33,21 +33,22 @@ export interface TerminalIO {
   output: string;
 }
 
-export default function TerminalInstance() {
+export default function TerminalInstance(props: any) {
   const {userInput, commandOutputs, workingDirectory, okd} = useKeydown();
+  const darkMode = props.darkMode;
   
   return (
     <div id="mainterminal" className="w-2/3 h-96 m-auto rounded-xl outline-none pl-5 pr-5 pb-5 text-lg"
     tabIndex={0}
     style={{
-      color: "white",
-      backgroundColor: palatte.background,
+      color: darkMode ? "black" : "white",
+      backgroundColor: darkMode ? "white" : palatte.background,
       fontFamily: "monospace"
     }}
     onClick={(e) => {e.currentTarget.focus();console.log("click")}}
     onKeyDown={(key) => {okd(key)}}
     >
-      <div id="terminalbar">bar</div>
+      <div id="terminalbar"></div>
       <div id="tabs"></div>
       <div id="terminaltext" style={{
         width: "100%",
