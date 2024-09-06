@@ -59,9 +59,9 @@ export default function NavBar(props: any) {
       id="rightsocials" // items go to the right
       className="flex items-end justify-end"
       >
-        <Link className="pr-2 pl-2 ml-1 mr-1" href="https://github.com/lucasjdepaola" target="_blank">
+        {/* <Link className="pr-2 pl-2 ml-1 mr-1" href="https://github.com/lucasjdepaola" target="_blank">
           <IconWrapper icon={GithubIcon} />
-        </Link>
+        </Link> */}
       </span>
     </nav>
   )

@@ -2,6 +2,7 @@
 import Footer from "@/components/footer";
 import NavBar from "@/components/navbar";
 import Projects from "@/components/projects";
+import useIsMobile from "@/utils/isMobile";
 import { useState } from "react";
 
 const darkTheme = {
@@ -13,12 +14,13 @@ const darkTheme = {
 
 const ProjectLayout = (props: any) => {
   const darkMode = props.darkMode
+  const mob = useIsMobile();
   return (
     <div
     className="text-center m-auto pt-16"
     style={{
       color: darkMode ? "rgba(255,255,255,0.8" : "rgba(0,0,0,0.5)",
-      maxWidth: "60%"
+      maxWidth: mob ? "85%" : "60%"
     }}
     >
       <Projects />
@@ -30,7 +32,7 @@ export default function Home() {
   const [darkMode, setDarkMode] = useState<boolean>(false);
   return (
     <>
-      <div className="w-100 h-100 min-h-screen"
+      <div className="min-h-screen"
       style={{
         background: darkMode ? darkTheme.subalt : "#f5f5f7",
         color: darkMode ? darkTheme.text : "black"
