@@ -1,16 +1,19 @@
 "use client"
 import useDate from "@/hooks/useDate";
 import useIsMobile from "@/utils/isMobile"
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function OSBar() {
     const mob = useIsMobile();
     const date = useDate();
+    const router = useRouter();
     return (
-        <nav className="flex flex-row static justify-between font-light pl-4 pr-4 pt-2 pb-2 gap-3 text-md w-full" style={{
+        <nav className="flex flex-row static justify-between pl-4 pr-4 pt-2 pb-2 gap-3 text-sm w-full" style={{
             background: "#dadada"
         }}>
             <div className="flex justify-start gap-3">
+                <button onClick={() => {router.push("/")}}>Home</button>
                 <div>File</div>
                 <div>Edit</div>
                 <div>View</div>

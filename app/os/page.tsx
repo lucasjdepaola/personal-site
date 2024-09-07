@@ -1,3 +1,4 @@
+import OSAppsOpened from "@/components/os/appsopened";
 import OSBackground from "@/components/os/osbackground";
 import OSBar from "@/components/os/osbar";
 
@@ -8,6 +9,7 @@ export default function OS() {
     >
       <OSBar />
       <OSBackground />
+      <OSAppsOpened />
     </div>
   );
 }
