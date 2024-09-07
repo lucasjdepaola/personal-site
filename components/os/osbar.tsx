@@ -2,9 +2,9 @@
 import useDate from "@/hooks/useDate";
 import useIsMobile from "@/utils/isMobile"
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { OpenedProps } from "./ostypes";
 
-export default function OSBar() {
+export default function OSBar(props: OpenedProps) {
     const mob = useIsMobile();
     const date = useDate();
     const router = useRouter();

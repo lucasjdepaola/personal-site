@@ -1,6 +1,7 @@
+import { OpenedProps } from "./ostypes";
 import Widgets from "./widget";
 
-export default function OSBackground() {
+export default function OSBackground(props: OpenedProps) {
     // the widget level components go here
     return (
         <div className="fixed" style={{

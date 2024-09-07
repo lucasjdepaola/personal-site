@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react";
+import { OpenedProps } from "./ostypes";
 
 
 export interface Dimensions {
@@ -8,19 +8,28 @@ export interface Dimensions {
     height: number;
 }
 
+export interface Position {
+    top: number;
+    left: number;
+}
+
 export interface OSApp {
     name: string;
     dimensions: Dimensions;
+    position: Position
     component: any;
 }
 
-export default function OSAppsOpened() {
-    const [openedApps, setOpenedApps] = useState<OSApp[]>([]); // this might need to be at a higher level
+
+export default function OSAppsOpened(props: OpenedProps) {
     return (
         <div>
-            {openedApps.map((app: OSApp, i: number) => {
+            {props.openedApps.map((app: OSApp, i: number) => {
                 return ( // render dimensions etc
-                    <div id="osappcontainer" key={i}>
+                    <div id="osappcontainer" key={i} style={{
+                        width: app.dimensions.width,
+                        height: app.dimensions.height
+                    }}>
                         <div id="osappbar">
                             {app.name}
                         </div>
