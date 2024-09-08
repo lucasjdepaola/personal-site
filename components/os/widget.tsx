@@ -1,3 +1,4 @@
+import { DragEvent, DragEventHandler, MouseEvent, MouseEventHandler, useEffect, useRef, useState } from "react";
 import { OSApp } from "./appsopened";
 
 interface WidgetLayout {
@@ -14,14 +15,66 @@ interface DesktopIconLayout {
     appToOpen: OSApp;
 }
 
+interface Movements {
+    x: number;
+    y: number;
+}
+
+interface DragDetails {
+    onDragStart: DragEventHandler;
+    onDragEnd: DragEventHandler;
+}
+
 const Widget = (props: WidgetLayout) => {
+    const [movements, setMovements] = useState<Movements | undefined>(undefined);
+    const [offSet, setOffset] = useState<Movements | undefined>(undefined);
+    const [isDown, setIsDown] = useState<boolean>(false);
+    const widgetRef = useRef<HTMLDivElement | null>(null);
+    console.log(isDown + ", " + offSet?.x + ", " + movements)
+    useEffect(() => {
+        const mup = (ev: globalThis.MouseEvent) => {
+            setIsDown(false);
+        }
+        const mov = (ev: globalThis.MouseEvent) => {
+            ev.preventDefault();
+            if(isDown) {
+                setMovements({x: ev.clientX, y: ev.clientY});
+            }
+        }
+        document.addEventListener("mouseup", mup);
+        document.addEventListener("mousemove", mov);
+    }, []);
+
+    useEffect(() => {
+        const mdn = (e: globalThis.MouseEvent) => {
+            console.log("mouse is down now");
+            e.preventDefault();
+            e.stopPropagation();
+            setIsDown(true);
+            setOffset((m: any) => {
+                if(widgetRef && widgetRef.current) {
+                    return {x: widgetRef.current.offsetLeft - e.clientX, y: widgetRef.current.offsetTop - e.clientY}
+                }
+                return m;
+            });
+        }
+        widgetRef.current?.addEventListener("mousedown", mdn, true);
+        return () => {widgetRef.current?.removeEventListener("mousedown", mdn, true)}
+    }, [widgetRef.current]);
+
     return (
         <div className="flex content-center items-center rounded-3xl text-center shadow-lg" style={{
+            left: `${movements?.x}px`,
+            right: `${movements?.y}px`,
             gridColumn: `${props.leftBlocks} / ${props.widthBlocks + props.leftBlocks}`,
             gridRow: `${props.topBlocks} / ${props.heightBlocks + props.topBlocks}`,
             backgroundColor: "#141414"
-        }}>
+        }}
+        ref={widgetRef}
+        onMouseDown={() => {console.log(" i never get here")}}
+        >
             {props.widget}
+            <div className="text-white">{isDown}</div>
         </div>
     )
 }
