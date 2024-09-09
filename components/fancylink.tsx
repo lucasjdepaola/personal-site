@@ -1,5 +1,10 @@
 import Link from "next/link";
 
+interface LinkProps {
+  link: string;
+  text: string;
+}
+
 export default function FancyLink(props: any) {
   return (
     <span

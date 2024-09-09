@@ -1,0 +1,5 @@
+get static props pre renders a remote link (in this case git) so that you can have dynamic content statically rendered
+this combines with mdx-remote where the posts can be in a separate render order versus rebuilding the project every time a post is
+
+Todo: show leaderboard for typing
+display mdx
