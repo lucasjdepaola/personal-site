@@ -6,22 +6,6 @@ import NavBar from "@/components/navbar";
 import useIsMobile from "@/utils/isMobile";
 import { useState } from "react";
 
-export function getStaticProps() {
-  // eg https://raw.githubusercontent.com/CodeCraft-Vanilla/wiki/main/test.mdx
-  // const posts = postFilePaths.map((filePath) => {
-  //   const source = fs.readFileSync(path.join(POSTS_PATH, filePath));
-  //   const { content, data } = matter(source);
-
-  //   return {
-  //     content,
-  //     data,
-  //     filePath,
-  //   };
-  // });
-
-  // return { props: { posts } };
-}
-
 const About = (props: any) => {
   const darkMode = props.darkMode;
   const mob = useIsMobile();

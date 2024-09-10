@@ -3,6 +3,7 @@ import { compileMDX } from "next-mdx-remote/rsc";
 import { Octokit } from "octokit";
 import { serialize } from "v8";
 //https://github.com/vercel/next.js/discussions/58575
+//https://github.com/vercel/next.js/discussions/58575
 // /repos/{owner}/{repo}/contents/{path}
 // http://api.github.com/repos/{owner}/{repo}/contents/{path}
 // http://api.github.com/repos/lucasjdepaola/mdx-posts/contents/
@@ -15,10 +16,11 @@ interface FileContent {
   encoding: string;
   [key: string]: any; // Other potential properties
 }
+const octokit = new Octokit({
+  auth: process.env.GITHUB_TOKEN,
+})
 
 const readMdxFile = async(slug: string) => {
-  // should not need a key to view my repos
-  const octokit = new Octokit({auth: "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"});
   let dt;
   try {
     const { data } = await octokit.rest.repos.getContent({
