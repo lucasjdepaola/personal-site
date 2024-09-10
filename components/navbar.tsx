@@ -32,7 +32,7 @@ export default function NavBar(props: any) {
       // opacity: "0.9",
       backdropFilter: "saturate(180%) blur(20px)",
       transition: "height 500ms ease-out",
-    }}
+    }} // should change based on mobile
     >
       <div id="center icons" className="w-full flex justify-center">
         <div className={"p-1.5"}>
@@ -50,6 +50,9 @@ export default function NavBar(props: any) {
           </Link>
           <Link className="pr-2 pl-2 ml-1 mr-1" href="/os">
             <span>OS</span>
+          </Link>
+          <Link className="pr-2 pl-2 ml-1 mr-1" href="/posts">
+            <span>Posts</span>
           </Link>
           <button onClick={() => {setDarkMode((d: boolean) => !d)}} id="darkmode">
             <IconWrapper icon={darkMode ? LightIcon : DarkIcon} />
