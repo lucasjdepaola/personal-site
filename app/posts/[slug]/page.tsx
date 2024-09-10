@@ -20,7 +20,7 @@ const octokit = new Octokit({
   auth: process.env.GITHUB_TOKEN,
 })
 
-const readMdxFile = async(slug: string) => {
+const readMdxFile = async(slug: string): Promise<string> => {
   let dt;
   try {
     const { data } = await octokit.rest.repos.getContent({
@@ -31,6 +31,7 @@ const readMdxFile = async(slug: string) => {
     dt = data;
   } catch(e) {
     console.log(e);
+    return "Not found.";
   }
 
   const fd = dt as FileContent;
