@@ -1,3 +1,4 @@
+import { componentsMDX } from "@/components/posts/postelementstyles";
 import { compileMDX } from "next-mdx-remote/rsc";
 import { Octokit } from "octokit";
 // http://api.github.com/repos/{owner}/{repo}/contents/{path}
@@ -24,7 +25,7 @@ const readMdxFile = async(slug: string) => {
     dt = data;
   } catch(e) {
     console.log(e);
-    // return "Not found.";
+    return "Not found.";
   }
 
   const fd = dt as FileContent;
@@ -73,12 +74,10 @@ export default async function PostPage({
   }>({
     source: markdown,
     options: { parseFrontmatter: true, },
-    components: { // here you can edit the specific elements
-      h1: (props) => <h1 className="text-lg">{props.children}</h1>
-    }
+    components: componentsMDX
   });
-  return (
-    <div>
+  return (// turn this into a component, so you can run it client side for states, variables, etc
+    <div id="full content" className="min-h-screen">
       <div>
         {frontmatter.title}
       </div>
