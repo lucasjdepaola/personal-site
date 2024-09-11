@@ -1,4 +1,6 @@
+import NavBar from "@/components/navbar";
 import { componentsMDX } from "@/components/posts/postelementstyles";
+import RenderedPage from "@/components/posts/renderedpage";
 import { compileMDX } from "next-mdx-remote/rsc";
 import { Octokit } from "octokit";
 // http://api.github.com/repos/{owner}/{repo}/contents/{path}
@@ -12,7 +14,9 @@ interface FileContent {
 }
 const octokit = new Octokit({
   auth: process.env.GITHUB_TOKEN,
-})
+});
+
+export const revalidate = 60;
 
 const readMdxFile = async(slug: string) => {
   let dt;
@@ -25,6 +29,7 @@ const readMdxFile = async(slug: string) => {
     dt = data;
   } catch(e) {
     console.log(e);
+    console.log("slug is " + slug);
     return "Not found.";
   }
 
@@ -77,11 +82,6 @@ export default async function PostPage({
     components: componentsMDX
   });
   return (// turn this into a component, so you can run it client side for states, variables, etc
-    <div id="full content" className="min-h-screen">
-      <div>
-        {frontmatter.title}
-      </div>
-      {content}
-    </div>
+    <RenderedPage content={content} frontmatter={frontmatter} />
   )
 }
