@@ -27,6 +27,6 @@ export const componentsMDX: Readonly<MDXComponents> = {
         return <FancyLink text={props.children} link={props.href} />
     },
     ul: (props) => {
-        return <ul className="list-disc">{props.children}</ul>
+        return <ul style={{listStyleType: '"-> "'}}>{props.children}</ul>
     }
 }
