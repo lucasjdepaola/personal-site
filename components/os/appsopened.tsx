@@ -21,6 +21,7 @@ export interface OSApp {
 }
 
 
+
 export default function OSAppsOpened(props: OpenedProps) {
     return (
         <div>
@@ -33,8 +34,14 @@ export default function OSAppsOpened(props: OpenedProps) {
                         <div id="osappbar">
                             {app.name}
                         </div>
-                        <div id="renderedapp">
-                            {app.component}
+                        <div id="renderedapp" style={{
+                            position: "fixed",
+                            top: app.position.top,
+                            left: app.position.left,
+                            width: app.dimensions.width, // can turn this into a component
+                            height: app.dimensions.height
+                        }}>
+                            <app.component {...props} />
                         </div>
                     </div>
                 )

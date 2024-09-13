@@ -19,8 +19,28 @@ interface WidgetProperties {
     name: string;
 }
 
+export interface File {
+    name: string;
+    content: string[];
+    absolutePath: string;
+}
+
+export interface Directory {
+    name: string;
+    absolutePath?: string;
+    children: (Directory | File)[];
+}
+
+export interface DirWrapper {
+    absoluteDirPath: string;
+    absoluteDirReference: Directory;
+    relativeDirReference: Directory;
+}
+
 
 export interface OpenedProps {
     openedApps: OSApp[];
     setOpenedApps: Dispatch<SetStateAction<OSApp[]>>;
+    workingDirectory: DirWrapper;
+    setWorkingDirectory: Dispatch<SetStateAction<DirWrapper>>;
 }

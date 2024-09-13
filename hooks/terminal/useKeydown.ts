@@ -1,5 +1,6 @@
 "use client";
 
+import { DirWrapper, OpenedProps } from "@/components/os/ostypes";
 import { TerminalIO } from "@/components/terminal/terminal";
 import { KeyboardEvent, useState } from "react";
 
@@ -28,24 +29,30 @@ interface IOParameters {
     setInput?: any;
 }
 
-const dynamicVariables: any = {
-    commands: (io: IOParameters) => Object.keys(staticVariables).reduce((e: string, curr: string) => {return curr + "\n" + e}),
-    cd: () => {},
-    ls: () => {},
-    cat: () => {},
-    grep: () => {},
-    clear: (io: IOParameters) => {
-        io.setOutput((o: string) => []);
-        return "";
-    },
-    alias: null,
-}
-
-export default function useKeydown() {
+export default function useKeydown(props: OpenedProps) {
+    const dynamicVariables: any = {
+        commands: (io: IOParameters) => Object.keys(staticVariables).reduce((e: string, curr: string) => {return curr + "\n" + e}),
+        cd: (io: IOParameters) => {
+            props.setWorkingDirectory((d: DirWrapper) => {
+                // first find out if we're looking relatively, or absolutely
+                // then determine if it's changeable, then change
+                if(io.input)
+                    return d;
+                return d;
+            })
+        },
+        ls: () => {},
+        cat: () => {},
+        grep: () => {},
+        clear: (io: IOParameters) => {
+            io.setOutput((o: string) => []);
+            return "";
+        },
+        alias: null,
+    }
     const [userInput, setUserInput] = useState<string>("");
     const [commandOutputs, setCommandOutputs] = useState<TerminalIO[]>([]);
     const [cursorIndex, setCursorIndex] = useState<number>(0);
-    const [workingDirectory, setWorkingDirectory] = useState<string>("~");
     const okd = (key: KeyboardEvent<HTMLDivElement>) => {
         if(key.key === " ") key.preventDefault();
         if(key.key === "Enter") {
@@ -92,6 +99,5 @@ export default function useKeydown() {
             setUserInput((i: any) => i);
         }
     }
-
-    return {userInput, commandOutputs, workingDirectory, okd};
+    return {userInput, commandOutputs, okd};
 }

@@ -1,10 +1,12 @@
 import { DragEventHandler, useEffect, useRef, useState } from "react";
-import { DesktopIconLayout } from "./widgets/desktopicon";
+import { DesktopIcon, DesktopIconLayout } from "./widgets/desktopicon";
 import { Weather } from "./widgets/weather";
 import { Stocks } from "./widgets/stocks";
 import { Battery } from "./widgets/battery";
+import { terminal } from "./programs/terminal";
+import { OpenedProps } from "./ostypes";
 
-interface WidgetLayout {
+export interface WidgetLayout {
     widthBlocks: number;
     heightBlocks: number;
     leftBlocks: number;
@@ -25,14 +27,24 @@ const Widget = (props: WidgetLayout) => {
         ref={widgetRef}
         >
             {props.widget}
-            <div className="text-white">{isDown}</div>
         </div>
     )
 }
 
-export default function Widgets() { // do something like props: (widget | icon) where you render them differently
-    const desktopicons: DesktopIconLayout[] = [
 
+export default function Widgets(props: OpenedProps) { // do something like props: (widget | icon) where you render them differently
+    const desktopicons: DesktopIconLayout[] = [
+        {
+            name: "Terminal",
+            appToOpen: terminal,
+            layout: {
+                widthBlocks: 1,
+                heightBlocks: 1,
+                topBlocks: 6,
+                leftBlocks: 7
+            },
+            image: "terminal.png"
+        }
     ];
     const widgetList: WidgetLayout[] = [ // render widgets and icons here
 
@@ -41,13 +53,26 @@ export default function Widgets() { // do something like props: (widget | icon) 
             <div className="grid w-full h-full p-3" style={{
                 gridTemplateRows: "repeat(10, 1fr)",
                 gridTemplateColumns: "repeat(16, 1fr)",
-                minWidth: "0",
-                minHeight: "0",
                 gap: "1rem"
             }}>
                 <Widget widthBlocks={4} heightBlocks={4} leftBlocks={1} topBlocks={1} widget={<Weather/>} />
                 <Widget widthBlocks={4} heightBlocks={2} leftBlocks={1} topBlocks={5} widget={<Stocks />} />
                 <Widget widthBlocks={4} heightBlocks={2} leftBlocks={5} topBlocks={1} widget={<Battery />} />
+                {desktopicons.map((ico: DesktopIconLayout, i: number) => {
+                    return (
+                        <button
+                        key={`lyt${i}`}
+                        className="w-full h-full cursor-pointer z-10"
+                        onClick={() => {props.setOpenedApps(a => [...a, ico.appToOpen])}}
+                        style={{
+                            gridColumn: `${ico.layout.leftBlocks} / ${ico.layout.widthBlocks + ico.layout.leftBlocks}`,
+                            gridRow: `${ico.layout.topBlocks} / ${ico.layout.heightBlocks + ico.layout.topBlocks}`,
+                        }}
+                        >
+                            <DesktopIcon name={ico.name} appToOpen={ico.appToOpen} layout={ico.layout} image={ico.image} />
+                        </button>
+                    )
+                })}
             </div>
     )
 }

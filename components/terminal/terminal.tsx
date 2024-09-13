@@ -1,7 +1,8 @@
 import useKeydown from "@/hooks/terminal/useKeydown";
+import { OpenedProps } from "../os/ostypes";
 
 const Prompt = (props: any) => {
-  const dir = props.workingDirectory;
+  const dir = "~";
   const darkMode = props.darkMode;
   return (
     <>
@@ -34,16 +35,16 @@ export interface TerminalIO {
   output: string;
 }
 
-export default function TerminalInstance(props: any) {
-  const {userInput, commandOutputs, workingDirectory, okd} = useKeydown();
-  const darkMode = props.darkMode;
+export default function TerminalInstance(props: OpenedProps) {
+  const {userInput, commandOutputs, okd} = useKeydown(props);
+  // const darkMode = props.darkMode;
   
   return (
-    <div id="mainterminal" className="w-2/3 h-96 m-auto rounded-xl outline-none pl-5 pr-5 pb-5 text-lg"
+    <div id="mainterminal" className="w-full h-full m-auto rounded-xl outline-none pl-5 pr-5 pb-5 text-lg"
     tabIndex={0}
     style={{
-      color: darkMode ? "black" : "white",
-      backgroundColor: darkMode ? "white" : palatte.background,
+      color: "white",
+      backgroundColor: palatte.background,
       fontFamily: "monospace"
     }}
     onClick={(e) => {e.currentTarget.focus();console.log("click")}}
@@ -58,7 +59,7 @@ export default function TerminalInstance(props: any) {
         {commandOutputs.map((output: TerminalIO) => {
           return (
             <div id="outputsection">
-              <Prompt darkMode={darkMode} workingDirectory={workingDirectory} />
+              <Prompt darkMode={false} />
               {" "}{output.command}
               <br></br>
               {output.output}
@@ -67,7 +68,7 @@ export default function TerminalInstance(props: any) {
         })}
         <div
         id="inputsection">
-          <Prompt darkMode={darkMode} workingDirectory={workingDirectory} /> {userInput}
+          <Prompt darkMode={false} /> {userInput}
         </div>
       </div>
     </div>

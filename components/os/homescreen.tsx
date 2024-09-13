@@ -6,15 +6,23 @@ import OSBackground from "./osbackground"
 import OSBar from "./osbar"
 import useIsMobile from "@/utils/isMobile"
 import Link from "next/link"
+import { Directory, DirWrapper } from "./ostypes"
+import { ROOTDIR } from "@/types/os/root"
+
 
 const OnPCHomescreen = () => {
     const [openedApps, setOpenedApps] = useState<OSApp[]>([]);
+    const [workingDirectory, setWorkingDirectory] = useState<DirWrapper>({
+        absoluteDirPath: "/", // use /home as ~
+        relativeDirReference: ROOTDIR,
+        absoluteDirReference: ROOTDIR // do not change from root
+    });
     return (
         <div className="h-full"
         >
-        <OSBar openedApps={openedApps} setOpenedApps={setOpenedApps} />
-        <OSBackground openedApps={openedApps} setOpenedApps={setOpenedApps} />
-        <OSAppsOpened openedApps={openedApps} setOpenedApps={setOpenedApps} />
+        <OSBar openedApps={openedApps} setOpenedApps={setOpenedApps} workingDirectory={workingDirectory} setWorkingDirectory={setWorkingDirectory} />
+        <OSBackground openedApps={openedApps} setOpenedApps={setOpenedApps} workingDirectory={workingDirectory} setWorkingDirectory={setWorkingDirectory} />
+        <OSAppsOpened openedApps={openedApps} setOpenedApps={setOpenedApps} workingDirectory={workingDirectory} setWorkingDirectory={setWorkingDirectory} />
         </div>
     )
 }

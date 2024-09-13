@@ -19,8 +19,6 @@ export default function Home() {
         <ColorfulLargeText text="Lucas DePaola" />
         <Description darkMode={darkMode} />
         <br />
-        <div className="text-3xl font-semibold text-center p-5">Terminal</div>
-        <TerminalInstance darkMode={darkMode} />
         <Footer darkMode={darkMode} />
       </div>
     </>
