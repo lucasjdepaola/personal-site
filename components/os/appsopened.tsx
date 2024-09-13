@@ -1,6 +1,9 @@
 "use client"
 
+import { Theme } from "@/types/theme";
+import AppWrapper from "./appwrapper";
 import { OpenedProps } from "./ostypes";
+import { useState } from "react";
 
 
 export interface Dimensions {
@@ -17,16 +20,19 @@ export interface OSApp {
     name: string;
     dimensions: Dimensions;
     position: Position
+    barScheme: Theme;
     component: any;
 }
 
-
+interface TrackedDimensions {
+    [key: string]: Dimensions;
+}
 
 export default function OSAppsOpened(props: OpenedProps) {
     return (
         <div>
             {props.openedApps.map((app: OSApp, i: number) => {
-                return ( // render dimensions etc
+                return (
                     <div id="osappcontainer" key={i} style={{
                         width: app.dimensions.width,
                         height: app.dimensions.height
@@ -41,7 +47,9 @@ export default function OSAppsOpened(props: OpenedProps) {
                             width: app.dimensions.width, // can turn this into a component
                             height: app.dimensions.height
                         }}>
-                            <app.component {...props} />
+                            <AppWrapper parent={props} self={app}>
+                                <app.component {...props} />
+                            </AppWrapper>
                         </div>
                     </div>
                 )

@@ -5,6 +5,7 @@ import { Stocks } from "./widgets/stocks";
 import { Battery } from "./widgets/battery";
 import { terminal } from "./programs/terminal";
 import { OpenedProps } from "./ostypes";
+import { notes } from "./programs/notes";
 
 export interface WidgetLayout {
     widthBlocks: number;
@@ -33,7 +34,7 @@ const Widget = (props: WidgetLayout) => {
 
 
 export default function Widgets(props: OpenedProps) { // do something like props: (widget | icon) where you render them differently
-    const desktopicons: DesktopIconLayout[] = [
+    const desktopicons: DesktopIconLayout[] = [ // this should be done in another file
         {
             name: "Terminal",
             appToOpen: terminal,
@@ -44,6 +45,17 @@ export default function Widgets(props: OpenedProps) { // do something like props
                 leftBlocks: 7
             },
             image: "terminal.png"
+        },
+        {
+            name: "Notes",
+            appToOpen: notes,
+            layout: {
+                widthBlocks: 1,
+                heightBlocks: 1,
+                topBlocks: 7,
+                leftBlocks: 7
+            },
+            image: "notes.png"
         }
     ];
     const widgetList: WidgetLayout[] = [ // render widgets and icons here
@@ -55,9 +67,9 @@ export default function Widgets(props: OpenedProps) { // do something like props
                 gridTemplateColumns: "repeat(16, 1fr)",
                 gap: "1rem"
             }}>
-                <Widget widthBlocks={4} heightBlocks={4} leftBlocks={1} topBlocks={1} widget={<Weather/>} />
+                {/* <Widget widthBlocks={4} heightBlocks={4} leftBlocks={1} topBlocks={1} widget={<Weather/>} />
                 <Widget widthBlocks={4} heightBlocks={2} leftBlocks={1} topBlocks={5} widget={<Stocks />} />
-                <Widget widthBlocks={4} heightBlocks={2} leftBlocks={5} topBlocks={1} widget={<Battery />} />
+                <Widget widthBlocks={4} heightBlocks={2} leftBlocks={5} topBlocks={1} widget={<Battery />} /> */}
                 {desktopicons.map((ico: DesktopIconLayout, i: number) => {
                     return (
                         <button

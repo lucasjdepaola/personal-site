@@ -1,8 +1,16 @@
 import { Dispatch, SetStateAction } from "react";
 import { OSApp } from "./appsopened";
+import { Theme } from "@/types/theme";
 
 enum ProgramPriority {
     BACKGROUND, GUI, TOOL
+}
+
+export const DEFAULTDARKSCHEME: Theme = {
+    background: "#262626",
+    sub: "white",
+    subalt: "#262626",
+    text: "white",
 }
 
 interface ProgramInfo {

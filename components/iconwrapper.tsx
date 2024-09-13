@@ -12,8 +12,6 @@ export default function IconWrapper(props: IconProps) {
             width: props.width ? props.width : "2rem",
             height: props.height ? props.height : "2rem",
             display: "inline-block",
-            // color: "green",
-            // fill: "green"
             color: "currentColor",
             fill: "currentColor"
         }} />

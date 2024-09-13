@@ -1,4 +1,4 @@
-interface Theme {
+export interface Theme {
     background: string;
     sub: string;
     subalt: string;

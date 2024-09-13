@@ -12,7 +12,7 @@ export interface DesktopIconLayout {
 
 export const DesktopIcon = (props: DesktopIconLayout) => {
     return ( // icons should be png images
-        <div className="w-full h-full shadow-lg text-left" style={{
+        <div className="w-full h-full shadow-lg text-center text-white" style={{
         }}>
             <div id="image" style={{width: "64px", height: "64px", margin: "auto"}}>
                 <img src={`/images/os/${props.image}`}></img>

@@ -40,7 +40,7 @@ export default function TerminalInstance(props: OpenedProps) {
   // const darkMode = props.darkMode;
   
   return (
-    <div id="mainterminal" className="w-full h-full m-auto rounded-xl outline-none pl-5 pr-5 pb-5 text-lg"
+    <div id="mainterminal" className="w-full h-full m-auto rounded-b-lg outline-none pl-5 pr-5 pb-5 text-lg"
     tabIndex={0}
     style={{
       color: "white",
