@@ -7,6 +7,7 @@ import { terminal } from "./programs/terminal";
 import { OpenedProps } from "./ostypes";
 import { notes } from "./programs/notes";
 import { browser } from "./programs/browser";
+import { calculator } from "./programs/calculator";
 
 export interface WidgetLayout {
     widthBlocks: number;
@@ -64,6 +65,16 @@ export default function Widgets(props: OpenedProps) { // do something like props
                 heightBlocks: 1,
                 topBlocks: 8,
                 leftBlocks: 8,
+            }
+        },
+        {
+            name: "Calculator",
+            appToOpen: calculator,
+            layout: {
+                widthBlocks: 1,
+                heightBlocks: 1,
+                topBlocks: 8,
+                leftBlocks: 9
             }
         }
     ];

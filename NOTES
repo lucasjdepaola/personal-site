@@ -1,5 +1,12 @@
 get static props pre renders a remote link (in this case git) so that you can have dynamic content statically rendered
 this combines with mdx-remote where the posts can be in a separate render order versus rebuilding the project every time a post is
+(done)
 
-Todo: show leaderboard for typing
-display mdx
+Todo: show leaderboard for typing (?)
+display mdx (done)
+
+do a border focus on the OS
+make the terminal like the ldos one
+potentially have tiling wm capabilities (9 workspaces, auto move, shift meta moves it, hjkl goes around windows, auto size, that's it)
+the file system should be somewhat mutable, it shouldn't all be a state
+list of apps, use the list for launchpad
