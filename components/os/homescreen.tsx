@@ -28,7 +28,8 @@ const OnPCHomescreen = () => {
     // name ref mapping, only one app instance can be opened (don't really plan on changing this)
 
     return (
-        <div className="h-full"
+        <div className="h-full select-none"
+        style={{WebkitUserSelect: "none"}}
         >
         <OSBar {...apiTraits} />
         <OSBackground {...apiTraits} />

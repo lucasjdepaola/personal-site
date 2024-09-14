@@ -5,7 +5,6 @@ import { WidgetLayout } from "../widget";
 
 export interface DesktopIconLayout {
     name: string;
-    image: string;
     layout: WidgetLayout;
     appToOpen: OSApp;
 }
@@ -15,7 +14,7 @@ export const DesktopIcon = (props: DesktopIconLayout) => {
         <div className="w-full h-full shadow-lg text-center text-white" style={{
         }}>
             <div id="image" style={{width: "64px", height: "64px", margin: "auto"}}>
-                <img src={`/images/os/${props.image}`}></img>
+                <img src={`/images/os/${props.appToOpen.image}`}></img>
             </div>
             <div id="icontext" className="text-sm text-center">
                 {props.name}

@@ -4,12 +4,15 @@ import { DirWrapper, OpenedProps } from "@/components/os/ostypes";
 import { TerminalIO } from "@/components/terminal/terminal";
 import { KeyboardEvent, useState } from "react";
 
-const age = () => {
-    const birthday = Date.now() - new Date("2003-07-24").getTime();
+const timeSince = (date: string): string => {
+    const subtracted = Date.now() - new Date(date).getTime();
     const yearMs = 1000 * 60 * 60 * 24 * 365.25; // leap year
-    const myAge = Math.floor(birthday / yearMs);
-    console.log(myAge);
-    return myAge;
+    const count = Math.floor(subtracted / yearMs);
+    console.log(count);
+    if(count < 1) {
+        return Math.floor(subtracted / yearMs * 365) + " days";
+    }
+    return count + " years";
 }
 
 interface OfStrings {
@@ -18,8 +21,10 @@ interface OfStrings {
 
 const staticVariables: OfStrings = {
     name: "Lucas DePaola",
-    age: age()+ "", // my age calculator
-    email: "pseudoemail@foo.bar",
+    age: timeSince("2003-07-24"), // age calculator
+    siteage: timeSince("2024-09-04"),
+    whoami: "A user on lucasdepaola.com/os",
+    email: "etc.",
 }
 
 interface IOParameters {

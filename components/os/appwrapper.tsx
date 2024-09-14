@@ -1,4 +1,4 @@
-import { MutableRefObject, useState } from "react";
+import { MutableRefObject, useRef, useState } from "react";
 import { OSApp } from "./appsopened";
 import { AllAppRefs, OpenedProps } from "./ostypes"
 import { wrappermouseMove } from "@/utils/os/draggablediv";
@@ -18,7 +18,7 @@ export interface Offset {
 const Appbar = (props: AppwrapperProps) => {
     // use on drag move
     const [isDown, setDown] = useState<boolean>(false);
-    const [initialOffset, setInitialOffset] = useState<Offset>({x: 0, y: 0});
+    const initialOffset = useRef<Offset>({x: 0, y: 0});
     return (
         <div unselectable="on" className="flex w-full h-7 select-none rounded-t-lg" style={{
             backgroundColor: props.self.barScheme.background,
@@ -26,15 +26,15 @@ const Appbar = (props: AppwrapperProps) => {
         }}
         onMouseDown={(e) => {
             const ref = props.allAppRefs.current[props.self.name];
-            setDown(true);
             if(ref) {
                 const rect = ref.getBoundingClientRect();
-                setInitialOffset({x: e.clientX - rect.left, y: e.clientY - rect.top});
+                initialOffset.current = {x: e.clientX - rect.left, y: e.clientY - rect.top};
             }
+            const f = (e: any) => {wrappermouseMove(props.allAppRefs.current[props.self.name], e, initialOffset.current)};
+            window.addEventListener("mousemove", f);
+            window.addEventListener("mouseup", (e) => {window.removeEventListener("mousemove", f)});
         }} // behavior for a draggable div
-        onMouseMove={(e) => {isDown ? wrappermouseMove(props.allAppRefs.current[props.self.name], e, initialOffset) : ""}}
-        onMouseUp={() => {setDown(false)}}
-        onMouseLeave={() => {setDown(false)}}
+
         > {/* refactor button exit */}
             <div
             className="flex flex-1 pl-1 select-none"

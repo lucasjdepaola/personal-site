@@ -21,6 +21,7 @@ export interface OSApp {
     position: Position
     barScheme: Theme;
     component: any;
+    image: string;
 }
 
 export default function OSAppsOpened(props: OpenedProps) {

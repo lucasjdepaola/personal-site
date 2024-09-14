@@ -1,10 +1,6 @@
 import { OSApp } from "../appsopened";
 import { DEFAULTDARKSCHEME } from "../ostypes";
 
-    // name: string;
-    // dimensions: Dimensions;
-    // position: Position
-    // component: any;
 const Photos = () => {
     return (
         <div className="w-full h-full bg-black text-white">
@@ -19,5 +15,6 @@ export const notes: OSApp = {
     dimensions: {width: 600, height: 600},
     barScheme: DEFAULTDARKSCHEME,
     position: {left: 300, top: 300},
+    image: "notes.png",
     component: Photos 
 };

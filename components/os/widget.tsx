@@ -6,6 +6,7 @@ import { Battery } from "./widgets/battery";
 import { terminal } from "./programs/terminal";
 import { OpenedProps } from "./ostypes";
 import { notes } from "./programs/notes";
+import { browser } from "./programs/browser";
 
 export interface WidgetLayout {
     widthBlocks: number;
@@ -44,7 +45,6 @@ export default function Widgets(props: OpenedProps) { // do something like props
                 topBlocks: 6,
                 leftBlocks: 7
             },
-            image: "terminal.png"
         },
         {
             name: "Notes",
@@ -55,7 +55,16 @@ export default function Widgets(props: OpenedProps) { // do something like props
                 topBlocks: 7,
                 leftBlocks: 7
             },
-            image: "notes.png"
+        },
+        {
+            name: "Browser",
+            appToOpen: browser,
+            layout: {
+                widthBlocks: 1,
+                heightBlocks: 1,
+                topBlocks: 8,
+                leftBlocks: 8,
+            }
         }
     ];
     const widgetList: WidgetLayout[] = [ // render widgets and icons here
@@ -81,7 +90,7 @@ export default function Widgets(props: OpenedProps) { // do something like props
                             gridRow: `${ico.layout.topBlocks} / ${ico.layout.heightBlocks + ico.layout.topBlocks}`,
                         }}
                         >
-                            <DesktopIcon name={ico.name} appToOpen={ico.appToOpen} layout={ico.layout} image={ico.image} />
+                            <DesktopIcon name={ico.name} appToOpen={ico.appToOpen} layout={ico.layout} />
                         </button>
                     )
                 })}

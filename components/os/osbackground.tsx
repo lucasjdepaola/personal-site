@@ -4,7 +4,7 @@ import Widgets from "./widget";
 export default function OSBackground(props: OpenedProps) {
     // the widget level components go here
     return (
-        <div className="fixed" style={{
+        <div className="fixed select-none" style={{
             width: "100vw",
             height: "100vh",
         }}>

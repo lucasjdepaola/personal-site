@@ -14,7 +14,7 @@ export default function OSBar(props: OpenedProps) {
         }}>
             <div className="flex justify-start gap-3">
                 <button onClick={() => {router.push("/")}}>Home</button>
-                <div>File</div>
+                <div className="select-none">File</div>
                 <div>Edit</div>
                 <div>View</div>
                 <div>Go</div>
