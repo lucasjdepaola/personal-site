@@ -6,7 +6,7 @@ import { useState } from "react";
 import { ColorfulLargeText, darkTheme, Description } from "@/components/mainpage";
 
 export default function Home() {
-  const [darkMode, setDarkMode] = useState<boolean>(false);
+  const [darkMode, setDarkMode] = useState<boolean>();
   return (
     <>
       <div className="min-h-screen"

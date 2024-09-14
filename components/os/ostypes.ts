@@ -1,5 +1,5 @@
-import { Dispatch, SetStateAction } from "react";
-import { OSApp } from "./appsopened";
+import { Dispatch, MutableRefObject, SetStateAction } from "react";
+import { Dimensions, OSApp } from "./appsopened";
 import { Theme } from "@/types/theme";
 
 enum ProgramPriority {
@@ -45,10 +45,14 @@ export interface DirWrapper {
     relativeDirReference: Directory;
 }
 
+export interface AllAppRefs {
+    [key: string]: HTMLDivElement | null;
+}
 
 export interface OpenedProps {
     openedApps: OSApp[];
     setOpenedApps: Dispatch<SetStateAction<OSApp[]>>;
     workingDirectory: DirWrapper;
     setWorkingDirectory: Dispatch<SetStateAction<DirWrapper>>;
+    allAppRefs: MutableRefObject<AllAppRefs>;
 }

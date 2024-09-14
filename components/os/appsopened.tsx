@@ -3,7 +3,6 @@
 import { Theme } from "@/types/theme";
 import AppWrapper from "./appwrapper";
 import { OpenedProps } from "./ostypes";
-import { useState } from "react";
 
 
 export interface Dimensions {
@@ -24,30 +23,29 @@ export interface OSApp {
     component: any;
 }
 
-interface TrackedDimensions {
-    [key: string]: Dimensions;
-}
-
 export default function OSAppsOpened(props: OpenedProps) {
+    // keep track of state dimensions here by app name
+    // make each div draggable inside this component (doesn't really need to be separate)
     return (
         <div>
             {props.openedApps.map((app: OSApp, i: number) => {
                 return (
-                    <div id="osappcontainer" key={i} style={{
+                    <div
+                    id="osappcontainer"
+                    key={i} style={{
+                        position: "fixed",
                         width: app.dimensions.width,
-                        height: app.dimensions.height
-                    }}>
-                        <div id="osappbar">
-                            {app.name}
-                        </div>
+                        height: app.dimensions.height,
+                        top: app.position.top,
+                        left: app.position.left,
+                    }}
+                    ref={e => {props.allAppRefs.current[app.name]=e}} // set the ref of the app name
+                    >
                         <div id="renderedapp" style={{
-                            position: "fixed",
-                            top: app.position.top,
-                            left: app.position.left,
                             width: app.dimensions.width, // can turn this into a component
                             height: app.dimensions.height
                         }}>
-                            <AppWrapper parent={props} self={app}>
+                            <AppWrapper parent={props} self={app} allAppRefs={props.allAppRefs}>
                                 <app.component {...props} />
                             </AppWrapper>
                         </div>
