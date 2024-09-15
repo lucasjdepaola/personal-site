@@ -10,7 +10,7 @@ const ac = "#4c4c4c";
 const og = "#ff9f0b";
 const lgr = "#696969";
 const row = "w-full h-full flex flex-row items-center";
-const col = "w-full h-full flex-1 border-[0.5px] border-black";
+const col = "w-full h-full flex flex-1 border-[0.5px] border-black justify-center text-center items-center";
 const ogbg = {backgroundColor: og, border: ".5px solid black"};
 
 const Calculator = () => {
@@ -133,13 +133,13 @@ const Calculator = () => {
                         setCurrentNumber(c => c);
                     }
                 }}>%</div>
-                <div className={col} style={ogbg} onClick={() => operate(Operations.DIVIDE)}>/</div>
+                <div className={col} style={ogbg} onClick={() => operate(Operations.DIVIDE)}>÷</div>
             </div>
             <div className={row}>
                 <div className={col} onClick={() => numberClick(7)}>7</div>
                 <div className={col} onClick={() => numberClick(8)}>8</div>
                 <div className={col} onClick={() => numberClick(9)}>9</div>
-                <div className={col} style={ogbg} onClick={() => operate(Operations.MULTIPLY)}>X</div>
+                <div className={col} style={ogbg} onClick={() => operate(Operations.MULTIPLY)}>x</div>
             </div>
             <div className={row}>
                 <div className={col} onClick={() => numberClick(4)}>4</div>
