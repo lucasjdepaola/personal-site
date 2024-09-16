@@ -1,3 +1,4 @@
+"use client"
 import { DragEventHandler, useEffect, useRef, useState } from "react";
 import { DesktopIcon, DesktopIconLayout } from "./widgets/desktopicon";
 import { Weather } from "./widgets/weather";
