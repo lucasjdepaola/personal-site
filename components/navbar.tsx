@@ -71,7 +71,7 @@ export default function NavBar(props: any) {
         </Link> */}
       </span>
       <div id="expanded bar" className="w-full h-full">
-        {hoveredRoute === Routes.search ? <Search />
+        {hoveredRoute === Routes.search ? <Search items={["one", "two", "three"]} />
         : ""
         }
       </div>
