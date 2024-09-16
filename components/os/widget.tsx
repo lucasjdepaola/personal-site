@@ -9,6 +9,7 @@ import { OpenedProps } from "./ostypes";
 import { notes } from "./programs/notes";
 import { browser } from "./programs/browser";
 import { calculator } from "./programs/calculator";
+import { desktopicons } from "./programs/apparray";
 
 export interface WidgetLayout {
     widthBlocks: number;
@@ -37,48 +38,6 @@ const Widget = (props: WidgetLayout) => {
 
 
 export default function Widgets(props: OpenedProps) { // do something like props: (widget | icon) where you render them differently
-    const desktopicons: DesktopIconLayout[] = [ // this should be done in another file
-        {
-            name: "Terminal",
-            appToOpen: terminal,
-            layout: {
-                widthBlocks: 1,
-                heightBlocks: 1,
-                topBlocks: 6,
-                leftBlocks: 7
-            },
-        },
-        {
-            name: "Notes",
-            appToOpen: notes,
-            layout: {
-                widthBlocks: 1,
-                heightBlocks: 1,
-                topBlocks: 7,
-                leftBlocks: 7
-            },
-        },
-        {
-            name: "Browser",
-            appToOpen: browser,
-            layout: {
-                widthBlocks: 1,
-                heightBlocks: 1,
-                topBlocks: 8,
-                leftBlocks: 8,
-            }
-        },
-        {
-            name: "Calculator",
-            appToOpen: calculator,
-            layout: {
-                widthBlocks: 1,
-                heightBlocks: 1,
-                topBlocks: 8,
-                leftBlocks: 9
-            }
-        }
-    ];
     const widgetList: WidgetLayout[] = [ // render widgets and icons here
 
     ]

@@ -4,11 +4,18 @@ import { OpenedProps } from "./ostypes";
 import Widgets from "./widget";
 import { Offset } from "./appwrapper";
 import { drawBoxDrag, drawBoxUp } from "@/utils/os/drawbox";
+import OSBottomBar from "./osbottombar";
+
+interface DrawBox {
+    from: number;
+    to: number;
+}
 
 export default function OSBackground(props: OpenedProps) {
     const boxRef = useRef<HTMLDivElement | null>(null);
     const initialOffset = useRef<Offset>({x: 0, y: 0});
     const [isDown, setIsDown] = useState<boolean>(false);
+    const [boxCoords, setBoxCoord] = useState<DrawBox>({from: 0, to: 0}); // use this for highlighting
     return (
         <div className="fixed select-none" style={{
             width: "100vw",
@@ -23,7 +30,7 @@ export default function OSBackground(props: OpenedProps) {
                 drawBoxDrag(boxRef.current, e, initialOffset.current)
         }}
         onMouseUp={(e) => {setIsDown(false); drawBoxUp(boxRef.current, e, initialOffset.current)}}
-        onMouseLeave={() => {setIsDown(false);}}
+        onMouseLeave={(e) => {setIsDown(false); drawBoxUp(boxRef.current, e, initialOffset.current)}}
         >
             <div id="background" className="fixed" style={{
                 backgroundImage: "url('https://i.pinimg.com/originals/08/c5/ec/08c5ec8fddd5fd3c965e773cad127e2b.jpg')",
@@ -41,6 +48,7 @@ export default function OSBackground(props: OpenedProps) {
                 border: "1px solid white",
                 backgroundColor: "rgba(255,255,255,0.3)"
             }}></div>
+            <OSBottomBar {...props} />
             <Widgets {...props} />
         </div>
     )

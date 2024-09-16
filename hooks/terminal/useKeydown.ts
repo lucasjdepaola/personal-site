@@ -36,7 +36,13 @@ interface IOParameters {
 
 export default function useKeydown(props: OpenedProps) {
     const dynamicVariables: any = {
-        commands: (io: IOParameters) => Object.keys(staticVariables).reduce((e: string, curr: string) => {return curr + "\n" + e}),
+        commands: (io: IOParameters) => {
+            const staticCmds = Object.keys(staticVariables)
+            .reduce((e: string, curr: string) => {return curr + "\n" + e})
+            const dynamicCmds = Object.keys(dynamicVariables)
+            .reduce((p: string, curr: string) => curr + "\n" + p);
+            return staticCmds + "\n" + dynamicCmds;
+        },
         cd: (io: IOParameters) => {
             props.setWorkingDirectory((d: DirWrapper) => {
                 // first find out if we're looking relatively, or absolutely

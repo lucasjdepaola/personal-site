@@ -10,3 +10,5 @@ make the terminal like the ldos one
 potentially have tiling wm capabilities (9 workspaces, auto move, shift meta moves it, hjkl goes around windows, auto size, that's it)
 the file system should be somewhat mutable, it shouldn't all be a state
 list of apps, use the list for launchpad
+
+binary converter app text to binary in unicode

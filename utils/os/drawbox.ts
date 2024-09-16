@@ -28,5 +28,6 @@ export const drawBoxUp = (ref: HTMLDivElement | null, event: any, offset: Offset
     if(ref) {
         ref.style.width = "0px";
         ref.style.height = "0px";
+        ref.style.top = "-1000px";
     }
 }

@@ -23,7 +23,7 @@ export default function RenderedPage(props: PageProps) {
                 background: darkMode ? darkTheme.subalt : "#f5f5f7",
                 color: darkMode ? darkTheme.text : "black"
             }}>
-                <div className="text-5xl">
+                <div className="text-5xl text-center p-2">
                     title: {props.frontmatter.title}
                 </div>
                 <div id="contentmdx" className="max-w-7xl p-10" style={{
