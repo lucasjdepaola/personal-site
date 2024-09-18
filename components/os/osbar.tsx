@@ -3,6 +3,9 @@ import useDate from "@/hooks/useDate";
 import useIsMobile from "@/utils/isMobile"
 import { useRouter } from "next/navigation";
 import { OpenedProps } from "./ostypes";
+import IconWrapper from "../iconwrapper";
+import SearchIcon from "/public/icons/search.svg"
+import NotificationsIcon from "/public/icons/notifications.svg"
 
 export default function OSBar(props: OpenedProps) {
     const mob = useIsMobile();
@@ -25,8 +28,12 @@ export default function OSBar(props: OpenedProps) {
             <div className="flex justify-end gap-3">
                 <div>battery</div>
                 <div>wifi</div>
-                <div>search</div>
-                <div>notifications</div>
+                <div onClick={() => props.setBarShowing(b => !b)}>
+                <IconWrapper icon={SearchIcon} height={25} width={25} />
+                </div>
+                <div>
+                    <IconWrapper icon={NotificationsIcon} height={25} width={25} />
+                </div>
                 <div>{date}</div>
             </div>
         </nav>

@@ -1,7 +1,7 @@
 import fuzzyFind from "@/utils/fzf";
 import SearchIcon from "/public/icons/search.svg"
 import { desktopicons } from "./programs/apparray";
-import { useReducer, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { OpenedProps } from "./ostypes";
 import IconWrapper from "../iconwrapper";
 
@@ -17,7 +17,9 @@ export default function SpotlightSearch(props: OpenedProps) {
     const [filteredApps, setFilteredApps] = useState<string[]>([]);
     const textRef = useRef<HTMLDivElement | null>(null);
     return ( // TODO hide bar
-        <div className="fixed m-auto w-full top-1/3 h-4">
+        <div className="fixed m-auto w-full top-1/3 h-4" style={{
+            display: props.barShowing ? "block" : "none"
+        }}>
             <div className="flex justify-center items-center">
                 <div className="inline-block bg-white text-black rounded-2xl w-1/3 p-3"
                 onClick={() => textRef.current?.focus()}
@@ -31,7 +33,8 @@ export default function SpotlightSearch(props: OpenedProps) {
                     ref={textRef}
                     autoCorrect="off" className="inline-block bg-transparent border-none outline-none w-auto resize-none pl-3" 
                     onInput={(e) => {
-                        setFilteredApps(fuzzyFind(names, e.currentTarget.innerText))
+                        const arr = fuzzyFind(names, e.currentTarget.innerText)
+                        setFilteredApps(arr);
                         setQuery(e.currentTarget.innerText);
                     }}
                     onKeyDown={(key) => {
@@ -46,6 +49,7 @@ export default function SpotlightSearch(props: OpenedProps) {
                             })
                             key.currentTarget.innerText = "";
                             setFilteredApps([]);
+                            props.setBarShowing(false);
                         }
                     }}
                     />

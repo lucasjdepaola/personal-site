@@ -55,4 +55,6 @@ export interface OpenedProps {
     workingDirectory: DirWrapper;
     setWorkingDirectory: Dispatch<SetStateAction<DirWrapper>>;
     allAppRefs: MutableRefObject<AllAppRefs>;
+    barShowing: boolean;
+    setBarShowing: Dispatch<SetStateAction<boolean>>;
 }

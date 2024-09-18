@@ -10,6 +10,7 @@ import { notes } from "./programs/notes";
 import { browser } from "./programs/browser";
 import { calculator } from "./programs/calculator";
 import { desktopicons } from "./programs/apparray";
+import CalendarWidget from "./widgets/calendar";
 
 export interface WidgetLayout {
     widthBlocks: number;
@@ -24,7 +25,7 @@ const Widget = (props: WidgetLayout) => {
     const widgetRef = useRef<HTMLDivElement | null>(null);
 
     return (
-        <div className="flex content-center items-center rounded-3xl text-center shadow-lg" style={{
+        <div className="flex content-center items-center rounded-3xl overflow-hidden text-center shadow-lg" style={{
             gridColumn: `${props.leftBlocks} / ${props.widthBlocks + props.leftBlocks}`,
             gridRow: `${props.topBlocks} / ${props.heightBlocks + props.topBlocks}`,
             backgroundColor: "#141414"
@@ -48,6 +49,7 @@ export default function Widgets(props: OpenedProps) { // do something like props
                 gap: "1rem"
             }}>
                 <Widget widthBlocks={4} heightBlocks={5} leftBlocks={1} topBlocks={1} widget={<Weather/>} />
+                <Widget widthBlocks={2} heightBlocks={3} leftBlocks={5} topBlocks={1} widget={<CalendarWidget/>} />
                 {/* <Widget widthBlocks={4} heightBlocks={2} leftBlocks={1} topBlocks={5} widget={<Stocks />} />
                 <Widget widthBlocks={4} heightBlocks={2} leftBlocks={5} topBlocks={1} widget={<Battery />} /> */}
                 {desktopicons.map((ico: DesktopIconLayout, i: number) => {

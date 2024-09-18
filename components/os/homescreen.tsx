@@ -8,6 +8,7 @@ import useIsMobile from "@/utils/isMobile"
 import Link from "next/link"
 import { AllAppRefs, Directory, DirWrapper, OpenedProps } from "./ostypes"
 import { ROOTDIR } from "@/types/os/root"
+import useGlobalKeydown from "@/hooks/useGlobalKeydown"
 
 
 const OnPCHomescreen = () => {
@@ -18,14 +19,18 @@ const OnPCHomescreen = () => {
         absoluteDirReference: ROOTDIR // do not change from root
     });
     const allAppRefs = useRef<AllAppRefs>({});
+    const [barShowing, setBarShowing] = useState<boolean>(false);
     const apiTraits: OpenedProps = {
         openedApps: openedApps,
         setOpenedApps: setOpenedApps,
         workingDirectory: workingDirectory,
         setWorkingDirectory: setWorkingDirectory,
-        allAppRefs: allAppRefs
+        allAppRefs: allAppRefs,
+        barShowing: barShowing,
+        setBarShowing: setBarShowing
     }
     // name ref mapping, only one app instance can be opened (don't really plan on changing this)
+    useGlobalKeydown(apiTraits);
 
     return (
         <div className="h-full select-none"
