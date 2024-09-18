@@ -1,7 +1,7 @@
 import fuzzyFind from "@/utils/fzf";
 import SearchIcon from "/public/icons/search.svg"
 import { desktopicons } from "./programs/apparray";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { OpenedProps } from "./ostypes";
 import IconWrapper from "../iconwrapper";
 
@@ -16,12 +16,18 @@ export default function SpotlightSearch(props: OpenedProps) {
     const [query, setQuery] = useState<string>("");
     const [filteredApps, setFilteredApps] = useState<string[]>([]);
     const textRef = useRef<HTMLDivElement | null>(null);
+    useEffect(() => {
+        if(props.barShowing && textRef.current) {
+            textRef.current.focus();
+        }
+    }, [props.barShowing]);
     return ( // TODO hide bar
         <div className="fixed m-auto w-full top-1/3 h-4" style={{
             display: props.barShowing ? "block" : "none"
-        }}>
+        }}
+        >
             <div className="flex justify-center items-center">
-                <div className="inline-block bg-white text-black rounded-2xl w-1/3 p-3"
+                <div className="inline-block bg-white text-black rounded-2xl shadow-2xl w-1/3 p-3"
                 onClick={() => textRef.current?.focus()}
                 >
                     <div className="inline-block">

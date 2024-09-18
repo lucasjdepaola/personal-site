@@ -1,14 +1,10 @@
 "use client"
-import { DragEventHandler, useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { DesktopIcon, DesktopIconLayout } from "./widgets/desktopicon";
 import { Weather } from "./widgets/weather";
 import { Stocks } from "./widgets/stocks";
 import { Battery } from "./widgets/battery";
-import { terminal } from "./programs/terminal";
 import { OpenedProps } from "./ostypes";
-import { notes } from "./programs/notes";
-import { browser } from "./programs/browser";
-import { calculator } from "./programs/calculator";
 import { desktopicons } from "./programs/apparray";
 import CalendarWidget from "./widgets/calendar";
 

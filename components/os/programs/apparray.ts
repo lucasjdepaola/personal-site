@@ -34,7 +34,7 @@ export const desktopicons: DesktopIconLayout[] = [ // this should be done in ano
         layout: {
             widthBlocks: 1,
             heightBlocks: 1,
-            topBlocks: 8,
+            topBlocks: 7,
             leftBlocks: 8,
         }
     },
@@ -44,8 +44,8 @@ export const desktopicons: DesktopIconLayout[] = [ // this should be done in ano
         layout: {
             widthBlocks: 1,
             heightBlocks: 1,
-            topBlocks: 8,
-            leftBlocks: 9
+            topBlocks: 6,
+            leftBlocks: 8
         }
     },
     // {

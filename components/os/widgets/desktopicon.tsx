@@ -13,7 +13,7 @@ export const DesktopIcon = (props: DesktopIconLayout) => {
     return ( // icons should be png images
         <div className="w-full h-full shadow-lg text-center text-white" style={{
         }}>
-            <div id="image" style={{width: "64px", height: "64px", margin: "auto"}}>
+            <div id="image" className="rounded-lg overflow-hidden" style={{width: "64px", height: "64px", margin: "auto"}}>
                 <img src={`/images/os/${props.appToOpen.image}`}></img>
             </div>
             <div id="icontext" className="text-sm text-center">

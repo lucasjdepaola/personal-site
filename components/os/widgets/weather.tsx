@@ -43,7 +43,7 @@ export const Weather = () => {
         getWeather().then(data => {weatherData.current = data});
     }, []);
     return (
-        <div className="w-full h-full flex flex-col rounded-3xl bg-[#95a1b2] text-lg text-white">
+        <div className="w-full h-full flex flex-col bg-[#95a1b2] text-lg text-white">
             <div id="topweatherinfo" className="flex flex-row justify-between">
                 <div id="leftsideweatherinfo" className="p-3">
                     <div id="city">City</div>
