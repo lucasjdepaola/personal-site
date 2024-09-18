@@ -3,6 +3,7 @@
 import { Theme } from "@/types/theme";
 import AppWrapper from "./appwrapper";
 import { OpenedProps } from "./ostypes";
+import SpotlightSearch from "./spotlightsearch";
 
 
 export interface Dimensions {
@@ -29,6 +30,7 @@ export default function OSAppsOpened(props: OpenedProps) {
     // make each div draggable inside this component (doesn't really need to be separate)
     return (
         <div>
+            <SpotlightSearch {...props} />
             {props.openedApps.map((app: OSApp, i: number) => {
                 return (
                     <div

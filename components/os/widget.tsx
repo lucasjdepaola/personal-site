@@ -47,8 +47,8 @@ export default function Widgets(props: OpenedProps) { // do something like props
                 gridTemplateColumns: "repeat(16, 1fr)",
                 gap: "1rem"
             }}>
-                {/* <Widget widthBlocks={4} heightBlocks={4} leftBlocks={1} topBlocks={1} widget={<Weather/>} />
-                <Widget widthBlocks={4} heightBlocks={2} leftBlocks={1} topBlocks={5} widget={<Stocks />} />
+                <Widget widthBlocks={4} heightBlocks={5} leftBlocks={1} topBlocks={1} widget={<Weather/>} />
+                {/* <Widget widthBlocks={4} heightBlocks={2} leftBlocks={1} topBlocks={5} widget={<Stocks />} />
                 <Widget widthBlocks={4} heightBlocks={2} leftBlocks={5} topBlocks={1} widget={<Battery />} /> */}
                 {desktopicons.map((ico: DesktopIconLayout, i: number) => {
                     return (

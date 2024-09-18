@@ -21,7 +21,7 @@ export default function OSBottomBar(props: OpenedProps) {
                         >
                             {hoveredName === ico.name && (
                                 <div id="hoveredName"
-                                className="absolute top-[-40px] bg-white w-[96px] left-[-100%] text-sm text-center rounded-md">
+                                className="absolute top-[-40px] bg-white w-[96px] left-[-75%] text-sm text-center rounded-md">
                                     {ico.name}
                                 </div>
                             )}

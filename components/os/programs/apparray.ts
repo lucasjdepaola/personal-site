@@ -1,6 +1,7 @@
 import { DesktopIconLayout } from "../widgets/desktopicon";
 import { browser } from "./browser";
 import { calculator } from "./calculator";
+import { emulator } from "./emulator";
 import { notes } from "./notes";
 import { terminal } from "./terminal";
 
@@ -46,5 +47,15 @@ export const desktopicons: DesktopIconLayout[] = [ // this should be done in ano
             topBlocks: 8,
             leftBlocks: 9
         }
-    }
+    },
+    // {
+    //     name: "Emulator",
+    //     appToOpen: emulator,
+    //     layout: {
+    //         widthBlocks: 1,
+    //         heightBlocks: 1,
+    //         topBlocks: 8,
+    //         leftBlocks: 10
+    //     }
+    // }
 ];
