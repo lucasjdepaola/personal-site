@@ -7,6 +7,7 @@ import { Battery } from "./widgets/battery";
 import { OpenedProps } from "./ostypes";
 import { desktopicons } from "./programs/apparray";
 import CalendarWidget from "./widgets/calendar";
+import GifWidget from "./widgets/gif";
 
 export interface WidgetLayout {
     widthBlocks: number;
@@ -32,6 +33,7 @@ const Widget = (props: WidgetLayout) => {
         </div>
     )
 }
+// drawing line widget? maybe stylistic
 
 
 export default function Widgets(props: OpenedProps) { // do something like props: (widget | icon) where you render them differently
@@ -48,6 +50,7 @@ export default function Widgets(props: OpenedProps) { // do something like props
                 <Widget widthBlocks={2} heightBlocks={3} leftBlocks={5} topBlocks={1} widget={<CalendarWidget/>} />
                 {/* <Widget widthBlocks={4} heightBlocks={2} leftBlocks={1} topBlocks={5} widget={<Stocks />} />
                 <Widget widthBlocks={4} heightBlocks={2} leftBlocks={5} topBlocks={1} widget={<Battery />} /> */}
+                {/* <Widget widthBlocks={2} heightBlocks={2} leftBlocks={5} topBlocks={4} widget={<GifWidget url="https://i0.wp.com/boingboing.net/wp-content/uploads/2015/05/tavis.gif?resize=500%2C420" />} /> */}
                 {desktopicons.map((ico: DesktopIconLayout, i: number) => {
                     return (
                         <button

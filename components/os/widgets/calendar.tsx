@@ -10,8 +10,8 @@ export default function CalendarWidget() {
                 <div className="text-2xl font-semibold">{months[date.getMonth()]}</div>
             </div>
             <div className="flex flex-col h-3/4 items-center justify-center text-center">
-                <div className="text-8xl">{date.getDate()}</div>
-                <div className="font-semibold">{days[date.getDay()]}</div>
+                <div className="text-8xl text-black">{date.getDate()}</div>
+                <div className="font-semibold text-black">{days[date.getDay()]}</div>
             </div>
         </div>
     )

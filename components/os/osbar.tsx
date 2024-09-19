@@ -14,7 +14,7 @@ export default function OSBar(props: OpenedProps) {
     const date = useDate();
     const router = useRouter();
     return (
-        <nav className="flex flex-row static justify-between pl-4 pr-4 pt-2 pb-2 gap-3 text-sm w-full" style={{
+        <nav className="flex flex-row static justify-between pl-4 pr-4 pt-2 pb-2 gap-3 text-sm w-full text-black" style={{
             background: "#dadada"
         }}>
             <div className="flex justify-start gap-3 cursor-default">

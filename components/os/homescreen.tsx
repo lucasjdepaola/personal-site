@@ -37,8 +37,10 @@ const OnPCHomescreen = () => {
         style={{WebkitUserSelect: "none"}}
         >
         <OSBar {...apiTraits} />
-        <OSBackground {...apiTraits} />
-        <OSAppsOpened {...apiTraits} />
+        <div className="relative w-full h-full">
+            <OSBackground {...apiTraits} />
+            <OSAppsOpened {...apiTraits} />
+        </div>
         </div>
     )
 }

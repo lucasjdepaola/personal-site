@@ -35,6 +35,7 @@ const getWeather = async(): Promise<WeatherData> => {
     const asWeatherData: WeatherData = await data.json() as WeatherData;
     return asWeatherData;
 }
+// clouds #95a1b2
 
 export const Weather = () => {
     const days = "Mon Tue Wed Thu Fri".split(" ");
@@ -43,7 +44,7 @@ export const Weather = () => {
         getWeather().then(data => {weatherData.current = data});
     }, []);
     return (
-        <div className="w-full h-full flex flex-col bg-[#95a1b2] text-lg text-white">
+        <div className="w-full h-full flex flex-col bg-gradient-to-b from-[#084d90] via-60% via-[#417eba] to-white text-lg text-white">
             <div id="topweatherinfo" className="flex flex-row justify-between">
                 <div id="leftsideweatherinfo" className="p-3">
                     <div id="city">City</div>
