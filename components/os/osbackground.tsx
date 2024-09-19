@@ -17,9 +17,7 @@ export default function OSBackground(props: OpenedProps) {
     const [isDown, setIsDown] = useState<boolean>(false);
     const [boxCoords, setBoxCoord] = useState<DrawBox>({from: 0, to: 0}); // use this for highlighting
     return (
-        <div className="fixed select-none" style={{
-            width: "100vw",
-            height: "100vh",
+        <div className="fixed w-full h-full select-none" style={{
         }}
         onMouseDown={(e) => {
             setIsDown(true);
@@ -32,10 +30,8 @@ export default function OSBackground(props: OpenedProps) {
         onMouseUp={(e) => {setIsDown(false); drawBoxUp(boxRef.current, e, initialOffset.current)}}
         onMouseLeave={(e) => {setIsDown(false); drawBoxUp(boxRef.current, e, initialOffset.current)}}
         >
-            <div id="background" className="fixed" style={{
+            <div id="background" className="fixed w-full h-full" style={{
                 backgroundImage: "url('https://i.pinimg.com/originals/08/c5/ec/08c5ec8fddd5fd3c965e773cad127e2b.jpg')",
-                width: "100vw",
-                height: "100vh",
                 overflow: "hidden",
                 overflowX: "hidden",
                 objectFit: "cover",

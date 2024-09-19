@@ -12,3 +12,5 @@ the file system should be somewhat mutable, it shouldn't all be a state
 list of apps, use the list for launchpad
 
 binary converter app text to binary in unicode
+
+can curate own model in blender, spin animation to gif, add as base widget

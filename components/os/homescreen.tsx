@@ -9,6 +9,7 @@ import Link from "next/link"
 import { AllAppRefs, Directory, DirWrapper, OpenedProps } from "./ostypes"
 import { ROOTDIR } from "@/types/os/root"
 import useGlobalKeydown from "@/hooks/useGlobalKeydown"
+import useWindowManager from "@/hooks/useWindowMananager"
 
 
 const OnPCHomescreen = () => {
@@ -20,6 +21,8 @@ const OnPCHomescreen = () => {
     });
     const allAppRefs = useRef<AllAppRefs>({});
     const [barShowing, setBarShowing] = useState<boolean>(false);
+    const [tileWindows, setTileWindows] = useState<boolean>(false);
+    const desktopIndex = useRef<number>(1);
     const apiTraits: OpenedProps = {
         openedApps: openedApps,
         setOpenedApps: setOpenedApps,
@@ -27,20 +30,24 @@ const OnPCHomescreen = () => {
         setWorkingDirectory: setWorkingDirectory,
         allAppRefs: allAppRefs,
         barShowing: barShowing,
-        setBarShowing: setBarShowing
+        setBarShowing: setBarShowing,
+        tileWindows: tileWindows,
+        setTileWindows: setTileWindows,
+        desktopIndex: desktopIndex
     }
+    const wm = useWindowManager(apiTraits);
     // name ref mapping, only one app instance can be opened (don't really plan on changing this)
-    useGlobalKeydown(apiTraits);
+    useGlobalKeydown(apiTraits, wm);
 
     return (
-        <div className="h-full select-none"
+        <div className="h-full w-full overflow-hidden select-none max-h-[100vh]"
         style={{WebkitUserSelect: "none"}}
         >
-        <OSBar {...apiTraits} />
-        <div className="relative w-full h-full">
-            <OSBackground {...apiTraits} />
-            <OSAppsOpened {...apiTraits} />
-        </div>
+            <OSBar {...apiTraits} />
+            <div className="fixed h-full w-full">
+                <OSBackground {...apiTraits} />
+                <OSAppsOpened {...apiTraits} />
+            </div>
         </div>
     )
 }

@@ -57,4 +57,7 @@ export interface OpenedProps {
     allAppRefs: MutableRefObject<AllAppRefs>;
     barShowing: boolean;
     setBarShowing: Dispatch<SetStateAction<boolean>>;
+    tileWindows: boolean;
+    setTileWindows: Dispatch<SetStateAction<boolean>>;
+    desktopIndex: MutableRefObject<number>;
 }
