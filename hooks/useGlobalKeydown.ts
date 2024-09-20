@@ -55,6 +55,15 @@ export default function useGlobalKeydown(props: OpenedProps, wm: WindowManagerFu
         "<c-7>": () => {wm.changeWorkspace(7)},
         "<c-8>": () => {wm.changeWorkspace(8)},
         "<c-9>": () => {wm.changeWorkspace(9)},
+        // "<c-!>": () => {wm.moveWindow(undefined, 0, 0)}, // set focused window as a prop, then set to this
+        "<c-@>": () => {wm.changeWorkspace(2)},
+        "<c-#>": () => {wm.changeWorkspace(3)},
+        "<c-$>": () => {wm.changeWorkspace(4)},
+        "<c-%>": () => {wm.changeWorkspace(5)},
+        "<c-^>": () => {wm.changeWorkspace(9)},
+        "<c-&>": () => {wm.changeWorkspace(6)},
+        "<c-*>": () => {wm.changeWorkspace(7)},
+        "<c-(>": () => {wm.changeWorkspace(8)},
     }
     // tricky to have a function with multiple params mutate this, might need to do it in scope
     useEffect(() => {

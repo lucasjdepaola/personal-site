@@ -26,22 +26,28 @@ export interface OSApp {
 }
 
 export default function OSAppsOpened(props: OpenedProps) {
-    // keep track of state dimensions here by app name
-    // make each div draggable inside this component (doesn't really need to be separate)
     return (
-        <div className="">
+        <div className={props.tileWindows? "wmContainer" : ""}>
             <SpotlightSearch {...props} />
             {props.openedApps.map((app: OSApp, i: number) => {
+                let width = props.tileWindows ? "initial" : app.dimensions.width + "px";
+                const isOdd = i % 2 === 1;
+                let height = props.tileWindows ? "initial" : app.dimensions.height + "px";
+                let top = props.tileWindows ? "initial" : app.position.top;
+                let left = props.tileWindows ? "initial" : app.position.left;
                 return (
                     <div
                     id="osappcontainer"
-                    key={i} style={{
-                        position: "fixed",
-                        width: app.dimensions.width, // this is where it can be mutated
-                        height: app.dimensions.height,
-                        top: app.position.top,
-                        left: app.position.left,
-                        transition: "width 0.2s linear, bottom 0.2s linear, right 0.2s linear, height 0.2s linear"
+                    className={props.tileWindows ? "wmApp" : ""}
+                    key={`app${i}`} style={{
+                        position: props.tileWindows ? "initial" : "fixed",
+                        zIndex: 2,
+                        display: props.tileWindows ? "flex" : "initial",
+                        width: width, // this is where it can be mutated
+                        height: height,
+                        top: top,
+                        left: left,
+                        // transition: "all .5s linear"
                     }}
                     ref={e => {props.allAppRefs.current[app.name]=e}} // set the ref of the app name
                     >

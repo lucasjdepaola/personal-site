@@ -7,6 +7,7 @@ import IconWrapper from "../iconwrapper";
 import SearchIcon from "/public/icons/search.svg"
 import BatteryIcon from "/public/icons/battery.svg"
 import WifiIcon from "/public/icons/wifi.svg"
+import WindowsIcon from "/public/icons/windows.svg"
 import NotificationsIcon from "/public/icons/notifications.svg"
 
 export default function OSBar(props: OpenedProps) {
@@ -28,6 +29,13 @@ export default function OSBar(props: OpenedProps) {
             </div>
 
             <div className="flex justify-end gap-3">
+                <div className="rounded-md" style={{
+                    backgroundColor: props.tileWindows ? "#9e9e9e" : "initial"
+                }}
+                onClick={() => {props.setTileWindows(t => !t)}}
+                >
+                    <IconWrapper icon={WindowsIcon} width={25} height={25} />
+                </div>
                 <div>
                     <IconWrapper icon={BatteryIcon} width={25} height={25} />
                 </div>

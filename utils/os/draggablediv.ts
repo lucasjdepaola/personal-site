@@ -7,6 +7,6 @@ export const wrappermouseMove = (ref: HTMLDivElement | null, event: any, offset:
         const tp = event.clientY - offset.y
         ref.style.left = lf + "px";
         ref.style.top = tp + "px";
-        ref.style.zIndex = "100";
+        ref.style.zIndex = "3";
     }
 }

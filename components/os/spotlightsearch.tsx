@@ -23,7 +23,8 @@ export default function SpotlightSearch(props: OpenedProps) {
     }, [props.barShowing]);
     return ( // TODO hide bar
         <div className="fixed m-auto w-full top-1/3 h-4" style={{
-            display: props.barShowing ? "block" : "none"
+            display: props.barShowing ? "block" : "none",
+            zIndex: "4"
         }}
         >
             <div className="flex justify-center items-center">
