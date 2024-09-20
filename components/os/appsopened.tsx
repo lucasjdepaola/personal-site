@@ -4,6 +4,7 @@ import { Theme } from "@/types/theme";
 import AppWrapper from "./appwrapper";
 import { OpenedProps } from "./ostypes";
 import SpotlightSearch from "./spotlightsearch";
+import { useCallback, useEffect } from "react";
 
 
 export interface Dimensions {
@@ -25,28 +26,56 @@ export interface OSApp {
     image: string;
 }
 
+interface RecursiveTileProps {
+    index: number;
+}
+
 export default function OSAppsOpened(props: OpenedProps) {
+    // change to a condition where you render one as a recursive component, and the other as this
+    const RecursiveTileApps = (p: RecursiveTileProps) => {
+        const app = props.openedApps[p.index];
+        return app && (
+            <div key={`recurse${p.index}`}
+            className="flex w-full h-full"
+            ref={e => {props.allAppRefs.current[app.name]=e}} // set the ref of the app name
+            style={{
+                zIndex: 2,
+                flexDirection: p.index % 2 === 1 ? "column" : "row",
+            }}>
+                <div className="flex-1">
+                    <AppWrapper parent={props} self={app} allAppRefs={props.allAppRefs}>
+                        <app.component {...props} />
+                    </AppWrapper>
+                </div>
+                {p.index < props.openedApps.length - 1 && (
+                    <div className="flex-1">
+                        <RecursiveTileApps index={p.index + 1} />
+                    </div>
+                )}
+            </div>
+        )
+    }
     return (
-        <div className={props.tileWindows? "wmContainer" : ""}>
+        props.tileWindows ? (
+            <div className="w-full h-full relative">
+                <SpotlightSearch {...props}/>
+                <RecursiveTileApps index={0} />
+            </div>
+        )
+        :
+        <div>
             <SpotlightSearch {...props} />
             {props.openedApps.map((app: OSApp, i: number) => {
-                let width = props.tileWindows ? "initial" : app.dimensions.width + "px";
-                const isOdd = i % 2 === 1;
-                let height = props.tileWindows ? "initial" : app.dimensions.height + "px";
-                let top = props.tileWindows ? "initial" : app.position.top;
-                let left = props.tileWindows ? "initial" : app.position.left;
                 return (
                     <div
                     id="osappcontainer"
-                    className={props.tileWindows ? "wmApp" : ""}
                     key={`app${i}`} style={{
-                        position: props.tileWindows ? "initial" : "fixed",
+                        position: "fixed",
                         zIndex: 2,
-                        display: props.tileWindows ? "flex" : "initial",
-                        width: width, // this is where it can be mutated
-                        height: height,
-                        top: top,
-                        left: left,
+                        width: app.dimensions.width, // this is where it can be mutated
+                        height: app.dimensions.height,
+                        top: app.position.top,
+                        left: app.position.left,
                         // transition: "all .5s linear"
                     }}
                     ref={e => {props.allAppRefs.current[app.name]=e}} // set the ref of the app name
