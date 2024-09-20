@@ -1,5 +1,5 @@
 import { MutableRefObject, useRef, useState } from "react";
-import { Dimensions, OSApp } from "./appsopened";
+import { Dimensions, OSApp, Position } from "./appsopened";
 import { AllAppRefs, OpenedProps } from "./ostypes"
 import { wrappermouseMove } from "@/utils/os/draggablediv";
 // on the initial mouse down, you can use a determiner to see if the mousedown warrants a resize on drag or not (state)
@@ -20,7 +20,7 @@ const Appbar = (props: AppwrapperProps) => {
     // use on drag move
     const [isDown, setDown] = useState<boolean>(false);
     const [maximize, setMaximize] = useState<boolean>(true);
-    const [oldDimensions, setOldDimensions] = useState<Dimensions>({width: 0, height: 0})
+    const [oldDimensions, setOldDimensions] = useState<Position>({top: 0, left: 0})
     const initialOffset = useRef<Offset>({x: 0, y: 0});
     return (
         <div unselectable="on" className="flex w-full h-7 select-none rounded-t-lg" style={{
@@ -33,9 +33,18 @@ const Appbar = (props: AppwrapperProps) => {
                 const rect = ref.getBoundingClientRect();
                 initialOffset.current = {x: e.clientX - rect.left, y: e.clientY - rect.top};
             }
-            const f = (e: any) => {wrappermouseMove(props.allAppRefs.current[props.self.name], e, initialOffset.current)};
+            const f = (e: any) => {
+                wrappermouseMove(props.allAppRefs.current[props.self.name], e, initialOffset.current)
+                // TODO, set dimensions?
+            };
             window.addEventListener("mousemove", f);
-            window.addEventListener("mouseup", (e) => {window.removeEventListener("mousemove", f)});
+            window.addEventListener("mouseup", (e) => {
+                window.removeEventListener("mousemove", f)
+                props.self.position = {
+                    top: oldDimensions.top, // TODO this needs to be with multiple apps, not just one
+                    left: oldDimensions.left
+                }
+            });
         }} // behavior for a draggable div
 
         > {/* refactor button exit */}
@@ -57,16 +66,14 @@ const Appbar = (props: AppwrapperProps) => {
                             selfRef.style.top = "0px";
                             selfRef.style.left = "0px"
                             setOldDimensions({
-                                height: rect.top,
-                                width: rect.left
+                                top: rect.top,
+                                left: rect.left
                             })
                         }
                         else if(selfRef) {
                             setMaximize(true);
                             selfRef.style.width = props.self.dimensions.width + "px"; // we need a widget ref to the app
                             selfRef.style.height = props.self.dimensions.height + "px";
-                            selfRef.style.top = oldDimensions.height + "px";
-                            selfRef.style.left = oldDimensions.width + "px";
                         }
                     }}>{maximize ? "Max" : "Min"}</div>
                 </div>

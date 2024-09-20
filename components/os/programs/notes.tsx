@@ -1,7 +1,7 @@
 import { OSApp } from "../appsopened";
 import { DEFAULTDARKSCHEME } from "../ostypes";
 
-const Photos = () => {
+const Notes = () => {
     return (
         <div className="w-full h-full bg-black text-white">
             <div id="notesinput" className="w-full h-full">
@@ -16,5 +16,5 @@ export const notes: OSApp = {
     barScheme: DEFAULTDARKSCHEME,
     position: {left: 300, top: 300},
     image: "notes.png",
-    component: Photos 
+    component: Notes 
 };

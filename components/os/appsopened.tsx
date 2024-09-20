@@ -4,7 +4,7 @@ import { Theme } from "@/types/theme";
 import AppWrapper from "./appwrapper";
 import { OpenedProps } from "./ostypes";
 import SpotlightSearch from "./spotlightsearch";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 
 export interface Dimensions {
@@ -31,7 +31,6 @@ interface RecursiveTileProps {
 }
 
 export default function OSAppsOpened(props: OpenedProps) {
-    // change to a condition where you render one as a recursive component, and the other as this
     const RecursiveTileApps = (p: RecursiveTileProps) => {
         const app = props.openedApps[p.index];
         return app && (
@@ -41,6 +40,7 @@ export default function OSAppsOpened(props: OpenedProps) {
             style={{
                 zIndex: 2,
                 flexDirection: p.index % 2 === 1 ? "column" : "row",
+                transition: "all .2s linear"
             }}>
                 <div className="flex-1">
                     <AppWrapper parent={props} self={app} allAppRefs={props.allAppRefs}>
@@ -57,7 +57,7 @@ export default function OSAppsOpened(props: OpenedProps) {
     }
     return (
         props.tileWindows ? (
-            <div className="w-full h-full relative">
+            props.openedApps.length > 0 && <div className="w-full h-full relative">
                 <SpotlightSearch {...props}/>
                 <RecursiveTileApps index={0} />
             </div>
@@ -76,7 +76,6 @@ export default function OSAppsOpened(props: OpenedProps) {
                         height: app.dimensions.height,
                         top: app.position.top,
                         left: app.position.left,
-                        // transition: "all .5s linear"
                     }}
                     ref={e => {props.allAppRefs.current[app.name]=e}} // set the ref of the app name
                     >
