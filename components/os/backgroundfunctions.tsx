@@ -10,11 +10,11 @@ const grey = "#f4f5f5"
 const actionStyle = "hover:bg-blue-600 hover:text-white p-1 rounded-md";
 export default function BackgroundFunctions(props: BackgroundFunctionsProps) {
     return (
-        <div className="fixed w-auto h-auto text-black rounded-lg shadow-xl p-1 text-sm cursor-default"
+        <div className="fixed z-10 w-auto h-auto text-black rounded-lg shadow-xl p-1 text-sm cursor-default"
         style={{
             backgroundColor: grey,
             top: `${props.position.top}px`,
-            left: `${props.position.left}px`
+            left: `${props.position.left}px`,
         }}>
             <div className={actionStyle}>New Folder</div>
             <div className="p-1"><hr/></div>

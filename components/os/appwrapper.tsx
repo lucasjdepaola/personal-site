@@ -46,12 +46,18 @@ const Appbar = (props: AppwrapperProps) => {
             <div
             className="flex flex-1 pl-1 select-none"
             >
-                <div className="flex flex-row gap-1 cursor-default">
+                <div className="pl-1 flex flex-row gap-1 cursor-default items-center">
                     <div
+                    className="w-3 h-3 bg-red-500 rounded-full"
                     onClick={() => {props.parent.setOpenedApps(a => a.filter(x => x.name !== props.self.name))}}>
-                        Exit
                     </div>
-                    <div onClick={() => {
+                    <div
+                    className="w-3 h-3 bg-yellow-500 rounded-full"
+                    onClick={() => {props.parent.setOpenedApps(a => a.filter(x => x.name !== props.self.name))}}>
+                    </div>
+                    <div
+                    className="w-3 h-3 bg-green-500 rounded-full"
+                    onClick={() => {
                         const selfRef = props.allAppRefs.current[props.self.name];
                         if(selfRef && maximize) {
                             setMaximize(false);
@@ -72,7 +78,7 @@ const Appbar = (props: AppwrapperProps) => {
                             selfRef.style.top = oldDimensions.top + "px"
                             selfRef.style.left = oldDimensions.left + "px";
                         }
-                    }}>{maximize ? "Max" : "Min"}</div>
+                    }}></div>
                 </div>
             </div>
             <div className="flex justify-center items-center text-center cursor-default select-none">

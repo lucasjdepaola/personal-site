@@ -9,11 +9,15 @@ import BatteryIcon from "/public/icons/battery.svg"
 import WifiIcon from "/public/icons/wifi.svg"
 import WindowsIcon from "/public/icons/windows.svg"
 import NotificationsIcon from "/public/icons/notifications.svg"
+import { useState } from "react";
+import ControlCenter from "./controlcenter";
 
+const hoveredGrey = "#9e9e9e";
 export default function OSBar(props: OpenedProps) {
     const mob = useIsMobile();
     const date = useDate();
     const router = useRouter();
+    const [controlCenter, setControlCenter] = useState<boolean>(false);
     return (
         <nav className="flex flex-row static justify-between pl-4 pr-4 pt-2 pb-2 gap-3 text-sm w-full text-black" style={{
             background: "#dadada"
@@ -63,8 +67,11 @@ export default function OSBar(props: OpenedProps) {
                 <div onClick={() => props.setBarShowing(b => !b)}>
                 <IconWrapper icon={SearchIcon} height={25} width={25} />
                 </div>
-                <div>
+                <div className="relative rounded-md" style={{backgroundColor: controlCenter ? hoveredGrey : ""}}
+                onClick={() => {setControlCenter(c => !c)}}
+                >
                     <IconWrapper icon={NotificationsIcon} height={25} width={25} />
+                    {controlCenter && <ControlCenter {...props} />}
                 </div>
                 <div>{date}</div>
             </div>

@@ -45,7 +45,9 @@ const Finder = (props: OpenedProps) => {
                 </div>
                 <div id="tags" className="flex flex-col">
                     <div className="text-sm text-gray-400 font-bold flex-1">Tags</div>
-                    <div className="text-sm pl-1 p-1">Red</div>
+                    <div className="text-sm pl-1 p-1">
+                        Red
+                    </div>
                     <div className="text-sm pl-1 p-1">Orange</div>
                     <div className="text-sm pl-1 p-1">Yellow</div>
                     <div className="text-sm pl-1 p-1">Green</div>
