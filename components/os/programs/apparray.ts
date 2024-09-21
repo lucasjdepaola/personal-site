@@ -2,6 +2,7 @@ import { DesktopIconLayout } from "../widgets/desktopicon";
 import { browser } from "./browser";
 import { calculator } from "./calculator";
 import { emulator } from "./emulator";
+import { finder } from "./finder";
 import { notes } from "./notes";
 import { terminal } from "./terminal";
 
@@ -46,6 +47,16 @@ export const desktopicons: DesktopIconLayout[] = [ // this should be done in ano
             heightBlocks: 1,
             topBlocks: 6,
             leftBlocks: 8
+        }
+    },
+    {
+        name: "Finder",
+        appToOpen: finder,
+        layout: {
+            widthBlocks: 1,
+            heightBlocks: 1,
+            topBlocks: 7,
+            leftBlocks: 6
         }
     },
     // {

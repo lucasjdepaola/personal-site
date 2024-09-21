@@ -35,15 +35,10 @@ const Appbar = (props: AppwrapperProps) => {
             }
             const f = (e: any) => {
                 wrappermouseMove(props.allAppRefs.current[props.self.name], e, initialOffset.current)
-                // TODO, set dimensions?
             };
             window.addEventListener("mousemove", f);
             window.addEventListener("mouseup", (e) => {
-                window.removeEventListener("mousemove", f)
-                props.self.position = {
-                    top: oldDimensions.top, // TODO this needs to be with multiple apps, not just one
-                    left: oldDimensions.left
-                }
+                window.removeEventListener("mousemove", f);
             });
         }} // behavior for a draggable div
 
@@ -74,6 +69,8 @@ const Appbar = (props: AppwrapperProps) => {
                             setMaximize(true);
                             selfRef.style.width = props.self.dimensions.width + "px"; // we need a widget ref to the app
                             selfRef.style.height = props.self.dimensions.height + "px";
+                            selfRef.style.top = oldDimensions.top + "px"
+                            selfRef.style.left = oldDimensions.left + "px";
                         }
                     }}>{maximize ? "Max" : "Min"}</div>
                 </div>

@@ -29,8 +29,7 @@ interface WidgetProperties {
 
 export interface File {
     name: string;
-    content: string[];
-    absolutePath: string;
+    content: string;
 }
 
 export interface Directory {

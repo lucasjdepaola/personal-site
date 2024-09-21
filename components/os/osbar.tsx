@@ -32,7 +32,25 @@ export default function OSBar(props: OpenedProps) {
                 <div className="rounded-md" style={{
                     backgroundColor: props.tileWindows ? "#9e9e9e" : "initial"
                 }}
-                onClick={() => {props.setTileWindows(t => !t)}}
+                onClick={(e) => { // set tile, and cache dimensions
+                    if(!props.tileWindows) {
+                        for(const e of props.openedApps) {
+                            const ref = props.allAppRefs.current[e.name];
+                            if(ref) {
+                                const rect = ref.getBoundingClientRect();
+                                e.position = {
+                                    top: rect.top,
+                                    left: rect.left
+                                }
+                                e.dimensions = {
+                                    width: rect.width,
+                                    height: rect.height
+                                }
+                            }
+                        }
+                    }
+                    props.setTileWindows(t => !t)
+                }}
                 >
                     <IconWrapper icon={WindowsIcon} width={25} height={25} />
                 </div>
