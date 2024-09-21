@@ -5,6 +5,8 @@ import Widgets from "./widget";
 import { Offset } from "./appwrapper";
 import { drawBoxDrag, drawBoxUp } from "@/utils/os/drawbox";
 import OSBottomBar from "./osbottombar";
+import BackgroundFunctions from "./backgroundfunctions";
+import { Position } from "./appsopened";
 
 interface DrawBox {
     from: number;
@@ -16,12 +18,22 @@ export default function OSBackground(props: OpenedProps) {
     const initialOffset = useRef<Offset>({x: 0, y: 0});
     const [isDown, setIsDown] = useState<boolean>(false);
     const [boxCoords, setBoxCoord] = useState<DrawBox>({from: 0, to: 0}); // use this for highlighting
+    const [isContext, setIsContext] = useState<boolean>(false);
+    const [contextPos, setContextPos] = useState<Position>({top: 0, left: 0});
     return (
         <div className="fixed w-full h-full select-none" style={{
         }}
         onMouseDown={(e) => {
-            setIsDown(true);
-            initialOffset.current = {x: e.clientX, y: e.clientY};
+            if(e.button === 0) {
+                setIsDown(true);
+                initialOffset.current = {x: e.clientX, y: e.clientY};
+                setIsContext(false);
+            }
+        }}
+        onContextMenu={(e) => {
+            e.preventDefault();
+            setIsContext(true);
+            setContextPos({top: e.clientY, left: e.clientX});
         }}
         onMouseMove={(e) => {
             if(isDown)
@@ -46,6 +58,7 @@ export default function OSBackground(props: OpenedProps) {
             }}></div>
             <OSBottomBar {...props} />
             <Widgets {...props} />
+            {isContext && <BackgroundFunctions position={contextPos} openedProps={props} />}
         </div>
     )
 }
