@@ -90,9 +90,98 @@ const Appbar = (props: AppwrapperProps) => {
     )
 }
 
+enum ResizeType {
+    HEIGHTTOP, WIDTHLEFT, HEIGHTBOTTOM, WIDTHRIGHT, TOPLEFT, TOPRIGHT, BOTTOMLEFT, BOTTOMRIGHT, NONE
+}
+
 export default function AppWrapper(props: AppwrapperProps) {
-    return (
-        <div className="w-full h-full">
+    const [initial, setInitial] = useState<Position>({top: 0, left: 0});
+    const [isDown, setIsDown] = useState<boolean>(false);
+    const [resizeType, setResizeType] = useState<ResizeType>(ResizeType.NONE);
+    const ref = useRef<HTMLDivElement | null>(null);
+    return ( // logic for a potential corner shrinkage
+        <div ref={ref}
+        onMouseDown={(e) => {
+            if(e.button === 0) {
+                setIsDown(true)
+            } else setIsDown(false);
+            setInitial(i => {
+                if(e.button === 0)
+                    return {top: e.clientY, left: e.clientX};
+                return i;
+            });
+        }}
+        onMouseMove={(e) => {
+            if(ref.current) {
+                const rect = ref.current.getBoundingClientRect();
+                let leeway = 10; // 10px range given
+                setResizeType(r => {
+                    if(isDown) return r;
+                    let wl = e.clientX >= rect.left - leeway && e.clientX <= rect.left + leeway;
+                    let ht = e.clientY >= rect.top - leeway && e.clientY <= rect.top + leeway;
+                    let wr = e.clientX >= rect.right - leeway && e.clientX <= rect.right + leeway;
+                    let hb = e.clientY >= rect.bottom - leeway && e.clientY <= rect.bottom + leeway;
+                    if(wl && ht) {
+                        return ResizeType.TOPLEFT;
+                    }
+                    if(wl && hb) {
+                        return ResizeType.BOTTOMLEFT;
+                    }
+                    if(wr && ht) {
+                        return ResizeType.TOPRIGHT;
+                    }
+                    if(wr && hb) {
+                        return ResizeType.BOTTOMRIGHT;
+                    }
+                    if(wl) return ResizeType.WIDTHLEFT;
+                    if(ht) return ResizeType.HEIGHTTOP;
+                    if(wr) return ResizeType.WIDTHRIGHT;
+                    if(hb) return ResizeType.HEIGHTBOTTOM;
+                    return ResizeType.NONE;
+                })
+                const rf = props.allAppRefs.current[props.self.name];
+                if(isDown && rf) { // now move it
+                    const rfRect = rf.getBoundingClientRect();
+                    if(resizeType === ResizeType.HEIGHTTOP) {
+                        const heightResize = e.clientY - initial.top;
+                        rf.style.height = (heightResize) + "px";
+                        // rf.style.top = heightResize + "px";
+                    }
+                    else if(resizeType === ResizeType.HEIGHTBOTTOM) {
+
+                    }
+                    else if(resizeType === ResizeType.WIDTHLEFT) {
+
+                    }
+                    else if(resizeType === ResizeType.WIDTHRIGHT) {
+
+                    }
+                }
+                }
+        }}
+        className="w-full h-full p-2" style={{
+            cursor:resizeType === ResizeType.NONE ?
+            "default":
+            resizeType === ResizeType.WIDTHLEFT?
+            "w-resize":
+            resizeType === ResizeType.WIDTHRIGHT?
+            "e-resize":
+            resizeType === ResizeType.HEIGHTTOP?
+            "n-resize":
+            resizeType === ResizeType.HEIGHTBOTTOM?
+            "s-resize":
+            resizeType === ResizeType.TOPLEFT?
+            "nw-resize":
+            resizeType === ResizeType.TOPRIGHT?
+            "ne-resize":
+            resizeType === ResizeType.BOTTOMLEFT?
+            "sw-resize":
+            // resizeType === ResizeType.BOTTOMRIGHT?
+            "se-resize"
+        }}
+        onMouseUp={() => setIsDown(false)}
+        onMouseLeave={() => setIsDown(false)}
+        >
             <Appbar {...props} />
             {props.children}
         </div>
