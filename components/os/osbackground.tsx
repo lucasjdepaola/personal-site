@@ -8,16 +8,11 @@ import OSBottomBar from "./osbottombar";
 import BackgroundFunctions from "./backgroundfunctions";
 import { Position } from "./appsopened";
 
-interface DrawBox {
-    from: number;
-    to: number;
-}
 
 export default function OSBackground(props: OpenedProps) {
     const boxRef = useRef<HTMLDivElement | null>(null);
     const initialOffset = useRef<Offset>({x: 0, y: 0});
     const [isDown, setIsDown] = useState<boolean>(false);
-    const [boxCoords, setBoxCoord] = useState<DrawBox>({from: 0, to: 0}); // use this for highlighting
     const [isContext, setIsContext] = useState<boolean>(false);
     const [contextPos, setContextPos] = useState<Position>({top: 0, left: 0});
     return (
@@ -25,6 +20,16 @@ export default function OSBackground(props: OpenedProps) {
         }}
         onMouseDown={(e) => {
             if(e.button === 0) {
+                props.setBoxCoords({
+                    dimensions: {
+                        width: 1,
+                        height: 1
+                    },
+                    pos: {
+                        left: e.clientX,
+                        top: e.clientY
+                    }
+                });
                 setIsDown(true);
                 initialOffset.current = {x: e.clientX, y: e.clientY};
                 setIsContext(false);
@@ -37,10 +42,15 @@ export default function OSBackground(props: OpenedProps) {
         }}
         onMouseMove={(e) => {
             if(isDown)
-                drawBoxDrag(boxRef.current, e, initialOffset.current)
+                drawBoxDrag(boxRef.current, e, initialOffset.current, props.setBoxCoords);
         }}
-        onMouseUp={(e) => {setIsDown(false); drawBoxUp(boxRef.current, e, initialOffset.current)}}
-        onMouseLeave={(e) => {setIsDown(false); drawBoxUp(boxRef.current, e, initialOffset.current)}}
+        onMouseUp={(e) => {
+            setIsDown(false);
+            drawBoxUp(boxRef.current, e, initialOffset.current)
+        }}
+        onMouseLeave={(e) => {
+            setIsDown(false); drawBoxUp(boxRef.current, e, initialOffset.current)
+        }}
         >
             <div id="background" className="fixed w-full h-full" style={{
                 backgroundImage: "url('https://i.pinimg.com/originals/08/c5/ec/08c5ec8fddd5fd3c965e773cad127e2b.jpg')",

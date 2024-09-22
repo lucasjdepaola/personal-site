@@ -1,5 +1,5 @@
 import { Dispatch, MutableRefObject, SetStateAction } from "react";
-import { Dimensions, OSApp } from "./appsopened";
+import { Dimensions, OSApp, Position } from "./appsopened";
 import { Theme } from "@/types/theme";
 
 enum ProgramPriority {
@@ -48,6 +48,11 @@ export interface AllAppRefs {
     [key: string]: HTMLDivElement | null;
 }
 
+export interface BoxCoords {
+    pos: Position;
+    dimensions: Dimensions;
+}
+
 export interface OpenedProps {
     openedApps: OSApp[];
     setOpenedApps: Dispatch<SetStateAction<OSApp[]>>;
@@ -59,4 +64,6 @@ export interface OpenedProps {
     tileWindows: boolean;
     setTileWindows: Dispatch<SetStateAction<boolean>>;
     desktopIndex: MutableRefObject<number>;
+    boxCoords: BoxCoords | undefined;
+    setBoxCoords: Dispatch<SetStateAction<BoxCoords | undefined>>;
 }

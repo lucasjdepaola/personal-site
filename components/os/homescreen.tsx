@@ -6,7 +6,7 @@ import OSBackground from "./osbackground"
 import OSBar from "./osbar"
 import useIsMobile from "@/utils/isMobile"
 import Link from "next/link"
-import { AllAppRefs, Directory, DirWrapper, OpenedProps } from "./ostypes"
+import { AllAppRefs, BoxCoords, Directory, DirWrapper, OpenedProps } from "./ostypes"
 import { ROOTDIR } from "@/types/os/root"
 import useGlobalKeydown from "@/hooks/useGlobalKeydown"
 import useWindowManager from "@/hooks/useWindowMananager"
@@ -22,6 +22,7 @@ const OnPCHomescreen = () => {
     const allAppRefs = useRef<AllAppRefs>({});
     const [barShowing, setBarShowing] = useState<boolean>(false);
     const [tileWindows, setTileWindows] = useState<boolean>(false);
+    const [boxCoords, setBoxCoords] = useState<BoxCoords | undefined>(undefined)
     const desktopIndex = useRef<number>(1);
     const apiTraits: OpenedProps = {
         openedApps: openedApps,
@@ -33,7 +34,9 @@ const OnPCHomescreen = () => {
         setBarShowing: setBarShowing,
         tileWindows: tileWindows,
         setTileWindows: setTileWindows,
-        desktopIndex: desktopIndex
+        desktopIndex: desktopIndex,
+        boxCoords: boxCoords,
+        setBoxCoords: setBoxCoords
     }
     const wm = useWindowManager(apiTraits);
     // name ref mapping, only one app instance can be opened (don't really plan on changing this)

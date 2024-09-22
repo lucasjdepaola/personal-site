@@ -1,6 +1,8 @@
 import { Offset } from "@/components/os/appwrapper"
+import { BoxCoords } from "@/components/os/ostypes";
+import { Dispatch, SetStateAction } from "react";
 
-export const drawBoxDrag = (ref: HTMLDivElement | null, event: any, initial: Offset) => {
+export const drawBoxDrag = (ref: HTMLDivElement | null, event: any, initial: Offset, setBoxCoords: Dispatch<SetStateAction<BoxCoords | undefined>>) => {
     if(ref) {
         const rect = ref.getBoundingClientRect();
         let w = event.clientX - initial.x;
@@ -21,6 +23,16 @@ export const drawBoxDrag = (ref: HTMLDivElement | null, event: any, initial: Off
         ref.style.height = h + "px";
         ref.style.left = left + "px";
         ref.style.top = top + "px";
+        setBoxCoords({
+            dimensions: {
+                width: w,
+                height: h
+            },
+            pos: {
+                left: left,
+                top: top
+            }
+        })
     }
 }
 
