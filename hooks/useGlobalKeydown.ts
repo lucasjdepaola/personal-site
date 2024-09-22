@@ -42,7 +42,7 @@ export default function useGlobalKeydown(props: OpenedProps, wm: WindowManagerFu
         }
     }
     const keyboardShortcuts: KeyboardShortcuts = {
-        "<c-s>": () => {props.setBarShowing((b: boolean) => {
+        "<c-k>": () => {props.setBarShowing((b: boolean) => {
             return !b;
         })}, // etc
         "Escape": () => {props.setBarShowing(false)},

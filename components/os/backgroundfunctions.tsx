@@ -1,3 +1,4 @@
+import { HTMLAttributes } from "react";
 import { Position } from "./appsopened";
 import { OpenedProps } from "./ostypes";
 
@@ -7,7 +8,7 @@ interface BackgroundFunctionsProps {
 }
 
 const grey = "#f4f5f5"
-const actionStyle = "hover:bg-blue-600 hover:text-white p-1 rounded-md";
+const actionStyle: string = "hover:bg-blue-600 hover:text-white p-1 rounded-md";
 export default function BackgroundFunctions(props: BackgroundFunctionsProps) {
     return (
         <div className="fixed z-10 w-auto h-auto text-black rounded-lg shadow-xl p-1 text-sm cursor-default"

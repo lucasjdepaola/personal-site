@@ -159,7 +159,7 @@ export default function AppWrapper(props: AppwrapperProps) {
                 }
                 }
         }}
-        className="w-full h-full p-2" style={{
+        className="w-full h-full" style={{
             cursor:resizeType === ResizeType.NONE ?
             "default":
             resizeType === ResizeType.WIDTHLEFT?

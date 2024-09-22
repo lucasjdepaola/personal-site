@@ -5,6 +5,7 @@ import IconWrapper from "./iconwrapper";
 import SearchIcon from "/public/icons/search.svg"
 import LightIcon from "/public/icons/lightmode.svg"
 import DarkIcon from "/public/icons/darkmode.svg"
+import LogoIcon from "/public/icons/logo.svg"
 import GithubIcon from "/public/icons/github.svg"
 import { useState } from "react";
 import Search from "./search";
@@ -37,7 +38,8 @@ export default function NavBar(props: any) {
       <div id="center icons" className="w-full flex justify-center">
         <div className={"p-1.5"}>
           <Link className="pr-2 pl-2 ml-1 mr-1" href="/">
-            <span>root</span>
+            {/* <span>root</span> */}
+            <IconWrapper icon={LogoIcon} />
           </Link>
           <Link className="pr-2 pl-2 ml-1 mr-1" href="/about">
             <span>About</span>

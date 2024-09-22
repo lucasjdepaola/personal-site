@@ -2,6 +2,7 @@ import IconWrapper from "../iconwrapper";
 import SearchIcon from "/public/icons/search.svg"
 import LightIcon from "/public/icons/lightmode.svg"
 import DarkIcon from "/public/icons/darkmode.svg"
+import LogoIcon from "/public/icons/logo.svg"
 import RefreshIcon from "/public/icons/safari/refresh.svg"
 import { FC } from "react";
 import { darkTheme } from "../mainpage";
@@ -59,6 +60,13 @@ export default function IconCards(props: any) {
             description: "Refresh anything icon.",
             tags: ["refresh", "restart", "redo"],
             icon: RefreshIcon,
+            darkMode: darkMode
+        },
+        {
+            name: "Logo",
+            description: "Site logo",
+            tags: ["log", "site", "l"],
+            icon: LogoIcon,
             darkMode: darkMode
         },
     ]
