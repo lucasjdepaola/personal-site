@@ -56,7 +56,8 @@ function SpotlightSearch(props: OpenedProps) {
                             })
                             key.currentTarget.innerText = "";
                             setFilteredApps([]);
-                            props.setBarShowing(false);
+                            if(props.setBarShowing)
+                                props.setBarShowing(false);
                         }
                     }}
                     />

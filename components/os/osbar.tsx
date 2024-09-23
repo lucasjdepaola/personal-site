@@ -64,7 +64,11 @@ export default function OSBar(props: OpenedProps) {
                 <div>
                     <IconWrapper icon={WifiIcon} width={25} height={25} />
                 </div>
-                <div onClick={() => props.setBarShowing(b => !b)}>
+                <div onClick={() => {
+                    if(props.setBarShowing) {
+                        props.setBarShowing(b => !b)
+                    }
+                    }}>
                 <IconWrapper icon={SearchIcon} height={25} width={25} />
                 </div>
                 <div className="relative rounded-md" style={{backgroundColor: controlCenter ? hoveredGrey : ""}}

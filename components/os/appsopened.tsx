@@ -30,6 +30,7 @@ interface RecursiveTileProps {
     index: number;
 }
 
+export type AppsWithoutBar = Omit<OpenedProps, "barShowing">;
 function OSAppsOpened(props: OpenedProps) {
     const [shouldAnimate, setShouldAnimate] = useState<boolean>(true);
     const animateNames = (names: string[]) => {
@@ -51,8 +52,8 @@ function OSAppsOpened(props: OpenedProps) {
             style={{
                 zIndex: 2,
                 flexDirection: p.index % 2 === 1 ? "column" : "row",
-                transform: "scale(0.5)",
-                // animation: "openedapp .4s forwards"
+                transform: p.index === props.openedApps.length-1 ? "scale(0.5)" : "scale(1)",
+                animation: p.index === props.openedApps.length-1 ? "openedapp .4s forwards" : ""
             }}>
                 <div className="flex-1">
                     <AppWrapper parent={props} self={app} allAppRefs={props.allAppRefs}>

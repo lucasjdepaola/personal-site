@@ -51,7 +51,7 @@ const OnPCHomescreen = () => {
             <div className="fixed h-full w-full">
                 <SpotlightSearch {...apiTraits}  />
                 <OSBackground {...apiTraits} />
-                <OSAppsOpened {...apiTraits} />
+                <OSAppsOpened {...apiTraits} barShowing={false} /> {/* cancel the bar showing to not trigger re render */}
             </div>
         </div>
     )

@@ -16,3 +16,7 @@ binary converter app text to binary in unicode
 can curate own model in blender, spin animation to gif, add as base widget
 
 "finesse, skill, knowledge, getting it done, intuition, reliability"
+
+svg linear gradient paths to animate grid lines
+
+ondrag app that is tiled switches to fixed, then determines the tile position after the mouse up event triggers

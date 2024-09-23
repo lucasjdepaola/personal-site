@@ -64,6 +64,6 @@ export interface OpenedProps {
     desktopIndex: MutableRefObject<number>;
     boxCoords: BoxCoords | undefined;
     setBoxCoords: Dispatch<SetStateAction<BoxCoords | undefined>>;
-    barShowing: boolean;
-    setBarShowing: Dispatch<SetStateAction<boolean>>;
+    barShowing?: boolean; // need to make this optional in order not to trigger re renders on the spotlight search
+    setBarShowing?: Dispatch<SetStateAction<boolean>>;
 }
