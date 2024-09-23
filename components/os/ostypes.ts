@@ -59,11 +59,11 @@ export interface OpenedProps {
     workingDirectory: DirWrapper;
     setWorkingDirectory: Dispatch<SetStateAction<DirWrapper>>;
     allAppRefs: MutableRefObject<AllAppRefs>;
-    barShowing: boolean;
-    setBarShowing: Dispatch<SetStateAction<boolean>>;
     tileWindows: boolean;
     setTileWindows: Dispatch<SetStateAction<boolean>>;
     desktopIndex: MutableRefObject<number>;
     boxCoords: BoxCoords | undefined;
     setBoxCoords: Dispatch<SetStateAction<BoxCoords | undefined>>;
+    barShowing: boolean;
+    setBarShowing: Dispatch<SetStateAction<boolean>>;
 }

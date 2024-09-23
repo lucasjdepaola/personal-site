@@ -1,6 +1,6 @@
 "use client"
 import { OpenedProps } from "@/components/os/ostypes";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { WindowManagerFunctions } from "./useWindowMananager";
 import { OSApp } from "@/components/os/appsopened";
 
@@ -33,7 +33,7 @@ const parseKeyboardCommand = (key: KeyboardEvent) => {
 const decodeKeyboardCommand = () => { // the opposite of parse, convert it back
 }
 
-export default function useGlobalKeydown(props: OpenedProps, wm: WindowManagerFunctions) {
+export default function useGlobalKeydown(props: OpenedProps, wm: WindowManagerFunctions, setBarShowing: Dispatch<SetStateAction<boolean>>) {
     const okd = (key: KeyboardEvent) => {
         const keyString = parseKeyboardCommand(key);
         if(keyString in keyboardShortcuts) {
@@ -42,10 +42,10 @@ export default function useGlobalKeydown(props: OpenedProps, wm: WindowManagerFu
         }
     }
     const keyboardShortcuts: KeyboardShortcuts = {
-        "<c-k>": () => {props.setBarShowing((b: boolean) => {
+        "<c-k>": () => {setBarShowing((b: boolean) => {
             return !b;
         })}, // etc
-        "Escape": () => {props.setBarShowing(false)},
+        "Escape": () => {setBarShowing(false)},
         "<c-1>": () => {wm.changeWorkspace(1)},
         "<c-2>": () => {wm.changeWorkspace(2)},
         "<c-3>": () => {wm.changeWorkspace(3)},

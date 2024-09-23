@@ -1,6 +1,8 @@
 import useIsMobile from "@/utils/isMobile"
 import FancyLink from "./fancylink"
 import Projects from "./projects"
+import IconWrapper from "./iconwrapper"
+import LogoIcon from "/public/icons/logo.svg"
 
 export const darkTheme = {
   bg: "#080808",

@@ -59,3 +59,9 @@ svg path, svg circle, svg rect, svg line, svg polygon, svg polyline {
   display: flex;
   flex: 1;
 }
+
+@keyframes openedapp {
+  to {
+    transform: scale(1);
+  }
+}

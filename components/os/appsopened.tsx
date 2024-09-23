@@ -4,7 +4,7 @@ import { Theme } from "@/types/theme";
 import AppWrapper from "./appwrapper";
 import { OpenedProps } from "./ostypes";
 import SpotlightSearch from "./spotlightsearch";
-import { useCallback, useEffect, useState } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 
 
 export interface Dimensions {
@@ -30,8 +30,19 @@ interface RecursiveTileProps {
     index: number;
 }
 
-export default function OSAppsOpened(props: OpenedProps) {
-    const RecursiveTileApps = (p: RecursiveTileProps) => {
+function OSAppsOpened(props: OpenedProps) {
+    const [shouldAnimate, setShouldAnimate] = useState<boolean>(true);
+    const animateNames = (names: string[]) => {
+        names.forEach((name: string) => {
+        })
+    }
+    const animateName = (name: string) => {
+        const r = props.allAppRefs.current[name];
+        if(r) {
+            r.style.animation = "openedapp .4s forwards";
+        }
+    }
+    const RecursiveTileApps = memo((p: RecursiveTileProps) => {
         const app = props.openedApps[p.index];
         return app && (
             <div key={`recurse${p.index}`}
@@ -40,7 +51,8 @@ export default function OSAppsOpened(props: OpenedProps) {
             style={{
                 zIndex: 2,
                 flexDirection: p.index % 2 === 1 ? "column" : "row",
-                transition: "all .2s linear"
+                transform: "scale(0.5)",
+                // animation: "openedapp .4s forwards"
             }}>
                 <div className="flex-1">
                     <AppWrapper parent={props} self={app} allAppRefs={props.allAppRefs}>
@@ -54,17 +66,18 @@ export default function OSAppsOpened(props: OpenedProps) {
                 )}
             </div>
         )
-    }
+    });
     return (
         props.tileWindows ? (
-            props.openedApps.length > 0 && <div className="w-full h-full relative">
-                <SpotlightSearch {...props}/>
-                <RecursiveTileApps index={0} />
-            </div>
+            <>
+                {props.openedApps.length > 0 &&
+                <div className="w-full h-full relative">
+                    <RecursiveTileApps index={0} />
+                </div>}
+            </>
         )
         :
         <div>
-            <SpotlightSearch {...props} />
             {props.openedApps.map((app: OSApp, i: number) => {
                 return (
                     <div
@@ -88,3 +101,4 @@ export default function OSAppsOpened(props: OpenedProps) {
         </div>
     )
 }
+export default memo(OSAppsOpened);

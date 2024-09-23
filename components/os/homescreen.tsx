@@ -10,6 +10,7 @@ import { AllAppRefs, BoxCoords, Directory, DirWrapper, OpenedProps } from "./ost
 import { ROOTDIR } from "@/types/os/root"
 import useGlobalKeydown from "@/hooks/useGlobalKeydown"
 import useWindowManager from "@/hooks/useWindowMananager"
+import SpotlightSearch from "./spotlightsearch"
 
 
 const OnPCHomescreen = () => {
@@ -27,20 +28,20 @@ const OnPCHomescreen = () => {
     const apiTraits: OpenedProps = {
         openedApps: openedApps,
         setOpenedApps: setOpenedApps,
-        workingDirectory: workingDirectory,
+        workingDirectory: workingDirectory, // we dont need a global working dir
         setWorkingDirectory: setWorkingDirectory,
         allAppRefs: allAppRefs,
-        barShowing: barShowing,
-        setBarShowing: setBarShowing,
         tileWindows: tileWindows,
         setTileWindows: setTileWindows,
         desktopIndex: desktopIndex,
         boxCoords: boxCoords,
-        setBoxCoords: setBoxCoords
+        setBoxCoords: setBoxCoords,
+        barShowing: barShowing,
+        setBarShowing: setBarShowing
     }
     const wm = useWindowManager(apiTraits);
     // name ref mapping, only one app instance can be opened (don't really plan on changing this)
-    useGlobalKeydown(apiTraits, wm);
+    useGlobalKeydown(apiTraits, wm, setBarShowing); // change to a keybind state interface
 
     return (
         <div className="h-full w-full overflow-hidden select-none max-h-[100vh]"
@@ -48,6 +49,7 @@ const OnPCHomescreen = () => {
         >
             <OSBar {...apiTraits} />
             <div className="fixed h-full w-full">
+                <SpotlightSearch {...apiTraits}  />
                 <OSBackground {...apiTraits} />
                 <OSAppsOpened {...apiTraits} />
             </div>

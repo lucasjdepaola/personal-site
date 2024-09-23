@@ -1,7 +1,7 @@
 import fuzzyFind from "@/utils/fzf";
 import SearchIcon from "/public/icons/search.svg"
 import { desktopicons } from "./programs/apparray";
-import { useEffect, useRef, useState } from "react";
+import { Dispatch, memo, SetStateAction, useEffect, useRef, useState } from "react";
 import { OpenedProps } from "./ostypes";
 import IconWrapper from "../iconwrapper";
 
@@ -12,7 +12,7 @@ const prettyText = (query: string, result: string) => {
     return ` - ${result}`;
 }
 
-export default function SpotlightSearch(props: OpenedProps) {
+function SpotlightSearch(props: OpenedProps) {
     const [query, setQuery] = useState<string>("");
     const [filteredApps, setFilteredApps] = useState<string[]>([]);
     const textRef = useRef<HTMLDivElement | null>(null);
@@ -70,3 +70,4 @@ export default function SpotlightSearch(props: OpenedProps) {
         </div>
     )
 }
+export default memo(SpotlightSearch);
