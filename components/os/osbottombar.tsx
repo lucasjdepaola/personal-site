@@ -9,13 +9,20 @@ export default function OSBottomBar(props: OpenedProps) {
     const isOpen = (name: string): boolean => {
         return props.openedApps.some(p => p.name === name);
     }
+    // animate given a width relative to the current cursor position
     return (
-        <div className="fixed w-full h-12 bottom-0 mb-3 text-black" style={{zIndex: "2"}}>
-            <div className="flex m-auto w-5/6 h-full bg-[#dadada] rounded-xl shadow-md p-1">
+        <div className="fixed h-auto w-auto bottom-0 mb-3 text-black" style={{
+            zIndex: "2",
+            transform: "translateX(calc(50vw - 50%))"
+            }}>
+            <div className="flex bg-[#dadada] w-auto h-auto rounded-xl shadow-md p-1">
                 {desktopicons.map((ico: DesktopIconLayout, i: number) => {
                     return (
-                        <div key={`bbico${i}`} className="relative flex justify-center p-1"
-                        onMouseEnter={() => {setHoveredName(ico.name)}}
+                        <div key={`bbico${i}`} className="relative flex justify-center items-center p-1"
+                        onMouseEnter={() => {
+                            // perform a more advanced animation here
+                            setHoveredName(ico.name)
+                        }}
                         onMouseLeave={() => {setHoveredName("")}}
                         onClick={() => {props.setOpenedApps(o => [...o, ico.appToOpen])}}
                         >
@@ -25,10 +32,23 @@ export default function OSBottomBar(props: OpenedProps) {
                                     {ico.name}
                                 </div>
                             )}
-                            <img width={32} height={32} src={`${IMAGEPATH}${ico.appToOpen.image}`}></img>
-                            {props.openedApps.some(e => e.name === ico.appToOpen.name) && (
-                                <div className="absolute bottom-0 bg-black rounded-full w-[3px] h-[3px] left-1/2"></div>
-                            )}
+                            {/* <div className="absolute" style={{
+                                backgroundImage: `url(${IMAGEPATH}${ico.appToOpen.image})`,
+                            }}>
+                            </div> */}
+
+                            <img style={{
+                                // width: hoveredName === ico.name ? "50px" : "32px",
+                                // height: hoveredName === ico.name ? "50px" : "32px",
+                                width: "32px",
+                                height: "32px",
+                                transform: hoveredName === ico.name? "scale(1.2)" : "scale(.8)", 
+                                // transition: "width .2s linear, height .2s linear"
+                                transition: "transform .2s linear"
+                            }} src={`${IMAGEPATH}${ico.appToOpen.image}`}></img>
+                            {/* {props.openedApps.some(e => e.name === ico.appToOpen.name) && (
+                                <div className="absolute bottom-0 bg-black rounded-full left-1/2"></div>
+                            )} */}
                         </div>
                     )
                 })}

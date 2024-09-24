@@ -20,3 +20,7 @@ can curate own model in blender, spin animation to gif, add as base widget
 svg linear gradient paths to animate grid lines
 
 ondrag app that is tiled switches to fixed, then determines the tile position after the mouse up event triggers
+
+loc function for the project
+fd -e tsx -x cat | wc -l
+.. ts... any extension

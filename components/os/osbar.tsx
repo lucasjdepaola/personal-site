@@ -11,6 +11,7 @@ import WindowsIcon from "/public/icons/windows.svg"
 import NotificationsIcon from "/public/icons/notifications.svg"
 import { useState } from "react";
 import ControlCenter from "./controlcenter";
+import Wifi from "./wifi";
 
 const hoveredGrey = "#9e9e9e";
 export default function OSBar(props: OpenedProps) {
@@ -18,6 +19,7 @@ export default function OSBar(props: OpenedProps) {
     const date = useDate();
     const router = useRouter();
     const [controlCenter, setControlCenter] = useState<boolean>(false);
+    const [wifi, setWifi] = useState<boolean>(false);
     return (
         <nav className="flex flex-row static justify-between pl-4 pr-4 pt-2 pb-2 gap-3 text-sm w-full text-black" style={{
             background: "#dadada"
@@ -61,14 +63,22 @@ export default function OSBar(props: OpenedProps) {
                 <div>
                     <IconWrapper icon={BatteryIcon} width={25} height={25} />
                 </div>
-                <div>
+                <div className="relative rounded-md"
+                onClick={() => {setWifi(w => !w)}}
+                style={{backgroundColor: wifi ? hoveredGrey : ""}}>
                     <IconWrapper icon={WifiIcon} width={25} height={25} />
+                    {wifi && <Wifi {...props} />}
                 </div>
-                <div onClick={() => {
+                <div className="rounded-md"
+                onClick={() => {
                     if(props.setBarShowing) {
                         props.setBarShowing(b => !b)
                     }
-                    }}>
+                    }}
+                    style={{
+                        backgroundColor: props.barShowing ? hoveredGrey : ""
+                    }}
+                    >
                 <IconWrapper icon={SearchIcon} height={25} width={25} />
                 </div>
                 <div className="relative rounded-md" style={{backgroundColor: controlCenter ? hoveredGrey : ""}}

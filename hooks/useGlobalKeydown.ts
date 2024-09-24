@@ -42,9 +42,21 @@ export default function useGlobalKeydown(props: OpenedProps, wm: WindowManagerFu
         }
     }
     const keyboardShortcuts: KeyboardShortcuts = {
+        // letter commands
         "<c-k>": () => {setBarShowing((b: boolean) => {
             return !b;
         })}, // etc
+        "<c-e>": () => { // exit
+            Object.keys(props.allAppRefs.current).forEach((appName: string) => {
+                const ref = props.allAppRefs.current[appName];
+                if(document.activeElement === ref) {
+                    // remove it
+                    props.setOpenedApps(a => a.filter(e => e.name !== appName));
+                }
+
+            })
+        },
+
         "Escape": () => {setBarShowing(false)},
         "<c-1>": () => {wm.changeWorkspace(1)},
         "<c-2>": () => {wm.changeWorkspace(2)},

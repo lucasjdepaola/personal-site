@@ -5,6 +5,7 @@ import { DEFAULTDARKSCHEME } from "../ostypes";
 enum Operations {
     ADD, SUBTRACT, MULTIPLY, DIVIDE, NONE
 }
+// highlight the current number
 const dgr = "#383838";
 const ac = "#4c4c4c";
 const og = "#ff9f0b";

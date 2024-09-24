@@ -1,4 +1,4 @@
-import { MutableRefObject, useRef, useState } from "react";
+import { MouseEvent, MutableRefObject, useEffect, useRef, useState } from "react";
 import { Dimensions, OSApp, Position } from "./appsopened";
 import { AllAppRefs, OpenedProps } from "./ostypes"
 import { wrappermouseMove } from "@/utils/os/draggablediv";
@@ -53,6 +53,7 @@ const Appbar = (props: AppwrapperProps) => {
                     </div>
                     <div
                     className="w-3 h-3 bg-yellow-500 rounded-full"
+                    // on click here, perform the fixed animation outside of the screen
                     onClick={() => {props.parent.setOpenedApps(a => a.filter(x => x.name !== props.self.name))}}>
                     </div>
                     <div
@@ -94,71 +95,104 @@ enum ResizeType {
     HEIGHTTOP, WIDTHLEFT, HEIGHTBOTTOM, WIDTHRIGHT, TOPLEFT, TOPRIGHT, BOTTOMLEFT, BOTTOMRIGHT, NONE
 }
 
+interface InitialCapture {
+    mouseX: number;
+    mouseY: number;
+    height: number;
+    width: number;
+    top: number;
+    bottom: number;
+    left: number
+    right: number;
+}
+
 export default function AppWrapper(props: AppwrapperProps) {
-    const [initial, setInitial] = useState<Position>({top: 0, left: 0});
+    const [initial, setInitial] = useState<InitialCapture>({top: 0, bottom: 0, right: 0, left: 0, mouseX: 0, mouseY: 0, width: 0, height: 0});
     const [isDown, setIsDown] = useState<boolean>(false);
     const [resizeType, setResizeType] = useState<ResizeType>(ResizeType.NONE);
     const ref = useRef<HTMLDivElement | null>(null);
-    return ( // logic for a potential corner shrinkage
+    const innerMouseMove = (e: MouseEvent) => {
+        if(ref.current && !isDown) {
+            const rect = ref.current.getBoundingClientRect();
+            let leeway = 5; // 10px range given
+            setResizeType(r => {
+                if(isDown) return r;
+                let wl = e.clientX >= rect.left - leeway && e.clientX <= rect.left + leeway;
+                let ht = e.clientY >= rect.top - leeway && e.clientY <= rect.top + leeway;
+                let wr = e.clientX >= rect.right - leeway && e.clientX <= rect.right + leeway;
+                let hb = e.clientY >= rect.bottom - leeway && e.clientY <= rect.bottom + leeway;
+                if(wl && ht) {
+                    return ResizeType.TOPLEFT;
+                }
+                if(wl && hb) {
+                    return ResizeType.BOTTOMLEFT;
+                }
+                if(wr && ht) {
+                    return ResizeType.TOPRIGHT;
+                }
+                if(wr && hb) {
+                    return ResizeType.BOTTOMRIGHT;
+                }
+                if(wl) return ResizeType.WIDTHLEFT;
+                if(ht) return ResizeType.HEIGHTTOP;
+                if(wr) return ResizeType.WIDTHRIGHT;
+                if(hb) return ResizeType.HEIGHTBOTTOM;
+                return ResizeType.NONE;
+            })
+        }
+    }
+    const mouseMove = (e: any) => {
+        if(ref.current) {
+            const rect = ref.current.getBoundingClientRect();
+            let leeway = 5; // 10px range given
+            const rf = props.allAppRefs.current[props.self.name];
+            if(rf) { // now move it
+                const rfRect = rf.getBoundingClientRect();
+                if(resizeType === ResizeType.HEIGHTTOP) {
+                    const deltaY = initial.mouseY - e.clientY;
+                    rf.style.height = (initial.height + deltaY) + "px";
+                    rf.style.top = (initial.top - deltaY + leeway) + "px";
+                }
+                else if(resizeType === ResizeType.HEIGHTBOTTOM) {
+                    const deltaY = initial.mouseY - e.clientY;
+                    rf.style.height = (initial.height - deltaY) + "px";
+                    rf.style.top = initial.top + "px";
+                }
+                else if(resizeType === ResizeType.WIDTHLEFT) {
+                    const deltaX = initial.mouseX - e.clientX;
+                    rf.style.width = (initial.width + deltaX) + "px";
+                    rf.style.left = (initial.left - deltaX) + "px";
+                }
+                else if(resizeType === ResizeType.WIDTHRIGHT) {
+                    const deltaX = initial.mouseX - e.clientX;
+                    rf.style.width = (initial.width - deltaX) + "px";
+                    rf.style.left = initial.left + "px";
+                }
+            }
+        }
+    }
+    const mouseUp = () => {
+        window.removeEventListener("mousemove", mouseMove);
+        setIsDown(false);
+    }
+
+    useEffect(() => {
+        if(isDown) {
+            window.addEventListener("mousemove", mouseMove);
+            window.addEventListener("mouseup", mouseUp);
+        }
+    }, [isDown]);
+
+    return (
         <div ref={ref}
         onMouseDown={(e) => {
-            if(e.button === 0) {
-                setIsDown(true)
-            } else setIsDown(false);
-            setInitial(i => {
-                if(e.button === 0)
-                    return {top: e.clientY, left: e.clientX};
-                return i;
-            });
-        }}
-        onMouseMove={(e) => {
-            if(ref.current) {
+            if(e.button === 0 && ref.current) {
                 const rect = ref.current.getBoundingClientRect();
-                let leeway = 10; // 10px range given
-                setResizeType(r => {
-                    if(isDown) return r;
-                    let wl = e.clientX >= rect.left - leeway && e.clientX <= rect.left + leeway;
-                    let ht = e.clientY >= rect.top - leeway && e.clientY <= rect.top + leeway;
-                    let wr = e.clientX >= rect.right - leeway && e.clientX <= rect.right + leeway;
-                    let hb = e.clientY >= rect.bottom - leeway && e.clientY <= rect.bottom + leeway;
-                    if(wl && ht) {
-                        return ResizeType.TOPLEFT;
-                    }
-                    if(wl && hb) {
-                        return ResizeType.BOTTOMLEFT;
-                    }
-                    if(wr && ht) {
-                        return ResizeType.TOPRIGHT;
-                    }
-                    if(wr && hb) {
-                        return ResizeType.BOTTOMRIGHT;
-                    }
-                    if(wl) return ResizeType.WIDTHLEFT;
-                    if(ht) return ResizeType.HEIGHTTOP;
-                    if(wr) return ResizeType.WIDTHRIGHT;
-                    if(hb) return ResizeType.HEIGHTBOTTOM;
-                    return ResizeType.NONE;
-                })
-                const rf = props.allAppRefs.current[props.self.name];
-                if(isDown && rf) { // now move it
-                    const rfRect = rf.getBoundingClientRect();
-                    if(resizeType === ResizeType.HEIGHTTOP) {
-                        const heightResize = e.clientY - initial.top;
-                        rf.style.height = (heightResize) + "px";
-                        // rf.style.top = heightResize + "px";
-                    }
-                    else if(resizeType === ResizeType.HEIGHTBOTTOM) {
-
-                    }
-                    else if(resizeType === ResizeType.WIDTHLEFT) {
-
-                    }
-                    else if(resizeType === ResizeType.WIDTHRIGHT) {
-
-                    }
-                }
-                }
+                setIsDown(true)
+                setInitial({mouseY: e.clientY, mouseX: e.clientX, top: rect.top, left: rect.left, height: rect.height, width: rect.width, bottom: rect.bottom, right: rect.right});
+            } else setIsDown(false);
         }}
+        onMouseMove={(e) => {innerMouseMove(e)}}
         className="w-full h-full" style={{
             cursor:resizeType === ResizeType.NONE ?
             "default":
@@ -179,8 +213,6 @@ export default function AppWrapper(props: AppwrapperProps) {
             // resizeType === ResizeType.BOTTOMRIGHT?
             "se-resize"
         }}
-        onMouseUp={() => setIsDown(false)}
-        onMouseLeave={() => setIsDown(false)}
         >
             <Appbar {...props} />
             {props.children}

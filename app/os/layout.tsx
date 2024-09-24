@@ -5,8 +5,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Lucas DePaola personal website",
-  description: "Personal website created by Lucas DePaola",
+  title: "OS",
+  description: "Personal OS created by Lucas DePaola",
 };
 
 export default function RootLayout({

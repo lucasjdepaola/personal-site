@@ -83,6 +83,7 @@ function OSAppsOpened(props: OpenedProps) {
                 return (
                     <div
                     id="osappcontainer"
+                    tabIndex={-1}
                     key={`app${i}`} style={{
                         position: "fixed",
                         zIndex: 2,

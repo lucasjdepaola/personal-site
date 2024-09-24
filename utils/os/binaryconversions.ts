@@ -25,25 +25,56 @@ export const floatingpoint = (n: number) => {
     // float side
     let floatValue = n - integerValue;
     let floatStr = "";
-    // 1/currentIteration should not be over the float value
-    // number /2 > 1 would warrant a one value
-    let x = 1.0;
-    while(floatValue >= 0.0000001) {
-        floatStr += x - floatValue > floatValue ? "1" : "0";
-        x /= 2;
+    let x = 0;
+    while(x++ < 32) {
+        if(floatValue === 1) {
+            // return early if the values are equal
+            return `${integerAsBinaryString}.${floatStr}1`;
+        }
+        if(floatValue * 2 > 1) {
+            floatStr += "1";
+            floatValue /= 2;
+        } else {
+            floatStr += "0";
+            floatValue *= 2;
+        }
     }
     return `${integerAsBinaryString}.${floatStr}`;
 }
-interface CharSet {
-    [key: number]: string;
+
+interface ExponentReturn {
+    formattedNumber: string;
+    exponentValue: number;
+    bias: number;
+    mantissa: string;
 }
 
-const utfset: CharSet = {
-    0: "/", // .. etc
+const calculateExponent = (regularConvert: string): ExponentReturn => {
+    // 127 is single precision bias
+    let count = 0;
+    for(let i = regularConvert.indexOf(".")-1; i >= 1; i--) {
+        count++;
+    }
+    let rm = regularConvert.replace(".", "");
+    const fmt = rm[0] + "." + rm.slice(1);
+    return {
+        formattedNumber: fmt,
+        exponentValue: count,
+        bias: 127,
+        mantissa: fmt.slice(2)
+    }
+    // e = 127 + pseudoE |> bin
+    // mantissa is the remaining from the first number, eg 1.0101011 => 0101011
+}
+const calculateMantissa = () => {
 
 }
 
-for(let i = 0; i <= 32; i++) {
-    console.log(binToStr(i));
-}
+// for(let i = 0; i <= 32; i++) {
+//     console.log(binToStr(i));
+// }
 console.log(floatingpoint(3.125));
+console.log(floatingpoint(85.125)); // for simple numbers, need to change the exponent from 8
+const fp = floatingpoint(85.125);
+console.log(calculateExponent(fp));
+// 01000000010010000000000000000000
