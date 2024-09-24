@@ -8,7 +8,7 @@ import { Position } from "./appsopened";
 export default function OSBottomBar(props: OpenedProps) {
     const [hoveredIndex, setHoveredIndex] = useState<number>(-1);
     const [mousePos, setMousePos] = useState<Position>({top: 0, left: 0});
-    const [hasLeft, setHasLeft] = useState<boolean>(false);
+    const [hasLeft, setHasLeft] = useState<boolean>(true);
     // animate given a width relative to the current cursor position
     return (
         <div className="fixed h-auto w-auto bottom-0 mb-3 text-black" style={{
@@ -16,16 +16,18 @@ export default function OSBottomBar(props: OpenedProps) {
             transform: "translateX(calc(50vw - 50%))",
             }}
             onMouseMove={(e) => {setMousePos({top: e.clientY, left: e.clientX})}}
-            onMouseLeave={() => setHasLeft(true)}
-            onMouseEnter={() => setHasLeft(false)}
+            onMouseLeave={() => { setHasLeft(true) }}
+            onMouseEnter={() => { setHasLeft(false); }}
             >
-            <div className="flex bg-[#dadada] w-auto h-16 rounded-xl shadow-md">
+            <div className="flex bg-[#dadada] w-auto h-10 rounded-xl shadow-md">
                 {desktopicons.map((ico: DesktopIconLayout, i: number) => {
                     useEffect(() => {
-                        setScalePos(scale());
+                        if(!hasLeft) {
+                            setScalePos(scale());
+                        }
                     }, [mousePos, hoveredIndex])
                     const ref = useRef<HTMLDivElement | null>(null);
-                    const [scalePos, setScalePos] = useState<number>(32);
+                    const [scalePos, setScalePos] = useState<number>(40);
                     const scale = () => {
                         if(ref.current) {
                             const rect = ref.current.getBoundingClientRect();
@@ -40,26 +42,41 @@ export default function OSBottomBar(props: OpenedProps) {
                             const scaleFactor = Math.max(minScale, maxScale - (distance / maxDistance) * (maxScale - minScale));
                             return scaleFactor;
                         }
-                        return 32;
+                        return 40;
                     }
                     return (
-                        <div key={`bbico${i}`} className="relative flex justify-center items-center p-1"
+                        <div key={`bbico${i}`} className="relative flex justify-center items-end"
                         onMouseEnter={() => {
                             setHoveredIndex(i);
                         }}
                         onMouseLeave={() => {setHoveredIndex(-1)}}
-                        onClick={() => {props.setOpenedApps(o => [...o, ico.appToOpen])}}
+                        onClick={() => {
+                            if(props.openedApps.some(app => app.name === ico.appToOpen.name)) {
+                                const r = props.allAppRefs.current[ico.appToOpen.name];
+                                if(r) {
+                                    r.style.transition = "top .2s linear, left .2s linear";
+                                    r.style.top = ico.appToOpen.position.top + "px";
+                                    r.style.left = ico.appToOpen.position.left + "px";
+                                    setTimeout(() => {
+                                        r.style.transition = "";
+                                    }, 1000);
+                                }
+                            } else {
+                                props.setOpenedApps(o => [...o, ico.appToOpen])
+                            }
+                        }}
                         ref={ref}
                         >
                             {hoveredIndex === i && (
                                 <div id="hoveredName"
-                                className="absolute top-[-40px] bg-white w-[96px] text-sm text-center rounded-md">
+                                className="absolute top-[-70px] bg-white w-[96px] text-sm text-center rounded-md">
                                     {ico.name}
                                 </div>
                             )}
                             <img style={{
                                 width: hasLeft ? "40px" : scalePos + "px",
                                 height: hasLeft ? "40px" : scalePos + "px",
+                                transition: hasLeft ? "width .2s ease-out, height .2s ease-out" : "none"
                             }} src={`${IMAGEPATH}${ico.appToOpen.image}`}></img>
                             {/* {props.openedApps.some(e => e.name === ico.appToOpen.name) && (
                                 <div className="absolute bottom-0 bg-black rounded-full left-1/2"></div>

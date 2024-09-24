@@ -65,7 +65,22 @@ export default function Widgets(props: OpenedProps) { // do something like props
                         <div
                         key={`lyt${i}`}
                         className="w-full h-full cursor-default z-10 rounded-sm"
-                        onDoubleClick={() => {props.setOpenedApps(a => [...a, ico.appToOpen])}}
+                        onDoubleClick={() => {
+                            // is it already minimized?
+                            if(props.openedApps.some(app => app.name === ico.appToOpen.name)) {
+                                const r = props.allAppRefs.current[ico.appToOpen.name];
+                                if(r) {
+                                    r.style.transition = "top .2s linear, left .2s linear";
+                                    r.style.top = ico.appToOpen.position.top + "px";
+                                    r.style.left = ico.appToOpen.position.left + "px";
+                                    setTimeout(() => {
+                                        r.style.transition = "";
+                                    }, 1000);
+                                }
+                            } else { // open it regularly (not minimized)
+                                props.setOpenedApps(a => [...a, ico.appToOpen])
+                            }
+                        }}
                         ref={(r) => {
                             if(r && props.boxCoords) {
                                 const rect = r.getBoundingClientRect();

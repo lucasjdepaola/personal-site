@@ -16,9 +16,8 @@ export interface Offset {
     y: number;
 }
 
+// change app bar to separate component if over 300 loc
 const Appbar = (props: AppwrapperProps) => {
-    // use on drag move
-    const [isDown, setDown] = useState<boolean>(false);
     const [maximize, setMaximize] = useState<boolean>(true);
     const [oldDimensions, setOldDimensions] = useState<Position>({top: 0, left: 0})
     const initialOffset = useRef<Offset>({x: 0, y: 0});
@@ -53,8 +52,18 @@ const Appbar = (props: AppwrapperProps) => {
                     </div>
                     <div
                     className="w-3 h-3 bg-yellow-500 rounded-full"
-                    // on click here, perform the fixed animation outside of the screen
-                    onClick={() => {props.parent.setOpenedApps(a => a.filter(x => x.name !== props.self.name))}}>
+                    onClick={() => {
+                        const r = props.parent.allAppRefs.current[props.self.name];
+                        if(r) {
+                            r.style.transition = "top .2s linear, left .2s linear";
+                            // animation being performed in a mutable way, can adjust when reopening the app
+                            r.style.top = "100vh";
+                            r.style.left = "100vh";
+                            setTimeout(() => {
+                                r.style.transition = "";
+                            }, 200);
+                        }
+                    }}>
                     </div>
                     <div
                     className="w-3 h-3 bg-green-500 rounded-full"
