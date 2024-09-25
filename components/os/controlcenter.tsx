@@ -6,7 +6,7 @@ const lighterGrey = "#e6e6e6";
 const subclass = "bg-[#e6e6e6] w-full shadow-lg rounded-md"
 export default function ControlCenter(props: OpenedProps) {
     return (
-        <div className="fixed right-2 mt-3 z-10 w-80 h-80 rounded-2xl bg-[#dadada] shadow-lg"
+        <div className="fixed right-2 mt-3 z-10 w-80 h-auto rounded-2xl bg-[#dadada] shadow-lg"
         style={{
             border: "1px solid rgba(0,0,0,0.2)"
         }}

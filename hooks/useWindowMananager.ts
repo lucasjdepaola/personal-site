@@ -6,6 +6,14 @@ interface WMProps {
     appsOpened: OSApp[];
 }
 
+export enum TilingType {
+    DEFAULTHORIZONTAL, // fibonacci style
+    DEFAULTVERTICAL, // fib style starting at vertical split
+}
+export enum WMBorder {
+    ROUNDED, SQUARE, NONE
+}
+
 export interface WindowManagerFunctions {
     changeWorkspace: (i: number) => void; // switch to a new desktop, i.e: meta+4 will bring you to a blank desktop
     moveWindow: (app: OSApp, from: number, to: number) => void; // i.e: meta+shift+4 brings the focused window too

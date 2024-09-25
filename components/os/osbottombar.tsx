@@ -50,6 +50,7 @@ export default function OSBottomBar(props: OpenedProps) {
                             setHoveredIndex(i);
                         }}
                         onMouseLeave={() => {setHoveredIndex(-1)}}
+                        // render first frame of animation on enter
                         onClick={() => {
                             if(props.openedApps.some(app => app.name === ico.appToOpen.name)) {
                                 const r = props.allAppRefs.current[ico.appToOpen.name];

@@ -29,16 +29,16 @@ const AppleSwitch = (props: SwitchProps) => {
 export function Wifi(props: OpenedProps) {
     const [wifi, setWifi] = useState<boolean>(true);
     return (
-        <div className="fixed right-2 mt-3 z-10 w-72 h-40 rounded-lg bg-[#dadada] shadow-lg" style={{border: "1px solid rgba(0,0,0,0.2)"}}>
-            <div className="p-3">
+        <div className="fixed right-2 mt-3 z-10 w-72 h-auto rounded-lg bg-[#dadada] shadow-lg cursor-default" style={{border: "1px solid rgba(0,0,0,0.2)"}}>
+            <div className="p-2">
                 <div className="flex flex-row justify-between p-1">
                     <div className="">Wifi</div>
                     <AppleSwitch state={wifi} setSwitch={setWifi} />
                 </div>
-                <hr className="border-gray-400" />
-                <div className="text-gray-600">Known Networks</div>
-                <hr className="border-gray-400" />
-                <div>other networks</div>
+                <hr className="border-gray-400 pl-1 pr-1" />
+                <div className="text-gray-600 p-1">Known Networks</div>
+                <hr className="border-gray-400 pl-1 pr-1" />
+                <div className="pt-1 hover:bg-blue-600 hover:text-white rounded-md p-1">Other Networks</div>
             </div>
         </div>
     )

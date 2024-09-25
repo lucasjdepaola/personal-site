@@ -24,6 +24,7 @@ const OnPCHomescreen = () => {
     const [barShowing, setBarShowing] = useState<boolean>(false);
     const [tileWindows, setTileWindows] = useState<boolean>(false);
     const [boxCoords, setBoxCoords] = useState<BoxCoords | undefined>(undefined)
+    const [focusedAppName, setFocusedAppName] = useState<string>("none");
     const desktopIndex = useRef<number>(1);
     const apiTraits: OpenedProps = {
         openedApps: openedApps,
@@ -37,7 +38,9 @@ const OnPCHomescreen = () => {
         boxCoords: boxCoords,
         setBoxCoords: setBoxCoords,
         barShowing: barShowing,
-        setBarShowing: setBarShowing
+        setBarShowing: setBarShowing,
+        focusedAppName: focusedAppName, // none is arbitrary, it only matters when a window is focused
+        setFocusedAppName: setFocusedAppName
     }
     const wm = useWindowManager(apiTraits);
     // name ref mapping, only one app instance can be opened (don't really plan on changing this)
@@ -51,7 +54,7 @@ const OnPCHomescreen = () => {
             <div className="fixed h-full w-full">
                 <SpotlightSearch {...apiTraits}  />
                 <OSBackground {...apiTraits} />
-                <OSAppsOpened {...apiTraits} barShowing={false} /> {/* cancel the bar showing to not trigger re render */}
+                <OSAppsOpened {...apiTraits} barShowing={false} focusedAppName="" /> {/* cancel the bar showing to not trigger re render */}
             </div>
         </div>
     )

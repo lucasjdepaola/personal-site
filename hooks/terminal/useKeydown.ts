@@ -1,7 +1,9 @@
 "use client";
 
-import { DirWrapper, OpenedProps } from "@/components/os/ostypes";
+import { Directory, DirWrapper, OpenedProps } from "@/components/os/ostypes";
 import { TerminalIO } from "@/components/terminal/terminal";
+import { ROOTDIR } from "@/types/os/root";
+import { findDirFromPath } from "@/utils/os/fsutils";
 import { KeyboardEvent, useState } from "react";
 
 const timeSince = (date: string): string => {
@@ -29,12 +31,14 @@ const staticVariables: OfStrings = {
 
 interface IOParameters {
     input: string;
+    arguments: string[];
     output: TerminalIO[];
     setOutput?: any;
-    setInput?: any;
 }
 
-export default function useKeydown(props: OpenedProps) {
+export default function useKeydown(props: OpenedProps, userInput: string, ref: any) {
+    const [commandOutputs, setCommandOutputs] = useState<TerminalIO[]>([]);
+    const [workingDirectory, setWorkingDirectory] = useState<Directory>(ROOTDIR); // reference to root
     const dynamicVariables: any = {
         commands: (io: IOParameters) => {
             const staticCmds = Object.keys(staticVariables)
@@ -44,16 +48,24 @@ export default function useKeydown(props: OpenedProps) {
             return staticCmds + "\n" + dynamicCmds;
         },
         cd: (io: IOParameters) => {
-            props.setWorkingDirectory((d: DirWrapper) => {
-                // first find out if we're looking relatively, or absolutely
-                // then determine if it's changeable, then change
-                if(io.input)
-                    return d;
-                return d;
-            })
+            const d = findDirFromPath(io.arguments[0]);
+            setWorkingDirectory(p => d ? d : p);
+            if(!d) {
+                return "Directory not found."
+            }
+            return "";
         },
-        ls: () => {},
-        cat: () => {},
+        ls: (io: IOParameters) => {
+            return workingDirectory.children.map(e => e.name).join(" ");
+        },
+        cat: (io: IOParameters) => {
+            // should be a parseable dir parameter instead of a simple name match
+            // do it right.
+            const file = io.arguments[0];
+            if(workingDirectory.children.some(c => c.name === file)) {
+
+            }
+        },
         grep: () => {},
         clear: (io: IOParameters) => {
             io.setOutput((o: string) => []);
@@ -61,28 +73,28 @@ export default function useKeydown(props: OpenedProps) {
         },
         alias: null,
     }
-    const [userInput, setUserInput] = useState<string>("");
-    const [commandOutputs, setCommandOutputs] = useState<TerminalIO[]>([]);
-    const [cursorIndex, setCursorIndex] = useState<number>(0);
     const okd = (key: KeyboardEvent<HTMLDivElement>) => {
-        if(key.key === " ") key.preventDefault();
         if(key.key === "Enter") {
+            if(ref.current) {
+                ref.current.innerText = "";
+            }
             setCommandOutputs((o: any) => {
-                if(userInput in staticVariables) {
+                const command = userInput.split(" ")[0];
+                if(command in staticVariables) {
                     const io: TerminalIO = {
                         command: userInput,
                         output: staticVariables[userInput]
                     }
                     return [...o, io]; // find a static output variable
                 }
-                else if(userInput in dynamicVariables) {
+                else if(command in dynamicVariables) {
                     const io: IOParameters = {
                         input: userInput,
                         output: commandOutputs,
-                        setInput: setUserInput,
+                        arguments: userInput.split(" ").slice(1),
                         setOutput: setCommandOutputs
                     }
-                    const output: any = dynamicVariables[userInput](io);
+                    const output: any = dynamicVariables[command](io);
                     if(typeof output === "string") {
                         const inout :TerminalIO = {
                             command: userInput,
@@ -98,17 +110,7 @@ export default function useKeydown(props: OpenedProps) {
                 }
                 return [...o, notfoundio];
             });
-            setUserInput("");
-        }
-        else if(key.key === "Backspace") {
-            setUserInput((i: string) => i.slice(0, i.length-1)) // delete one char
-        }
-        else if(key.key.length <= 1) {
-            setUserInput((i: any) => i + key.key);
-            console.log("i am here now");
-        } else {
-            setUserInput((i: any) => i);
         }
     }
-    return {userInput, commandOutputs, okd};
+    return {userInput, commandOutputs, okd, workingDirectory};
 }

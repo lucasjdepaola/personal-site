@@ -195,6 +195,7 @@ export default function AppWrapper(props: AppwrapperProps) {
     return (
         <div ref={ref}
         onMouseDown={(e) => {
+            props.parent.setFocusedAppName(props.self.name); // set the current app name on click
             if(e.button === 0 && ref.current) {
                 const rect = ref.current.getBoundingClientRect();
                 setIsDown(true)

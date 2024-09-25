@@ -58,7 +58,8 @@ const getDays = () => {
     const arr = [];
     for(let i = 0; i < 5; i++) {
         arr.push(days[d]);
-        d = d >= days.length? 0 : d + 1;
+        // if it goes over the days in a week, overlap the number
+        d = d >= days.length-1? 0 : d + 1;
     }
     return arr;
 }
@@ -66,6 +67,7 @@ const getDays = () => {
 export const Weather = () => {
     // const weatherData = useRef<WeatherData | undefined>(undefined);
     useEffect(() => {
+        // use a decent and free weather api to retrieve informative data related to the weather (per city)
         // getWeather().then(data => {weatherData.current = data});
     }, []);
     return (

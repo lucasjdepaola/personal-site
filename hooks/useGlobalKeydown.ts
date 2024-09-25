@@ -47,14 +47,7 @@ export default function useGlobalKeydown(props: OpenedProps, wm: WindowManagerFu
             return !b;
         })}, // etc
         "<c-e>": () => { // exit
-            Object.keys(props.allAppRefs.current).forEach((appName: string) => {
-                const ref = props.allAppRefs.current[appName];
-                if(document.activeElement === ref) {
-                    // remove it
-                    props.setOpenedApps(a => a.filter(e => e.name !== appName));
-                }
-
-            })
+            props.setOpenedApps(e => e.filter(app => app.name !== props.focusedAppName));
         },
 
         "Escape": () => {setBarShowing(false)},
@@ -76,6 +69,7 @@ export default function useGlobalKeydown(props: OpenedProps, wm: WindowManagerFu
         "<c-&>": () => {wm.changeWorkspace(6)},
         "<c-*>": () => {wm.changeWorkspace(7)},
         "<c-(>": () => {wm.changeWorkspace(8)},
+        // can turn keybinds into a dynamic changeable app within settings
     }
     // tricky to have a function with multiple params mutate this, might need to do it in scope
     useEffect(() => {
