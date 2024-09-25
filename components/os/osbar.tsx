@@ -11,7 +11,7 @@ import WindowsIcon from "/public/icons/windows.svg"
 import NotificationsIcon from "/public/icons/notifications.svg"
 import { useState } from "react";
 import ControlCenter from "./controlcenter";
-import Wifi from "./wifi";
+import { Battery, Wifi } from "./wifi";
 
 const hoveredGrey = "#9e9e9e";
 export default function OSBar(props: OpenedProps) {
@@ -20,6 +20,7 @@ export default function OSBar(props: OpenedProps) {
     const router = useRouter();
     const [controlCenter, setControlCenter] = useState<boolean>(false);
     const [wifi, setWifi] = useState<boolean>(false);
+    const [battery, setBattery] = useState<boolean>(false);
     return (
         <nav className="flex flex-row static justify-between pl-4 pr-4 pt-2 pb-2 gap-3 text-sm w-full text-black" style={{
             background: "#dadada"
@@ -60,8 +61,11 @@ export default function OSBar(props: OpenedProps) {
                 >
                     <IconWrapper icon={WindowsIcon} width={25} height={25} />
                 </div>
-                <div>
+                <div className="rounded-md"
+                style={{backgroundColor: battery ? hoveredGrey : ""}}
+                onClick={() => {setBattery(b => !b)}}>
                     <IconWrapper icon={BatteryIcon} width={25} height={25} />
+                    {battery && <Battery />}
                 </div>
                 <div className="relative rounded-md"
                 onClick={() => {setWifi(w => !w)}}

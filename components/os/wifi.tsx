@@ -26,7 +26,7 @@ const AppleSwitch = (props: SwitchProps) => {
     )
 }
 
-export default function Wifi(props: OpenedProps) {
+export function Wifi(props: OpenedProps) {
     const [wifi, setWifi] = useState<boolean>(true);
     return (
         <div className="fixed right-2 mt-3 z-10 w-72 h-40 rounded-lg bg-[#dadada] shadow-lg" style={{border: "1px solid rgba(0,0,0,0.2)"}}>
@@ -39,6 +39,24 @@ export default function Wifi(props: OpenedProps) {
                 <div className="text-gray-600">Known Networks</div>
                 <hr className="border-gray-400" />
                 <div>other networks</div>
+            </div>
+        </div>
+    )
+}
+
+export function Battery() { // redundant to add an extra file for this, could move to battery in widgets
+    return (
+        <div className="fixed right-2 mt-3 z-10 w-72 h-auto rounded-lg bg-[#dadada] shadow-lg cursor-default" style={{border: "1px solid rgba(0,0,0,0.2)"}}>
+            <div className="m-3">
+                <div className="flex flex-row justify-between">
+                    <div className="font-semibold">Battery</div>
+                    <div className="text-gray-500">65%</div>
+                </div>
+                <div className="text-gray-500 pt-1 pb-1">Power Source: Battery</div>
+                <hr className="border-gray-400" />
+                <div className="text-gray-500 pb-1 pt-1">No Apps Using Significant Energy</div>
+                <hr className="border-gray-400" />
+                <div className="hover:bg-blue-600 hover:text-white rounded-md mt-1">Battery Settings</div>
             </div>
         </div>
     )

@@ -1,3 +1,4 @@
+"use client"
 import LightIcon from "/public/icons/lightmode.svg"
 import DarkIcon from "/public/icons/darkmode.svg"
 import CloudIcon from "/public/icons/cloud.svg"
@@ -37,11 +38,35 @@ const getWeather = async(): Promise<WeatherData> => {
 }
 // clouds #95a1b2
 
+const getHours = () => {
+    // 6 hours
+    let hr: number = new Date().getHours();
+    const am = (h: number): boolean => h === 24 || h < 12;
+    const arr = [];
+    for(let i = 0; i < 6; i++) {
+        let amorpm = am(hr) ? "AM" : "PM";
+        let hour = hr % 12 === 0 ? 12 : hr % 12;
+        arr.push(`${hour}${amorpm}`);
+        hr = hr >= 23 ? 0 : hr + 1;
+    }
+    return arr;
+}
+
+const getDays = () => {
+    const days = "Sun Mon Tue Wed Thu Fri Sat".split(" ");
+    let d = new Date().getDay();
+    const arr = [];
+    for(let i = 0; i < 5; i++) {
+        arr.push(days[d]);
+        d = d >= days.length? 0 : d + 1;
+    }
+    return arr;
+}
+
 export const Weather = () => {
-    const days = "Mon Tue Wed Thu Fri".split(" ");
-    const weatherData = useRef<WeatherData | undefined>(undefined);
+    // const weatherData = useRef<WeatherData | undefined>(undefined);
     useEffect(() => {
-        getWeather().then(data => {weatherData.current = data});
+        // getWeather().then(data => {weatherData.current = data});
     }, []);
     return (
         <div className="w-full h-full flex flex-col bg-gradient-to-b from-[#084d90] via-60% via-[#417eba] to-white text-lg text-white">
@@ -59,14 +84,28 @@ export const Weather = () => {
                 </div>
             </div>
             <LightLine />
-            <div id="middlehourlyforecast" className="flex-1">
-                1pm, 2pm, 3pm
+            <div id="middlehourlyforecast" className="flex flex-row items-center">
+                {getHours().map((e, i) => {
+                    return (
+                        <div key={`hr${i}`} className="w-full flex-col">
+                            <div className="text-sm">{e}</div>
+                            <IconWrapper icon={CloudIcon} width={24} height={24} />
+                            <div className="text-sm">{60}°</div>
+                        </div>
+                    )
+                })}
             </div>
             <LightLine />
-            <div id="bottomweeklyforecast" className="flex flex-col pt-2 pb-2">
-                {days.map((day: string, i: number) => {
+            <div id="bottomweeklyforecast" className="flex flex-col items-start p-5">
+                {getDays().map((day: string, i: number) => {
                     return (
-                        <div key={`${day}${i}`}>{day}</div>
+                        <div className="flex flex-row w-full justify-around" key={`${day}${i}`}>
+                            <div>{day}</div>
+                            <IconWrapper icon={CloudIcon} width={24} height={24} />
+                            <div>55°</div>
+                            <div>{"<"}-----{">"}</div>
+                            <div>70°</div>
+                        </div>
                     )
                 })}
             </div>
