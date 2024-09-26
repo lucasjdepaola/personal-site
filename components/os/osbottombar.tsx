@@ -27,8 +27,8 @@ export default function OSBottomBar(props: OpenedProps) {
                             // debounce initial animation
                             if(isEntering) {
                                 setTimeout(() => {
-                                    setIsEntering(false);
                                     setScalePos(scale());
+                                    setIsEntering(false);
                                 }, 200);
                             } else {
                                 setScalePos(scale());

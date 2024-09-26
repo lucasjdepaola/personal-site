@@ -4,6 +4,7 @@ import { calculator } from "./calculator";
 import { emulator } from "./emulator";
 import { finder } from "./finder";
 import { notes } from "./notes";
+import { settings } from "./settings";
 import { terminal } from "./terminal";
 
 export const IMAGEPATH = "/images/os/";
@@ -59,14 +60,14 @@ export const desktopicons: DesktopIconLayout[] = [ // this should be done in ano
             leftBlocks: 6
         }
     },
-    // {
-    //     name: "Emulator",
-    //     appToOpen: emulator,
-    //     layout: {
-    //         widthBlocks: 1,
-    //         heightBlocks: 1,
-    //         topBlocks: 8,
-    //         leftBlocks: 10
-    //     }
-    // }
+    {
+        name: "Settings",
+        appToOpen: settings,
+        layout: {
+            widthBlocks: 1,
+            heightBlocks: 1,
+            topBlocks: 6,
+            leftBlocks: 6
+        }
+    },
 ];

@@ -39,11 +39,13 @@ const LeftBarFunctions = (props: LeftBarProps) => {
             {props.leftBar.map((prop: LeftBarProp) => {
                 return (
                     prop.name === "hr"?
-                    <hr className="border border-1 border-gray-400" />
+                    <div className="p-1">
+                        <hr className="bg-gray-800 h-px" />
+                    </div>
                     :
                     <div
                     onClick={() => prop.fn(props.openProps)}
-                    className="flex justify-between items-center flex-row hover:bg-blue-600 hover:text-white p-1 rounded-md text-md">
+                    className="flex justify-between items-center flex-row hover:bg-blue-600 hover:text-white pl-1 pr-1 m-1 rounded-md text-md">
                         <div>{prop.name}</div>
                         <div>{prop.keybind}</div>
                     </div>
@@ -68,11 +70,11 @@ export default function OSBar(props: OpenedProps) {
         <nav className="flex flex-row static justify-between pl-4 pr-4 pt-2 pb-2 gap-3 text-sm w-full text-black" style={{
             background: "#dadada"
         }}>
-            <div className="flex justify-start gap-3 cursor-default" onMouseLeave={() => setLeftBar(LeftBarTypes.NONE)}>
+            <div className="flex justify-start gap-3 cursor-default" onMouseLeave={() => {}}>
                 <div className="cursor-pointer" onClick={() => {router.push("/")}}>
                     <IconWrapper icon={LogoIcon} width={20} height={20} />
                 </div>
-                <div className="font-semibold" onClick={() => {router.push("/")}}>
+                <div className="font-semibold" onClick={() => {}}>
                     {props.focusedAppName !== "none" ? props.focusedAppName : "Finder"}
                 </div>
                 <div onClick={() => slb(LeftBarTypes.FILE)} className="select-none"
@@ -180,7 +182,7 @@ export default function OSBar(props: OpenedProps) {
                     </div>
                     {rightBar === RightBarTypes.CONTROLCENTER && <ControlCenter {...props} />}
                 </div>
-                <div>{date}</div>
+                <div className="cursor-default">{date}</div>
             </div>
         </nav>
     )

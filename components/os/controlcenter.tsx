@@ -5,7 +5,7 @@ import { OpenedProps } from "./ostypes"
 import { cnStyle } from "@/utils/styling";
 
 const lighterGrey = "#e6e6e6";
-const bOneStyle = "border border-1 border-gray-400";
+const bOneStyle = "border border-1 border-solid border-[rgba(0,0,0,0.2)]";
 
 interface AdjusterProps {
     // icon: any; // icon
@@ -37,7 +37,7 @@ const Adjuster = (props: AdjusterProps) => {
             }}
             >
             </div>
-            <div className={cnStyle("absolute h-5 rounded-l-xl bg-white")} style={{
+            <div className={cnStyle("absolute h-[1.4rem] rounded-l-xl bg-white")} style={{
                 width: range + 5 + "%"
             }}></div>
         </div>
@@ -46,7 +46,7 @@ const Adjuster = (props: AdjusterProps) => {
 
 export default function ControlCenter(props: OpenedProps) {
     return (
-        <div className="fixed right-2 mt-3 z-10 w-80 h-auto rounded-2xl bg-[#dadada] shadow-lg"
+        <div className="fixed right-2 mt-3 z-10 w-80 h-auto rounded-2xl bg-[#dadada] shadow-lg cursor-default"
         style={{
             border: "1px solid rgba(0,0,0,0.2)"
         }}

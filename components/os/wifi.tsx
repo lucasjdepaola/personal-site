@@ -38,7 +38,7 @@ export function Wifi(props: OpenedProps) {
                 <hr className="border-gray-400 pl-1 pr-1" />
                 <div className="text-gray-600 p-1">Known Networks</div>
                 <hr className="border-gray-400 pl-1 pr-1" />
-                <div className="pt-1 hover:bg-blue-600 hover:text-white rounded-md p-1">Other Networks</div>
+                <div className="mt-1 hover:bg-blue-600 hover:text-white rounded-md pl-1 pr-1">Other Networks</div>
             </div>
         </div>
     )
@@ -56,7 +56,7 @@ export function Battery() { // redundant to add an extra file for this, could mo
                 <hr className="border-gray-400" />
                 <div className="text-gray-500 pb-1 pt-1">No Apps Using Significant Energy</div>
                 <hr className="border-gray-400" />
-                <div className="hover:bg-blue-600 hover:text-white rounded-md mt-1">Battery Settings</div>
+                <div className="hover:bg-blue-600 hover:text-white rounded-md pr-1 pl-1 mt-1">Battery Settings</div>
             </div>
         </div>
     )

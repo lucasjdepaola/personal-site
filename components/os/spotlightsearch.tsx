@@ -28,7 +28,7 @@ function SpotlightSearch(props: OpenedProps) {
         }}
         >
             <div className="flex justify-center items-center">
-                <div className="inline-block bg-white text-black rounded-2xl shadow-2xl w-1/3 p-3"
+                <div className="inline-block bg-[#dadada] text-black rounded-2xl shadow-2xl w-1/3 p-3"
                 onClick={() => textRef.current?.focus()}
                 >
                     <div className="inline-block">
