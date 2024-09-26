@@ -53,7 +53,7 @@ export default function OSBackground(props: OpenedProps) {
         }}
         >
             <div id="background" className="fixed w-full h-full" style={{
-                backgroundImage: "url('https://i.pinimg.com/originals/08/c5/ec/08c5ec8fddd5fd3c965e773cad127e2b.jpg')",
+                backgroundImage: `url('${props.wallpaper}')`,
                 overflow: "hidden",
                 overflowX: "hidden",
                 objectFit: "cover",

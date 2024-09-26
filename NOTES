@@ -24,3 +24,5 @@ ondrag app that is tiled switches to fixed, then determines the tile position af
 loc function for the project
 fd -e tsx -x cat | wc -l
 .. ts... any extension
+
+724 TL

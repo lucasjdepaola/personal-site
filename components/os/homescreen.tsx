@@ -25,6 +25,7 @@ const OnPCHomescreen = () => {
     const [tileWindows, setTileWindows] = useState<boolean>(false);
     const [boxCoords, setBoxCoords] = useState<BoxCoords | undefined>(undefined)
     const [focusedAppName, setFocusedAppName] = useState<string>("none");
+    const [wallpaper, setWallpaper] = useState<string>("https://i.pinimg.com/originals/08/c5/ec/08c5ec8fddd5fd3c965e773cad127e2b.jpg"); // default wallpaper
     const desktopIndex = useRef<number>(1);
     const apiTraits: OpenedProps = {
         openedApps: openedApps,
@@ -40,7 +41,9 @@ const OnPCHomescreen = () => {
         barShowing: barShowing,
         setBarShowing: setBarShowing,
         focusedAppName: focusedAppName, // none is arbitrary, it only matters when a window is focused
-        setFocusedAppName: setFocusedAppName
+        setFocusedAppName: setFocusedAppName,
+        wallpaper: wallpaper,
+        setWallpaper: setWallpaper
     }
     const wm = useWindowManager(apiTraits);
     // name ref mapping, only one app instance can be opened (don't really plan on changing this)

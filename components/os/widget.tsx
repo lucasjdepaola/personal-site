@@ -64,7 +64,7 @@ export default function Widgets(props: OpenedProps) { // do something like props
                     return (
                         <div
                         key={`lyt${i}`}
-                        className="w-full h-full cursor-default z-10 rounded-sm"
+                        className="w-full h-full cursor-default z-10"
                         onDoubleClick={() => {
                             // is it already minimized?
                             if(props.openedApps.some(app => app.name === ico.appToOpen.name)) {

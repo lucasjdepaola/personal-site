@@ -66,7 +66,8 @@ export interface OpenedProps {
     setBoxCoords: Dispatch<SetStateAction<BoxCoords | undefined>>;
     barShowing?: boolean; // need to make this optional in order not to trigger re renders on the spotlight search
     setBarShowing?: Dispatch<SetStateAction<boolean>>;
-    wallpaper?: string; // the path or ref to the OS background wallpaper
+    wallpaper: string; // the path or ref to the OS background wallpaper
+    setWallpaper: Dispatch<SetStateAction<string>>;
     focusedAppName?: string; // the current name of the focused app, better than using dom references
     setFocusedAppName: Dispatch<SetStateAction<string>>;
 }

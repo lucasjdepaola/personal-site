@@ -69,6 +69,7 @@ export default function useGlobalKeydown(props: OpenedProps, wm: WindowManagerFu
         "<c-&>": () => {wm.changeWorkspace(6)},
         "<c-*>": () => {wm.changeWorkspace(7)},
         "<c-(>": () => {wm.changeWorkspace(8)},
+        "<c-;>": () => {props.setTileWindows(t => !t)}
         // can turn keybinds into a dynamic changeable app within settings
     }
     // tricky to have a function with multiple params mutate this, might need to do it in scope
