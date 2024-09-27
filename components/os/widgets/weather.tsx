@@ -169,7 +169,7 @@ export const Weather = () => {
                     <div id="city">{geoData.current?.city||"City"}</div>
                     <div id="temp" className="text-3xl font-light">{Math.round(weatherData.current?.current.temperature_2m||1)}°</div>
                 </div>
-                <div id="rightsideweatherinfo" className="p-3 text-sm">
+                <div id="rightsideweatherinfo" className="p-3 text-sm text-end">
                     <div className="">
                         <IconWrapper icon={CloudIcon} width={25} height={25} />
                     </div>
@@ -191,11 +191,11 @@ export const Weather = () => {
                 })}
             </div>
             <LightLine />
-            <div id="bottomweeklyforecast" className="flex flex-col items-start p-5">
+            <div id="bottomweeklyforecast" className="flex flex-col items-start p-4">
                 {getDays().map((day: string, i: number) => {
                     const [low, high] = todayHighAndLow(i, weatherData.current);
                     return (
-                        <div className="flex flex-row w-full justify-around" key={`${day}${i}`}>
+                        <div className="flex flex-row w-full justify-between" key={`${day}${i}`}>
                             <div>{day}</div>
                             <IconWrapper icon={CloudIcon} width={24} height={24} />
                             <div>{low}°</div>

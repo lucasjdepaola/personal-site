@@ -12,7 +12,7 @@ const SearchBar = () => {
     return (
         <div className="flex flex-row w-full p-1 rounded-md bg-[#dadada]">
             <IconWrapper icon={SearchIcon} width={25} height={25} />
-            <div contentEditable className="opacity-30 outline-none">Search</div>
+            <div contentEditable onClick={e => {e.currentTarget.innerText = ""}} className="opacity-30 outline-none">Search</div>
         </div>
     )
 }
