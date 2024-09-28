@@ -4,6 +4,10 @@ import { desktopicons, IMAGEPATH } from "./programs/apparray";
 import { DesktopIconLayout } from "./widgets/desktopicon";
 import { Position } from "./appsopened";
 
+const linearInterpolation = (current: number, target: number, factor: number): number => {
+    return current + (target - current) * factor;
+}
+
 // create an on hover context div for what the app name is
 export default function OSBottomBar(props: OpenedProps) {
     const [hoveredIndex, setHoveredIndex] = useState<number>(-1);
@@ -18,22 +22,16 @@ export default function OSBottomBar(props: OpenedProps) {
             }}
             onMouseMove={(e) => {setMousePos({top: e.clientY, left: e.clientX})}}
             onMouseLeave={() => { setHasLeft(true); }}
-            onMouseEnter={() => { setHasLeft(false); setIsEntering(true);}}
+            onMouseEnter={() => {
+                setHasLeft(false);
+                setIsEntering(true);
+            }}
             >
             <div className="flex bg-[#dadada] w-auto h-10 rounded-xl shadow-md">
                 {desktopicons.map((ico: DesktopIconLayout, i: number) => {
                     useEffect(() => {
-                        if(!hasLeft) {
-                            if(isEntering) {
-                                setScalePos(scale()); // calculate initial scale position on enter
-                                setTimeout(() => { // perform the full animation, then set false
-                                    setIsEntering(false);
-                                }, 200);
-                            } else {
-                                setScalePos(scale());
-                            }
-                        }
-                    }, [mousePos, hoveredIndex])
+                        setScalePos(scale());
+                    }, [mousePos, hoveredIndex, isEntering])
                     const ref = useRef<HTMLDivElement | null>(null);
                     const [scalePos, setScalePos] = useState<number>(40);
                     const scale = () => {
@@ -45,7 +43,7 @@ export default function OSBottomBar(props: OpenedProps) {
                             const distanceY = mousePos.top - circleCenterY;
                             const distance = Math.hypot(distanceX, distanceY);
                             const maxDistance = 300;
-                            const minScale = 16;
+                            const minScale = 32;
                             const maxScale = 100;
                             const scaleFactor = Math.max(minScale, maxScale - (distance / maxDistance) * (maxScale - minScale));
                             return scaleFactor;
@@ -85,7 +83,7 @@ export default function OSBottomBar(props: OpenedProps) {
                             <img className="rounded-lg" style={{
                                 width: hasLeft ? "40px" : scalePos + "px",
                                 height: hasLeft ? "40px" : scalePos + "px",
-                                transition: hasLeft? "width .2s ease-out, height .2s ease-out": isEntering ? "width .02s ease-out, height .02s ease-out" : "none"
+                                transition: hasLeft? "width .2s ease-out, height .2s ease-out": "none"
                             }} src={`${IMAGEPATH}${ico.appToOpen.image}`}></img>
                             {/* {props.openedApps.some(e => e.name === ico.appToOpen.name) && (
                                 <div className="absolute bottom-0 bg-black rounded-full left-1/2"></div>
