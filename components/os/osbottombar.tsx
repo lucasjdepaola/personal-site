@@ -18,16 +18,15 @@ export default function OSBottomBar(props: OpenedProps) {
             }}
             onMouseMove={(e) => {setMousePos({top: e.clientY, left: e.clientX})}}
             onMouseLeave={() => { setHasLeft(true); }}
-            onMouseEnter={() => { setHasLeft(false); setIsEntering(true)}}
+            onMouseEnter={() => { setHasLeft(false); setIsEntering(true);}}
             >
             <div className="flex bg-[#dadada] w-auto h-10 rounded-xl shadow-md">
                 {desktopicons.map((ico: DesktopIconLayout, i: number) => {
                     useEffect(() => {
                         if(!hasLeft) {
-                            // debounce initial animation
                             if(isEntering) {
-                                setTimeout(() => {
-                                    setScalePos(scale());
+                                setScalePos(scale()); // calculate initial scale position on enter
+                                setTimeout(() => { // perform the full animation, then set false
                                     setIsEntering(false);
                                 }, 200);
                             } else {
@@ -86,7 +85,7 @@ export default function OSBottomBar(props: OpenedProps) {
                             <img className="rounded-lg" style={{
                                 width: hasLeft ? "40px" : scalePos + "px",
                                 height: hasLeft ? "40px" : scalePos + "px",
-                                transition: hasLeft || isEntering ? "width .2s ease-out, height .2s ease-out" : "none"
+                                transition: hasLeft? "width .2s ease-out, height .2s ease-out": isEntering ? "width .02s ease-out, height .02s ease-out" : "none"
                             }} src={`${IMAGEPATH}${ico.appToOpen.image}`}></img>
                             {/* {props.openedApps.some(e => e.name === ico.appToOpen.name) && (
                                 <div className="absolute bottom-0 bg-black rounded-full left-1/2"></div>

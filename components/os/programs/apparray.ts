@@ -1,4 +1,5 @@
 import { DesktopIconLayout } from "../widgets/desktopicon";
+import { converter } from "./basicconverter";
 import { browser } from "./browser";
 import { calculator } from "./calculator";
 import { emulator } from "./emulator";
@@ -70,4 +71,14 @@ export const desktopicons: DesktopIconLayout[] = [ // this should be done in ano
             leftBlocks: 6
         }
     },
+    // { // we can save the app for the future if we ever want to continue developing it
+    //     name: "Converter",
+    //     appToOpen: converter,
+    //     layout: {
+    //         widthBlocks: 1,
+    //         heightBlocks: 1,
+    //         topBlocks: 9,
+    //         leftBlocks: 7
+    //     }
+    // },
 ];

@@ -63,6 +63,7 @@ interface WeatherData {
 }
 
 
+
 const getLocation = async() => {
     const url = "https://ipapi.co/json";
     const data = await fetch(url);
@@ -133,7 +134,7 @@ const todayHighAndLow = (futuredays: number, data: WeatherData | undefined): num
     const h = dayArr.reduce((accum, index) => {
         return Math.max(data.hourly.temperature_2m[index], accum)
     })
-    return [l, h];
+    return [Math.round(l), Math.round(h)];
 }
 
 const getDays = () => {
@@ -195,7 +196,7 @@ export const Weather = () => {
                 {getDays().map((day: string, i: number) => {
                     const [low, high] = todayHighAndLow(i, weatherData.current);
                     return (
-                        <div className="flex flex-row w-full justify-between" key={`${day}${i}`}>
+                        <div className="flex flex-row w-full justify-between items-center" key={`${day}${i}`}>
                             <div>{day}</div>
                             <IconWrapper icon={CloudIcon} width={24} height={24} />
                             <div>{low}°</div>

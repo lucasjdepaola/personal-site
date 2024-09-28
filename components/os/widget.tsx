@@ -2,8 +2,8 @@
 import { useRef, useState } from "react";
 import { DesktopIcon, DesktopIconLayout } from "./widgets/desktopicon";
 import { Weather } from "./widgets/weather";
-import { Stocks } from "./widgets/stocks";
-import { Battery } from "./widgets/battery";
+// import { Stocks } from "./widgets/stocks";
+// import { Battery } from "./widgets/battery";
 import { BoxCoords, OpenedProps } from "./ostypes";
 import { desktopicons } from "./programs/apparray";
 import CalendarWidget from "./widgets/calendar";
@@ -18,9 +18,7 @@ export interface WidgetLayout {
 }
 
 const Widget = (props: WidgetLayout) => {
-    const [isDown, setIsDown] = useState<boolean>(false);
     const widgetRef = useRef<HTMLDivElement | null>(null);
-
     return (
         <div className="flex content-center items-center rounded-3xl overflow-hidden text-center" style={{
             gridColumn: `${props.leftBlocks} / ${props.widthBlocks + props.leftBlocks}`,
@@ -37,7 +35,6 @@ const Widget = (props: WidgetLayout) => {
 
 export default function Widgets(props: OpenedProps) { // do something like props: (widget | icon) where you render them differently
     const widgetList: WidgetLayout[] = [ // render widgets and icons here
-
     ]
     const [highlightedIcons, setHighlightedIcons] = useState<boolean[]>([]);
     const iconInRange = (boxCoords: BoxCoords, rect: DOMRect): boolean => {
