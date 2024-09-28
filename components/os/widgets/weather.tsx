@@ -3,7 +3,7 @@ import LightIcon from "/public/icons/lightmode.svg"
 import DarkIcon from "/public/icons/darkmode.svg"
 import CloudIcon from "/public/icons/cloud.svg"
 import IconWrapper from "@/components/iconwrapper"
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 
 const LightLine = () => {
     return (
@@ -140,6 +140,7 @@ const todayHighAndLow = (futuredays: number, data: WeatherData | undefined): num
 const getDays = () => {
     const days = "Sun Mon Tue Wed Thu Fri Sat".split(" ");
     let d = new Date().getDay() + 1;
+    if(d >= days.length - 1) d = 0;
     const arr = [];
     for(let i = 0; i < 5; i++) {
         arr.push(days[d]);
@@ -150,7 +151,7 @@ const getDays = () => {
 }
 
 export const Weather = () => {
-    const weatherData = useRef<WeatherData | undefined>(undefined);
+    const [weatherData, setWeatherData] = useState<WeatherData | undefined>(undefined);
     const geoData = useRef<IpApi | undefined>(undefined);
     useEffect(() => {
         // use a decent and free weather api to retrieve informative data related to the weather (per city)
@@ -158,17 +159,16 @@ export const Weather = () => {
             geoData.current = data;
             const lat = data.latitude;
             const lon = data.longitude;
-            getWeather(lon, lat).then(data => {weatherData.current = data});
-            console.log(weatherData.current);
+            getWeather(lon, lat).then(data => {setWeatherData(data)});
         })
     }, []);
-    const [l, h] = todayHighAndLow(0, weatherData.current);
+    const [l, h] = todayHighAndLow(0, weatherData);
     return (
         <div className="w-full h-full flex flex-col bg-gradient-to-b from-[#084d90] via-60% via-[#417eba] to-white text-lg text-white cursor-default">
             <div id="topweatherinfo" className="flex flex-row justify-between">
                 <div id="leftsideweatherinfo" className="p-3 flex flex-col items-start">
                     <div id="city">{geoData.current?.city||"City"}</div>
-                    <div id="temp" className="text-3xl font-light">{Math.round(weatherData.current?.current.temperature_2m||1)}°</div>
+                    <div id="temp" className="text-3xl font-light">{Math.round(weatherData?.current.temperature_2m||1)}°</div>
                 </div>
                 <div id="rightsideweatherinfo" className="p-3 text-sm text-end">
                     <div className="">
@@ -181,12 +181,12 @@ export const Weather = () => {
             <LightLine />
             <div id="middlehourlyforecast" className="flex flex-row items-center">
                 {getHours().map((e, i) => {
-                    const start = startIndexFromDate(weatherData.current);
+                    const start = startIndexFromDate(weatherData);
                     return (// indexing not correct for weather api
                         <div key={`hr${i}`} className="w-full flex-col">
                             <div className="text-sm">{e}</div>
                             <IconWrapper icon={CloudIcon} width={24} height={24} />
-                            <div className="text-sm">{weatherData.current ? weatherData.current.hourly.temperature_2m[start + i]:"50"}°</div>
+                            <div className="text-sm">{weatherData ? weatherData.hourly.temperature_2m[start + i]:"50"}°</div>
                         </div>
                     )
                 })}
@@ -194,7 +194,7 @@ export const Weather = () => {
             <LightLine />
             <div id="bottomweeklyforecast" className="flex flex-col items-start p-4">
                 {getDays().map((day: string, i: number) => {
-                    const [low, high] = todayHighAndLow(i, weatherData.current);
+                    const [low, high] = todayHighAndLow(i, weatherData);
                     return (
                         <div className="flex flex-row w-full justify-between items-center" key={`${day}${i}`}>
                             <div>{day}</div>
