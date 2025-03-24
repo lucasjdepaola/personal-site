@@ -4,6 +4,8 @@ import { DEFAULTDARKSCHEME } from "../ostypes";
 
 interface Tab {
     url: string;
+    history?: string[]; // order of tabs
+    historyIndex?: number; // index of history
 }
 
 const outline = "1.5px solid rgba(0,0,0,0.1)";
@@ -45,7 +47,7 @@ const Browser = () => {
                     }}>+</div>
                 </div>
             </div>
-            <div id="tabs" className="flex flex-row justify-around w-full h-auto bg-white overflow-hidden">
+            <div id="tabs" className="flex flex-row justify-around w-full h-auto bg-white overflow-hidden text-black">
                 {tabs.map((tab: Tab, i: number) => {
                     return (
                         <div id="tabcontainer"

@@ -76,8 +76,8 @@ export default function Projects() {
             
             <br /><br />
 
-            <BrowserViewingImage name="Rapid" alt="rapid text editor." path="/images/rapid.png" link="lucasdepaola.com/Rapid" />
-            <FancyLink text="Rapid" link="https://lucasdepaola.com/Rapid" />
+            <BrowserViewingImage name="Rapid" alt="rapid text editor." path="/images/rapid.png" link="lucasjdepaola.github.io/Rapid" />
+            <FancyLink text="Rapid" link="https://lucasjdepaola.github.io/Rapid" />
             , a performant, modal, portable text editor with many features including vim motions and browser local code execution.
             This is not a beginner friendly editor, you will need a full understanding of vim in order to use this editor the way it was intended.
         </>

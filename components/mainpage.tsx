@@ -3,6 +3,7 @@ import FancyLink from "./fancylink"
 import Projects from "./projects"
 import IconWrapper from "./iconwrapper"
 import LogoIcon from "/public/icons/logo.svg"
+import Grid from "./grid"
 
 export const darkTheme = {
   bg: "#080808",
@@ -19,15 +20,14 @@ export const ColorfulLargeText = (props: any) => {
   const text = props.text
   return (
     <div
-    className="text-center p-10 pt-20 text-7xl font-semibold"
+    className="flex justify-center items-center text-center p-5 text-7xl font-semibold"
     style={{
-      // backgroundImage: "linear-gradient(90deg, rgba(255,190,0,1) 0%, rgba(182,61,43,1) 54%, rgba(127,91,182,1) 100%)",
-      // can change the gradient to anything
-      // color: "transparent",
-      // backgroundClip: "text",
     }}
     >
-      {text}
+      <div className="flex items-center justify-center w-1/2 relative">
+      <Grid rows={2} cols={10} icon={LogoIcon} />
+      <div style={{zIndex: 1}}>{text}</div>
+      </div>
     </div>
   )
 }
