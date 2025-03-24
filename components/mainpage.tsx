@@ -25,7 +25,6 @@ export const ColorfulLargeText = (props: any) => {
     }}
     >
       <div className="flex items-center justify-center w-1/2 relative">
-      <Grid rows={2} cols={10} icon={LogoIcon} />
       <div style={{zIndex: 1}}>{text}</div>
       </div>
     </div>
