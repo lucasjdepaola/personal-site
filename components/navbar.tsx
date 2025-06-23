@@ -59,9 +59,6 @@ export default function NavBar(props: any) {
           <button onClick={() => {setDarkMode((d: boolean) => !d)}} id="darkmode">
             <IconWrapper icon={darkMode ? LightIcon : DarkIcon} />
           </button>
-          <button onClick={() => {setExpanded((h: boolean) => !h); setHoveredRoute(Routes.search)}}>
-            <IconWrapper icon={SearchIcon} />
-          </button>
         </div>
       </div>
       <span

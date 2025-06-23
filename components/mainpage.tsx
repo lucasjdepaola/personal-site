@@ -13,8 +13,8 @@ export const darkTheme = {
   lighterBlack: "#2b2b2b"
 }
 
-export const Codeskills: string = "Next.js React Typescript Javascript Node.js Express.js SQL Firebase Firestore Java Gradle Maven Python Golang Powershell Bash Zsh CSS Tailwind"
-export const higherLevelSkills: string = "Fl studio inkscape affinity photo davinci resolve Vim Neovim"
+export const Codeskills: string = ""
+export const higherLevelSkills: string = ""
 
 export const ColorfulLargeText = (props: any) => {
   const text = props.text
