@@ -58,7 +58,7 @@ export const BrowserViewingImage = (props: BrowserImageProps) => {
                 </div>
             </div>
             <div id="pageview">
-                <Image className="" src={props.path} height={1080/2} width={1920/2} alt={props.alt} />
+                <Image className="rounded-b-2xl" src={props.path} height={1080/2} width={1920/2} alt={props.alt} />
             </div>
         </div>
     )
@@ -68,6 +68,12 @@ export default function Projects() {
     return (
         <>
             <div className="text-3xl font-semibold">Projects</div>
+            <BrowserViewingImage name="Datatypes" alt="The best way to store data modern day." path="/images/datatypes.png" link="datatypes.com" />
+            <FancyLink text="Datatypes.com" link="https://datatypes.com" />, 
+             {"(currently in progress)"}, the best way to store, query, and display data. Symbolic data creation and analysis at a user-intuitive level. Create
+            and store datatypes/data with ease, also allowing users to share, and view datatypes on the web.
+            <br />
+
             <BrowserViewingImage name="Crazytype" alt="A capable typing website." path="/images/crazytype.png" link="crazytype.com/typetest" />
             <FancyLink text="Crazytype" link="https://crazytype.com/typetest" />, 
             a capable typing website where you can improve at typing fast. Train mode, a newfound algorithm that finds your hardest
