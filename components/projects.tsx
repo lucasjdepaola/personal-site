@@ -74,6 +74,11 @@ export default function Projects() {
             and store datatypes/data with ease, also allowing users to share, and view datatypes on the web.
             <br />
 
+            <BrowserViewingImage name="OS" alt="The OS for this website" path="/images/OS.png" link="lucasdepaola.com/OS" />
+            <FancyLink text="OS" link="https://lucasdepaola.com/OS" />, 
+            The web-based OS for this website. Comes with a tiling window manager, calculator, notes, and more. Partially emulates the MacOS UI.
+            <br />
+
             <BrowserViewingImage name="Crazytype" alt="A capable typing website." path="/images/crazytype.png" link="crazytype.com/typetest" />
             <FancyLink text="Crazytype" link="https://crazytype.com/typetest" />, 
             a capable typing website where you can improve at typing fast. Train mode, a newfound algorithm that finds your hardest
