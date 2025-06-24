@@ -15,6 +15,7 @@ export const darkTheme = {
 
 export const Codeskills: string = ""
 export const higherLevelSkills: string = ""
+const tld = "@gmail.com";
 
 export const ColorfulLargeText = (props: any) => {
   const text = props.text
@@ -49,6 +50,9 @@ export const Description = (props: any) => {
 
       All icons were made from scratch. You can find the icons I've created in <FancyLink link="/icons" text="Icons" />
       {" "}Permission to download icons for any use is granted
+      <br />
+
+      Contact: {`lucasjdepaola ${tld}`} for any inquiries
     </div>
   )
 }
