@@ -79,8 +79,8 @@ export default function Projects() {
             The web-based OS for this website. Comes with a tiling window manager, calculator, notes, and more. Partially emulates the MacOS UI.
             <br />
 
-            <BrowserViewingImage name="Crazytype" alt="A capable typing website." path="/images/crazytype.png" link="crazytype.com/typetest" />
-            <FancyLink text="Crazytype" link="https://crazytype.com/typetest" />, 
+            <BrowserViewingImage name="Crazytype" alt="A capable typing website." path="/images/crazytype.png" link="github.com/lucasjdepaola/crazytype" />
+            <FancyLink text="Crazytype" link="https://github.com/lucasjdepaola/crazytype" />, 
             a capable typing website where you can improve at typing fast. Train mode, a newfound algorithm that finds your hardest
             words to type and puts them upfront for priority training. The keymap also
             displays a gradient ranging from red to green based on how fast you type a specific character on your keyboard.
