@@ -68,6 +68,11 @@ export default function Projects() {
     return (
         <>
             <div className="text-3xl font-semibold">Projects</div>
+            <BrowserViewingImage name="File Link" alt="The easiest way to share files" path="/images/filelink.png" link="file.link" />
+            <FancyLink text="File.link" link="https://file.link" />, 
+            The easiest way to share files, share files with a temporary custom URL, allowing for mnemonic access.
+            <br />
+
             <BrowserViewingImage name="Datatypes" alt="The best way to store data modern day." path="/images/datatypes.png" link="datatypes.com" />
             <FancyLink text="Datatypes.com" link="https://datatypes.com" />, 
              {"(currently in progress)"}, the best way to store, query, and display data. Symbolic data creation and analysis at a user-intuitive level. Create
